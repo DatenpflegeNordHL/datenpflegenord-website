@@ -6,9 +6,12 @@ import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Logo } from "@/components/logo"
 import { DomainChecker } from "@/components/domain-checker"
-import { ArrowRight, ShieldCheck } from "lucide-react"
+import { KIProcessForm } from "@/components/ki-process-form"
+import { ArrowRight, ShieldCheck, CheckCircle2, BrainCircuit } from "lucide-react"
 
 export function HeroSection() {
+  const [kiFormOpen, setKiFormOpen] = useState(false)
+
   return (
     <section className="relative bg-background py-16 md:py-24 lg:py-28 overflow-hidden">
       {/* Watermark background logo - subtle, 5-8% opacity */}
@@ -62,12 +65,55 @@ export function HeroSection() {
             </div>
           </div>
 
-          {/* Right: Domain-Check Module */}
-          <div id="domain-check" className="bg-card border border-border rounded-2xl p-6 md:p-8 shadow-sm">
-            <DomainChecker />
+          {/* Right: Domain-Check + KI-Potenzialanalyse */}
+          <div className="flex flex-col gap-4">
+            <div id="domain-check" className="bg-card border border-border rounded-2xl p-6 md:p-8 shadow-sm">
+              <DomainChecker />
+            </div>
+
+            {/* KI-Potenzialanalyse card */}
+            <div className="bg-card border border-border rounded-2xl p-6 shadow-sm">
+              <div className="flex items-center gap-2 mb-1">
+                <BrainCircuit className="w-4 h-4 text-accent shrink-0" aria-hidden="true" />
+                <span className="text-[10px] font-semibold uppercase tracking-widest text-accent">
+                  KI Prozessautomatisierung
+                </span>
+              </div>
+              <h3 className="text-base font-bold text-foreground mb-2">
+                Kostenlose KI-Potenzialanalyse
+              </h3>
+              <p className="text-sm text-muted-foreground leading-relaxed mb-4">
+                Wir erfassen wiederkehrende Aufgaben, Dokumente, Abläufe und Engpässe in Ihrem Unternehmen
+                – und zeigen anschließend, wo KI Prozesse vereinfachen, automatisieren oder Kosten senken kann.
+              </p>
+              <ul className="flex flex-col gap-2 mb-5">
+                {[
+                  "Prozesse und Engpässe aufnehmen",
+                  "KI-Potenziale erkennen",
+                  "Konkrete Automatisierungsvorschläge erhalten",
+                ].map((point) => (
+                  <li key={point} className="flex items-center gap-2 text-sm text-foreground">
+                    <CheckCircle2 className="w-4 h-4 text-accent shrink-0" aria-hidden="true" />
+                    {point}
+                  </li>
+                ))}
+              </ul>
+              <Button
+                onClick={() => setKiFormOpen(true)}
+                size="sm"
+                className="w-full bg-accent text-accent-foreground hover:bg-accent/90"
+              >
+                KI-Potenzialanalyse anfragen <ArrowRight className="ml-2 w-3.5 h-3.5" />
+              </Button>
+              <p className="text-[11px] text-muted-foreground mt-2 text-center leading-relaxed">
+                Unverbindlich. Für deutsche KMU. Keine Garantie auf Einsparungen.
+              </p>
+            </div>
           </div>
         </div>
       </div>
+
+      <KIProcessForm open={kiFormOpen} onOpenChange={setKiFormOpen} />
     </section>
   )
 }
