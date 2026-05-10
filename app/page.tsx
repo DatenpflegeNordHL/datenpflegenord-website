@@ -6,21 +6,21 @@ import { HeroSection } from "@/components/hero-section"
 import { ProductsSection } from "@/components/products-section"
 import { ProblemsSection } from "@/components/problems-section"
 import { SolutionSection } from "@/components/solution-section"
-import { WebpflichtFunnel } from "@/components/webpflicht-funnel"
+import { NordAuditFunnel } from "@/components/nordaudit-funnel"
 import { PruefbereicheSection } from "@/components/pruefbereiche-section"
-import { BetriebskiProcess } from "@/components/betriebski-process"
+import { KIProcessAutomation } from "@/components/ki-process-automation"
 import { PortalSection } from "@/components/portal-section"
 import { PackagesSection } from "@/components/packages-section"
 import { TrustSection } from "@/components/trust-section"
 import { FaqSection } from "@/components/faq-section"
 import { CtaSection } from "@/components/cta-section"
 import { Footer } from "@/components/footer"
-import { WebPflichtForm } from "@/components/webpflicht-form"
-import { BetriebsKIForm } from "@/components/betriebski-form"
+import { NordAuditForm } from "@/components/nordaudit-form"
+import { KIProcessForm } from "@/components/ki-process-form"
 
 export default function HomePage() {
-  const [webpflichtOpen, setWebpflichtOpen] = useState(false)
-  const [betriebskiOpen, setBetriebskiOpen] = useState(false)
+  const [nordAuditOpen, setNordAuditOpen] = useState(false)
+  const [kiProcessOpen, setKiProcessOpen] = useState(false)
 
   return (
     <main>
@@ -29,19 +29,25 @@ export default function HomePage() {
       <ProductsSection />
       <ProblemsSection />
       <SolutionSection />
-      <WebpflichtFunnel />
+      <NordAuditFunnel />
       <PruefbereicheSection />
-      <BetriebskiProcess />
+      <KIProcessAutomation />
       <PortalSection />
-      <PackagesSection onRequestClick={() => setWebpflichtOpen(true)} />
+      <PackagesSection 
+        onNordAuditRequestClick={() => setNordAuditOpen(true)} 
+        onKIProcessRequestClick={() => setKiProcessOpen(true)} 
+      />
       <TrustSection />
       <FaqSection />
-      <CtaSection onWebpflichtClick={() => setWebpflichtOpen(true)} onBetriebskiClick={() => setBetriebskiOpen(true)} />
+      <CtaSection 
+        onNordAuditClick={() => setNordAuditOpen(true)} 
+        onKIProcessClick={() => setKiProcessOpen(true)} 
+      />
       <Footer />
 
       {/* Modals */}
-      <WebPflichtForm open={webpflichtOpen} onOpenChange={setWebpflichtOpen} />
-      <BetriebsKIForm open={betriebskiOpen} onOpenChange={setBetriebskiOpen} />
+      <NordAuditForm open={nordAuditOpen} onOpenChange={setNordAuditOpen} />
+      <KIProcessForm open={kiProcessOpen} onOpenChange={setKiProcessOpen} />
     </main>
   )
 }

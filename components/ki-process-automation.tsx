@@ -50,7 +50,7 @@ const steps: StepItem[] = [
   },
 ]
 
-export function BetriebskiProcess() {
+export function KIProcessAutomation() {
   return (
     <section id="ki-prozess" className="py-16 md:py-24 bg-secondary/40">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

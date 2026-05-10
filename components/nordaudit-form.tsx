@@ -7,12 +7,12 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { X } from "lucide-react"
 
-interface WebPflichtFormProps {
+interface NordAuditFormProps {
   open: boolean
   onOpenChange: (open: boolean) => void
 }
 
-export function WebPflichtForm({ open, onOpenChange }: WebPflichtFormProps) {
+export function NordAuditForm({ open, onOpenChange }: NordAuditFormProps) {
   const [formData, setFormData] = useState({
     name: "",
     email: "",

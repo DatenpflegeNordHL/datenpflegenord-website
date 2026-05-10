@@ -7,12 +7,12 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { X } from "lucide-react"
 
-interface BetriebsKIFormProps {
+interface KIProcessFormProps {
   open: boolean
   onOpenChange: (open: boolean) => void
 }
 
-export function BetriebsKIForm({ open, onOpenChange }: BetriebsKIFormProps) {
+export function KIProcessForm({ open, onOpenChange }: KIProcessFormProps) {
   const [formData, setFormData] = useState({
     name: "",
     email: "",

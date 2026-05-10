@@ -76,8 +76,8 @@ function PackageCard({
   const isFeatured = !!featured
 
   const handleClick = () => {
-    if (onClick === "scroll") {
-      document.getElementById("domain-check")?.scrollIntoView({ behavior: "smooth" })
+    if (onClick) {
+      onClick()
     }
   }
 
@@ -117,7 +117,12 @@ function PackageCard({
   )
 }
 
-export function PackagesSection({ onRequestClick }: { onRequestClick?: () => void }) {
+interface PackagesSectionProps {
+  onNordAuditRequestClick?: () => void
+  onKIProcessRequestClick?: () => void
+}
+
+export function PackagesSection({ onNordAuditRequestClick, onKIProcessRequestClick }: PackagesSectionProps) {
   return (
     <section id="pakete" className="py-16 md:py-24 bg-secondary/40">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -144,7 +149,13 @@ export function PackagesSection({ onRequestClick }: { onRequestClick?: () => voi
                 cta={pkg.cta}
                 featured={pkg.featured}
                 accentColor="primary"
-                onClick={pkg.onClick === "form" ? onRequestClick : () => {}}
+                onClick={
+                  pkg.onClick === "form" 
+                    ? onNordAuditRequestClick 
+                    : pkg.onClick === "scroll" 
+                      ? () => document.getElementById("domain-check")?.scrollIntoView({ behavior: "smooth" })
+                      : undefined
+                }
               />
             ))}
           </div>
@@ -167,7 +178,7 @@ export function PackagesSection({ onRequestClick }: { onRequestClick?: () => voi
                 cta={pkg.cta}
                 featured={pkg.featured}
                 accentColor="accent"
-                onClick={pkg.onClick === "form" ? onRequestClick : () => {}}
+                onClick={pkg.onClick === "form" ? onKIProcessRequestClick : undefined}
               />
             ))}
           </div>
