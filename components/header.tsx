@@ -7,11 +7,12 @@ import { Logo } from "@/components/logo"
 import { Menu, X } from "lucide-react"
 
 const navLinks = [
-  { label: "WebPflicht Monitor", href: "#webpflicht" },
-  { label: "BetriebsKI", href: "#betriebski" },
-  { label: "Klarsicht Portal", href: "#portal" },
-  { label: "Pakete", href: "#pakete" },
-  { label: "FAQ", href: "#faq" },
+  { label: "Startseite", href: "/" },
+  { label: "NordAudit Portal", href: "#nordaudit" },
+  { label: "KI Prozessautomatisierung", href: "#ki-automatisierung" },
+  { label: "Kundenportal", href: "#portal" },
+  { label: "Preise", href: "#pakete" },
+  { label: "Kontakt", href: "#kontakt" },
 ]
 
 export function Header() {
@@ -42,10 +43,10 @@ export function Header() {
           {/* Desktop CTAs */}
           <div className="hidden lg:flex items-center gap-3">
             <Button asChild variant="outline" size="sm">
-              <Link href="#domain-check">Website prüfen</Link>
+              <Link href="#domain-check">BFSG Schnellcheck</Link>
             </Button>
             <Button asChild size="sm" className="bg-accent text-accent-foreground hover:bg-accent/90">
-              <Link href="#betriebski">KI-Potenzialcheck</Link>
+              <Link href="#ki-automatisierung">KI Prozesscheck</Link>
             </Button>
           </div>
 
@@ -78,12 +79,12 @@ export function Header() {
             <div className="flex flex-col gap-2 pt-2">
               <Button asChild variant="outline" size="sm">
                 <Link href="#domain-check" onClick={() => setMobileOpen(false)}>
-                  Website prüfen
+                  BFSG Schnellcheck
                 </Link>
               </Button>
               <Button asChild size="sm" className="bg-accent text-accent-foreground hover:bg-accent/90">
-                <Link href="#betriebski" onClick={() => setMobileOpen(false)}>
-                  KI-Potenzialcheck
+                <Link href="#ki-automatisierung" onClick={() => setMobileOpen(false)}>
+                  KI Prozesscheck
                 </Link>
               </Button>
             </div>

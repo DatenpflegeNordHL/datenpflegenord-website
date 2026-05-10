@@ -75,7 +75,7 @@ export function DomainChecker() {
       {/* Input */}
       <div className="mb-6">
         <label className="block text-sm font-medium text-foreground mb-3">
-          Website-Domain prüfen
+          BFSG Schnellcheck - Website prüfen
         </label>
         <div className="flex flex-col sm:flex-row gap-2">
           <Input
@@ -143,13 +143,13 @@ export function DomainChecker() {
           {/* CTA */}
           <div className="pt-4 border-t border-border mt-6">
             <p className="text-xs text-muted-foreground mb-3">
-              Hinweis: Dies ist eine automatisierte Vorab-Prüfung. Vollständige Ergebnisse erhalten Sie im detaillierten Audit-Report.
+              Hinweis: Dies ist eine automatisierte Vorab-Prüfung. Vollständige Ergebnisse erhalten Sie im detaillierten Barrierefreiheits-Audit.
             </p>
             <Button
               className="w-full bg-accent hover:bg-accent/90 text-accent-foreground font-medium"
-              onClick={() => document.getElementById("webpflicht-section")?.scrollIntoView({ behavior: "smooth" })}
+              onClick={() => document.getElementById("pakete")?.scrollIntoView({ behavior: "smooth" })}
             >
-              Audit-Report freischalten
+              Barrierefreiheits-Audit anfragen
             </Button>
           </div>
         </div>

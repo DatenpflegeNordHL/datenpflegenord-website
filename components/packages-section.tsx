@@ -9,56 +9,56 @@ interface PackageCardProps {
   onClick?: () => void
 }
 
-const webpflichtPackages = [
+const nordauditPackages = [
   {
-    title: "WebPflicht Schnellcheck",
-    text: "Für den ersten Überblick über technische und strukturelle Auffälligkeiten.",
-    cta: "Domain prüfen",
+    title: "BFSG Schnellcheck",
+    text: "Für den ersten Überblick über technische und strukturelle Auffälligkeiten Ihrer Website.",
+    cta: "Schnellcheck starten",
     onClick: "scroll",
   },
   {
-    title: "WebPflicht Audit",
+    title: "Barrierefreiheits-Audit für Websites",
     text: "Einmaliger vollständiger Website-Audit mit Report, Screenshots, Evidence und Fix-Liste.",
     cta: "Audit anfragen",
     featured: true,
     onClick: "form",
   },
   {
-    title: "WebPflicht Monitor",
+    title: "BFSG Monitoring",
     text: "Monatliches Monitoring mit Audit-Historie, neuen und behobenen Findings.",
     cta: "Monitoring anfragen",
     onClick: "form",
   },
   {
-    title: "WebPflicht Fix",
+    title: "Barrierefreiheit Fix-Service",
     text: "Technische Begleitung bei Umsetzung, Nachprüfung und Abstimmung mit IT-Dienstleistern.",
-    cta: "Fix-Begleitung anfragen",
+    cta: "Fix-Service anfragen",
     onClick: "form",
   },
 ]
 
-const betriebskiPackages = [
+const kiPackages = [
   {
-    title: "BetriebsKI Check",
+    title: "KI Prozesscheck",
     text: "KI-Potenzialanalyse für einen konkreten Unternehmensprozess.",
     cta: "Check anfragen",
     onClick: "form",
   },
   {
-    title: "BetriebsKI Pilot",
+    title: "KI Workflow Pilot",
     text: "Erster Prototyp für einen klar begrenzten Prozess.",
     cta: "Pilot planen",
     featured: true,
     onClick: "form",
   },
   {
-    title: "BetriebsKI Agent",
+    title: "KI Agenten für Unternehmen",
     text: "Produktiver KI-Agent für wiederkehrende Aufgaben mit Freigabeprozessen.",
     cta: "Agent besprechen",
     onClick: "form",
   },
   {
-    title: "BetriebsKI Betrieb",
+    title: "KI Betrieb & Automatisierungs-Support",
     text: "Wartung, Kontrolle und Optimierung laufender KI-Abläufe.",
     cta: "Betrieb anfragen",
     onClick: "form",
@@ -127,16 +127,16 @@ export function PackagesSection({ onRequestClick }: { onRequestClick?: () => voi
           </h2>
         </div>
 
-        {/* WebPflicht Pakete */}
+        {/* NordAudit Pakete */}
         <div className="mb-10">
           <div className="flex items-center gap-3 mb-5">
             <span className="text-sm font-semibold text-primary uppercase tracking-wide">
-              WebPflicht Monitor
+              NordAudit Portal
             </span>
             <div className="flex-1 h-px bg-border" />
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {webpflichtPackages.map((pkg) => (
+            {nordauditPackages.map((pkg) => (
               <PackageCard
                 key={pkg.title}
                 title={pkg.title}
@@ -150,16 +150,16 @@ export function PackagesSection({ onRequestClick }: { onRequestClick?: () => voi
           </div>
         </div>
 
-        {/* BetriebsKI Pakete */}
+        {/* KI Prozessautomatisierung Pakete */}
         <div>
           <div className="flex items-center gap-3 mb-5">
             <span className="text-sm font-semibold text-accent uppercase tracking-wide">
-              BetriebsKI
+              KI Prozessautomatisierung
             </span>
             <div className="flex-1 h-px bg-border" />
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {betriebskiPackages.map((pkg) => (
+            {kiPackages.map((pkg) => (
               <PackageCard
                 key={pkg.title}
                 title={pkg.title}

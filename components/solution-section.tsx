@@ -27,9 +27,9 @@ export function SolutionSection() {
             DatenpflegeNord schafft Klarheit: prüfen, priorisieren, automatisieren.
           </h2>
           <p className="text-primary-foreground/80 max-w-3xl mx-auto leading-relaxed">
-            Mit WebPflicht Monitor erhalten Sie eine strukturierte Website-Vorprüfung mit Findings,
-            Reports und monatlicher Historie. Mit BetriebsKI entwickeln wir passgenaue KI-Systeme
-            für konkrete Aufgaben im Unternehmen. Im Klarsicht Portal sehen Kunden den aktuellen
+            Mit dem NordAudit Portal erhalten Sie eine strukturierte Website-Vorprüfung mit BFSG Website Audit, 
+            Barrierefreiheitsprüfung und monatlichem Monitoring. Mit KI Prozessautomatisierung entwickeln wir 
+            individuelle KI-Systeme für konkrete Unternehmensaufgaben. Im Kundenportal sehen Sie den aktuellen
             Status, offene Punkte und Fortschritte.
           </p>
         </div>

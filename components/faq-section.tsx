@@ -7,34 +7,34 @@ import {
 
 const faqs = [
   {
-    question: "Ist WebPflicht Monitor eine Rechtsberatung?",
+    question: "Ist das NordAudit Portal eine Rechtsberatung?",
     answer:
-      "Nein. WebPflicht Monitor ist eine automatisierte und strukturierte Vorprüfung. Die Ergebnisse zeigen technische Hinweise, potenzielle Risiken und manuell zu bewertende Auffälligkeiten. Eine anwaltliche Rechtsberatung wird dadurch nicht ersetzt.",
+      "Nein. Das NordAudit Portal bietet eine automatisierte und strukturierte Vorprüfung. Die Ergebnisse zeigen technische Hinweise, potenzielle Risiken und manuell zu bewertende Auffälligkeiten. Eine anwaltliche Rechtsberatung wird dadurch nicht ersetzt.",
   },
   {
-    question: "Was sehe ich nach dem Schnellcheck?",
+    question: "Was sehe ich nach dem BFSG Schnellcheck?",
     answer:
-      "Sie sehen erste Findings zu Ihrer Domain. Weitere Ergebnisse können im Audit oder im monatlichen Monitoring sichtbar gemacht und dokumentiert werden.",
+      "Sie sehen erste Findings zu Ihrer Domain. Weitere Ergebnisse können im Barrierefreiheits-Audit oder im monatlichen BFSG Monitoring sichtbar gemacht und dokumentiert werden.",
   },
   {
-    question: "Für wen ist WebPflicht Monitor geeignet?",
+    question: "Für wen ist das NordAudit Portal geeignet?",
     answer:
       "Für deutsche KMU, Agenturen, IT-Dienstleister, lokale Unternehmen, Praxen, Handwerksbetriebe, Händler und Dienstleister mit geschäftlicher Website.",
   },
   {
-    question: "Was macht BetriebsKI konkret?",
+    question: "Was macht die KI Prozessautomatisierung konkret?",
     answer:
-      "BetriebsKI entwickelt individuelle KI-Systeme und KI-Agenten für wiederkehrende Aufgaben, zum Beispiel Rechnungsverarbeitung, Dokumentensuche, Kundenservice, Personalplanung oder Angebotsvorbereitung.",
+      "Die KI Prozessautomatisierung für KMU entwickelt individuelle KI-Systeme und KI-Agenten für wiederkehrende Aufgaben, zum Beispiel Dokumentenverarbeitung, Buchhaltung, Kundenservice, Personalplanung oder interne Wissensdatenbanken.",
   },
   {
     question: "Entscheidet die KI automatisch?",
     answer:
-      "Nein. BetriebsKI wird mit Human-in-the-loop gedacht. KI unterstützt, bereitet vor und dokumentiert. Entscheidungen und Freigaben bleiben beim Menschen.",
+      "Nein. Die KI Prozessautomatisierung wird mit Human-in-the-loop gedacht. KI unterstützt, bereitet vor und dokumentiert. Entscheidungen und Freigaben bleiben beim Menschen.",
   },
   {
-    question: "Was ist das Klarsicht Portal?",
+    question: "Was ist das Kundenportal?",
     answer:
-      "Das Klarsicht Portal ist der Kundenbereich für Website-Status, Audit-Historie, Reports, Fix-Listen, KI-Prozesse und offene Freigaben.",
+      "Das Kundenportal ist der Kundenbereich für Website-Status, Audit-Historie, Reports, Fix-Listen, KI-Prozesse und offene Freigaben.",
   },
 ]
 

@@ -74,10 +74,10 @@ export function PortalSection() {
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-foreground text-balance mb-4">
-            Klarsicht Portal: Status, Historie und Aufgaben an einem Ort
+            Audit- und KI-Kundenportal: Status, Historie und Aufgaben an einem Ort
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-            Das Klarsicht Portal macht sichtbar, was geprüft wurde, was neu ist, was behoben wurde
+            Das Kundenportal macht sichtbar, was geprüft wurde, was neu ist, was behoben wurde
             und wo Freigaben oder nächste Schritte offen sind.
           </p>
         </div>
@@ -100,8 +100,8 @@ export function PortalSection() {
           <div className="p-6 md:p-8">
             <div className="flex items-center justify-between mb-6">
               <div>
-                <h3 className="font-bold text-foreground">Klarsicht Portal</h3>
-                <p className="text-xs text-muted-foreground">Website-Monitoring & KI-Prozesse</p>
+                <h3 className="font-bold text-foreground">Kundenportal</h3>
+                <p className="text-xs text-muted-foreground">NordAudit & KI-Prozesse</p>
               </div>
               <span className="px-2 py-1 rounded-full bg-accent/10 text-accent text-xs font-medium">
                 Aktiv

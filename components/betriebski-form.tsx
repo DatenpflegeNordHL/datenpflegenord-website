@@ -29,7 +29,7 @@ export function BetriebsKIForm({ open, onOpenChange }: BetriebsKIFormProps) {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    console.log("[v0] BetriebsKI form submitted:", formData)
+    console.log("[v0] KI Prozessautomatisierung form submitted:", formData)
     setSubmitted(true)
     setTimeout(() => {
       setSubmitted(false)
@@ -42,9 +42,9 @@ export function BetriebsKIForm({ open, onOpenChange }: BetriebsKIFormProps) {
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-md">
         <DialogHeader>
-          <DialogTitle>BetriebsKI Potenzialcheck anfragen</DialogTitle>
+          <DialogTitle>KI Prozesscheck anfragen</DialogTitle>
           <DialogDescription>
-            KI-unterstützte Automatisierung Ihrer Unternehmensprozesse
+            Individuelle KI-Agenten und Workflow-Automatisierung für wiederkehrende Unternehmensaufgaben
           </DialogDescription>
         </DialogHeader>
 
@@ -120,7 +120,7 @@ export function BetriebsKIForm({ open, onOpenChange }: BetriebsKIFormProps) {
 
             <div className="text-xs text-muted-foreground border-t pt-3 mt-4">
               <p>
-                Hinweis: BetriebsKI unterstützt den Menschen bei wiederkehrenden Aufgaben.
+                Hinweis: Die KI Prozessautomatisierung unterstützt den Menschen bei wiederkehrenden Aufgaben.
                 Der Mensch entscheidet und trägt die Verantwortung.
               </p>
             </div>
