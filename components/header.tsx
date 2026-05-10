@@ -4,7 +4,7 @@ import { useState } from "react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Logo } from "@/components/logo"
-import { Menu, X } from "lucide-react"
+import { Menu, X, LogIn } from "lucide-react"
 
 const navLinks = [
   { label: "Startseite", href: "/" },
@@ -45,8 +45,11 @@ export function Header() {
             <Button asChild variant="outline" size="sm">
               <Link href="#domain-check">BFSG Schnellcheck</Link>
             </Button>
-            <Button asChild size="sm" className="bg-accent text-accent-foreground hover:bg-accent/90">
-              <Link href="#ki-automatisierung">KI Prozesscheck</Link>
+            <Button asChild size="sm" className="bg-primary text-primary-foreground hover:bg-primary/90">
+              <Link href="#portal" className="flex items-center gap-1.5">
+                <LogIn className="w-3.5 h-3.5" />
+                Kundenlogin
+              </Link>
             </Button>
           </div>
 
@@ -82,9 +85,10 @@ export function Header() {
                   BFSG Schnellcheck
                 </Link>
               </Button>
-              <Button asChild size="sm" className="bg-accent text-accent-foreground hover:bg-accent/90">
-                <Link href="#ki-automatisierung" onClick={() => setMobileOpen(false)}>
-                  KI Prozesscheck
+              <Button asChild size="sm" className="bg-primary text-primary-foreground hover:bg-primary/90">
+                <Link href="#portal" onClick={() => setMobileOpen(false)} className="flex items-center gap-1.5">
+                  <LogIn className="w-3.5 h-3.5" />
+                  Kundenlogin
                 </Link>
               </Button>
             </div>

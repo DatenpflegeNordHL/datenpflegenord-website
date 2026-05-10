@@ -3,7 +3,7 @@
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { Loader2, CheckCircle, AlertCircle, Lock } from "lucide-react"
+import { Loader2, CheckCircle, AlertCircle, Lock, ShieldCheck, Gauge, Globe, FileSearch } from "lucide-react"
 
 interface CheckResult {
   domain: string
@@ -70,13 +70,43 @@ export function DomainChecker() {
     }
   }
 
+  const checkAreas = [
+    { icon: ShieldCheck, label: "BFSG-Relevanz" },
+    { icon: Globe, label: "WCAG-Hinweise" },
+    { icon: Gauge, label: "Technik & Performance" },
+    { icon: Lock, label: "Datenschutz-Hinweise" },
+    { icon: FileSearch, label: "SEO-Grundlagen" },
+  ]
+
   return (
     <div className="w-full max-w-2xl mx-auto">
-      {/* Input */}
-      <div className="mb-6">
-        <label className="block text-sm font-medium text-foreground mb-3">
-          BFSG Schnellcheck - Website prüfen
+      {/* Header + chips */}
+      <div className="mb-5">
+        <div className="flex items-center gap-2 mb-1">
+          <span className="inline-block w-2 h-2 rounded-full bg-accent" aria-hidden="true" />
+          <span className="text-xs font-semibold uppercase tracking-widest text-accent">NordAudit Portal</span>
+        </div>
+        <label className="block text-base font-semibold text-foreground mb-1">
+          BFSG Schnellcheck — Website automatisiert prüfen
         </label>
+        <p className="text-xs text-muted-foreground mb-3 leading-relaxed">
+          Geben Sie Ihre Domain ein und erhalten Sie erste Prüfhinweise zu:
+        </p>
+        <div className="flex flex-wrap gap-2 mb-4">
+          {checkAreas.map(({ icon: Icon, label }) => (
+            <span
+              key={label}
+              className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full border border-border bg-secondary text-xs text-secondary-foreground font-medium"
+            >
+              <Icon className="w-3 h-3 text-accent shrink-0" aria-hidden="true" />
+              {label}
+            </span>
+          ))}
+        </div>
+      </div>
+
+      {/* Input */}
+      <div className="mb-5">
         <div className="flex flex-col sm:flex-row gap-2">
           <Input
             type="text"
@@ -86,6 +116,7 @@ export function DomainChecker() {
             onKeyPress={handleKeyPress}
             disabled={loading}
             className="flex-1 text-sm"
+            aria-label="Domain eingeben"
           />
           <Button
             onClick={handleCheck}
@@ -103,6 +134,10 @@ export function DomainChecker() {
           </Button>
         </div>
         {error && <p className="text-destructive text-sm mt-2">{error}</p>}
+        {/* Trust hint */}
+        <p className="text-[11px] text-muted-foreground mt-2 leading-relaxed">
+          Automatisierte Vorprüfung nach aktuellem Prüfstand — keine Rechtsberatung und keine behördliche Zertifizierung.
+        </p>
       </div>
 
       {/* Results */}
