@@ -21,7 +21,7 @@ const nordauditPackages = [
   {
     title: "Barrierefreiheits-Audit für Websites",
     subtitle: "Vertiefte Prüfung",
-    text: "Einmaliger vollständiger Website-Audit mit Report, Screenshots, Evidence und Fix-Liste.",
+    text: "Einmaliger Website-Audit mit Report, Screenshots, Evidence-Hinweisen und priorisierter Fix-Liste.",
     cta: "Barrierefreiheits-Audit anfragen",
     featured: true,
     onClick: "form",

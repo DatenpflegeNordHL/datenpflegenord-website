@@ -44,7 +44,7 @@ export function NordAuditForm({ open, onOpenChange }: NordAuditFormProps) {
         <DialogHeader>
           <DialogTitle>Barrierefreiheits-Audit anfragen</DialogTitle>
           <DialogDescription>
-            BFSG Website Audit, Barrierefreiheitsprüfung und Monitoring für KMU
+            Technische Website-Vorprüfung, Audit-Hinweise und Monitoring-Anfrage fur KMU
           </DialogDescription>
         </DialogHeader>
 

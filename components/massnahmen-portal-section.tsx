@@ -17,7 +17,7 @@ const features = [
   {
     icon: ListChecks,
     title: "Priorisierte Handlungsempfehlungen",
-    text: "Findings werden nach Nutzerrelevanz, Geschäftsrelevanz und Compliance-Risiko sortiert. Kritische Bereiche wie Checkout, Kontaktformular, Login, Buchung und Zahlungsprozesse stehen im Fokus.",
+    text: "Findings werden nach Nutzerrelevanz, Geschäftsrelevanz und eingeschätztem Handlungsbedarf sortiert. Kritische Bereiche wie Checkout, Kontaktformular, Login, Buchung und Zahlungsprozesse stehen im Fokus.",
   },
   {
     icon: TrendingUp,
