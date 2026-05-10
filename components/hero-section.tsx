@@ -5,6 +5,7 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Logo } from "@/components/logo"
+import { HeroBackground } from "@/components/hero-background"
 import { DomainChecker } from "@/components/domain-checker"
 import { KIProcessForm } from "@/components/ki-process-form"
 import { ArrowRight, ShieldCheck, CheckCircle2, BrainCircuit } from "lucide-react"
@@ -24,7 +25,11 @@ export function HeroSection() {
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
           {/* Left: Copy */}
-          <div className="flex flex-col gap-6">
+          <div className="relative flex flex-col gap-6">
+            {/* Subtle background watermark - abstract Holstentor + data grid */}
+            <HeroBackground 
+              className="hidden md:block absolute -bottom-8 -left-16 w-[420px] h-[340px] lg:w-[500px] lg:h-[400px] opacity-100"
+            />
             <div className="flex flex-col gap-1">
               <Badge variant="secondary" className="w-fit text-xs font-medium tracking-wide uppercase">
                 DatenpflegeNord
