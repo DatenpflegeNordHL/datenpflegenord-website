@@ -29,7 +29,7 @@ export function BetriebsKIForm({ open, onOpenChange }: BetriebsKIFormProps) {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    console.log("[v0] KI Prozessautomatisierung form submitted:", formData)
+    // Form submission would be handled by API
     setSubmitted(true)
     setTimeout(() => {
       setSubmitted(false)

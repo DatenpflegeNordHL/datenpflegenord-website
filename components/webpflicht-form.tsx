@@ -29,7 +29,7 @@ export function WebPflichtForm({ open, onOpenChange }: WebPflichtFormProps) {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    console.log("[v0] NordAudit form submitted:", formData)
+    // Form submission would be handled by API
     setSubmitted(true)
     setTimeout(() => {
       setSubmitted(false)
