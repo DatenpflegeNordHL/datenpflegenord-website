@@ -40,15 +40,20 @@ export function HeroSection() {
               die Transparenz statt Unklarheit brauchen.
             </p>
 
-            <div className="flex flex-wrap gap-3 pt-2">
-              <Button asChild size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90">
-                <Link href="#domain-check">
-                  BFSG Schnellcheck starten <ArrowRight className="ml-2 w-4 h-4" />
-                </Link>
-              </Button>
-              <Button asChild variant="outline" size="lg">
-                <Link href="#ki-automatisierung">KI Prozesscheck anfragen</Link>
-              </Button>
+            <div className="flex flex-col gap-3 pt-2">
+              <div className="flex flex-wrap gap-3">
+                <Button asChild size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90">
+                  <Link href="#domain-check">
+                    BFSG Schnellcheck starten <ArrowRight className="ml-2 w-4 h-4" />
+                  </Link>
+                </Button>
+                <Button asChild variant="outline" size="lg">
+                  <Link href="#ki-automatisierung">KI Prozessautomatisierung</Link>
+                </Button>
+              </div>
+              <p className="text-xs text-muted-foreground leading-relaxed">
+                Kostenlose Vorprüfung — keine Anmeldung erforderlich. Ergebnisse sofort sichtbar.
+              </p>
             </div>
 
             <div className="flex items-center gap-2 text-sm text-muted-foreground">
