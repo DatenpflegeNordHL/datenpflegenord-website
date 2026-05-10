@@ -17,7 +17,7 @@ const steps = [
   {
     number: "03",
     title: "Barrierefreiheits-Audit buchen",
-    text: "Für vollständige Ergebnisse, Screenshots, Evidence und Fix-Liste buchen Sie ein Barrierefreiheits-Audit.",
+    text: "Für vertiefte Ergebnisse, Screenshots, Evidence-Hinweise und Fix-Liste buchen Sie ein Barrierefreiheits-Audit.",
     cta: null,
   },
   {

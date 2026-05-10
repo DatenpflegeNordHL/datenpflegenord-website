@@ -27,10 +27,10 @@ export function SolutionSection() {
             DatenpflegeNord schafft Klarheit: prüfen, priorisieren, automatisieren.
           </h2>
           <p className="text-primary-foreground/80 max-w-3xl mx-auto leading-relaxed">
-            Mit dem NordAudit Portal erhalten Sie eine strukturierte Website-Vorprüfung mit BFSG Website Audit, 
-            Barrierefreiheitsprüfung und monatlichem Monitoring. Mit KI Prozessautomatisierung entwickeln wir 
-            individuelle KI-Systeme für konkrete Unternehmensaufgaben. Im Kundenportal sehen Sie den aktuellen
-            Status, offene Punkte und Fortschritte.
+            Mit dem NordAudit Portal erhalten Sie eine technische Website-Vorprüfung mit Audit-Hinweisen,
+            priorisierten Handlungsempfehlungen und optionalem monatlichen Monitoring. Mit KI Prozessautomatisierung
+            entwickeln wir individuelle KI-Systeme fur konkrete Unternehmensaufgaben. Im Kundenportal sehen Sie
+            den aktuellen Status, offene Punkte und Fortschritte.
           </p>
         </div>
 

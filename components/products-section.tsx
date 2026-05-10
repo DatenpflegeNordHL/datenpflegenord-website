@@ -56,15 +56,14 @@ export function ProductsSection() {
                 NordAudit Portal
               </h3>
               <p className="text-sm text-accent font-medium">
-                BFSG Website Audit, Barrierefreiheitsprüfung und Monitoring für KMU.
+                Technisches Prüf-, Monitoring- und Maßnahmenportal für KMU-Websites.
               </p>
             </div>
 
             <p className="relative z-10 text-sm text-muted-foreground leading-relaxed">
-              Mit dem NordAudit Portal prüfen wir Unternehmenswebsites auf BFSG-Relevanz, Barrierefreiheit, 
-              WCAG-nahe Auffälligkeiten, Datenschutz-Hinweise, technische Fehler und SEO-Grundlagen. 
-              Ziel ist eine klare, verständliche Audit-Übersicht mit Priorisierung, Handlungsempfehlungen 
-              und optionaler monatlicher Überwachung.
+              Ein technisches Prüf- und Monitoring-System für KMU-Websites, das automatisierte BFSG-, WCAG-, 
+              Datenschutz-, Technik- und SEO-Prüfungen mit priorisierten Handlungsempfehlungen, 
+              Fortschrittsverlauf, Report-Dokumentation und optionalen Hilfsmodulen verbindet.
             </p>
 
             <div className="relative z-10 flex flex-wrap gap-2">

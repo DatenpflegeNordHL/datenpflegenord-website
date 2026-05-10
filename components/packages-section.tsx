@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button"
 
 interface PackageCardProps {
   title: string
+  subtitle?: string
   text: string
   cta: string
   featured?: boolean
@@ -12,27 +13,31 @@ interface PackageCardProps {
 const nordauditPackages = [
   {
     title: "BFSG Schnellcheck",
+    subtitle: "Einstieg",
     text: "Für den ersten Überblick über technische und strukturelle Auffälligkeiten Ihrer Website.",
-    cta: "Schnellcheck starten",
+    cta: "BFSG Schnellcheck starten",
     onClick: "scroll",
   },
   {
     title: "Barrierefreiheits-Audit für Websites",
-    text: "Einmaliger vollständiger Website-Audit mit Report, Screenshots, Evidence und Fix-Liste.",
-    cta: "Audit anfragen",
+    subtitle: "Vertiefte Prüfung",
+    text: "Einmaliger Website-Audit mit Report, Screenshots, Evidence-Hinweisen und priorisierter Fix-Liste.",
+    cta: "Barrierefreiheits-Audit anfragen",
     featured: true,
     onClick: "form",
   },
   {
     title: "BFSG Monitoring",
+    subtitle: "Monatliche Verlaufskontrolle",
     text: "Monatliches Monitoring mit Audit-Historie, neuen und behobenen Findings.",
     cta: "Monitoring anfragen",
     onClick: "form",
   },
   {
     title: "Barrierefreiheit Fix-Service",
+    subtitle: "Technische Begleitung",
     text: "Technische Begleitung bei Umsetzung, Nachprüfung und Abstimmung mit IT-Dienstleistern.",
-    cta: "Fix-Service anfragen",
+    cta: "Fix-Service besprechen",
     onClick: "form",
   },
 ]
@@ -67,6 +72,7 @@ const kiPackages = [
 
 function PackageCard({
   title,
+  subtitle,
   text,
   cta,
   featured,
@@ -92,6 +98,13 @@ function PackageCard({
       }`}
     >
       <div>
+        {subtitle && (
+          <span className={`inline-block text-[10px] font-medium uppercase tracking-wider mb-1.5 ${
+            isFeatured ? "opacity-75" : "text-muted-foreground"
+          }`}>
+            {subtitle}
+          </span>
+        )}
         <h4 className={`font-bold text-sm mb-1 ${isFeatured ? "text-current" : "text-foreground"}`}>
           {title}
         </h4>
@@ -145,6 +158,7 @@ export function PackagesSection({ onNordAuditRequestClick, onKIProcessRequestCli
               <PackageCard
                 key={pkg.title}
                 title={pkg.title}
+                subtitle={pkg.subtitle}
                 text={pkg.text}
                 cta={pkg.cta}
                 featured={pkg.featured}
