@@ -5,42 +5,42 @@ const steps = [
   {
     number: "01",
     title: "Domain eingeben",
-    text: "Starten Sie mit einem automatisierten Schnellcheck Ihrer Unternehmenswebsite.",
-    cta: { label: "Schnellcheck starten", href: "#domain-check" },
+    text: "Starten Sie mit einem BFSG Schnellcheck Ihrer Unternehmenswebsite.",
+    cta: { label: "BFSG Schnellcheck starten", href: "#domain-check" },
   },
   {
     number: "02",
     title: "Erste Findings sehen",
-    text: "Sie erhalten erste sichtbare Hinweise zu Technik, Struktur, Performance und SEO.",
+    text: "Sie erhalten erste sichtbare Hinweise zu BFSG-Relevanz, Barrierefreiheit, Technik und SEO.",
     cta: null,
   },
   {
     number: "03",
-    title: "Audit buchen",
-    text: "Für vollständige Ergebnisse, Screenshots, Evidence und Fix-Liste buchen Sie ein WebPflicht Audit.",
+    title: "Barrierefreiheits-Audit buchen",
+    text: "Für vollständige Ergebnisse, Screenshots, Evidence und Fix-Liste buchen Sie ein Barrierefreiheits-Audit.",
     cta: null,
   },
   {
     number: "04",
-    title: "Klarsicht Portal nutzen",
+    title: "Kundenportal nutzen",
     text: "Im Portal sehen Sie Audit-Historie, neue Findings, behobene Findings, PDF-Reports und den nächsten Scan.",
     cta: null,
   },
   {
     number: "05",
-    title: "Monatlich überwachen",
-    text: "Mit WebPflicht Monitor behalten Sie Änderungen, Auffälligkeiten und Fortschritte dauerhaft im Blick.",
+    title: "BFSG Monitoring aktivieren",
+    text: "Mit BFSG Monitoring behalten Sie Änderungen, Auffälligkeiten und Fortschritte dauerhaft im Blick.",
     cta: null,
   },
 ]
 
-export function WebpflichtFunnel() {
+export function NordAuditFunnel() {
   return (
     <section className="py-16 md:py-24 bg-secondary/40">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-foreground text-balance mb-4">
-            Vom Domain-Check zum monatlichen Website-Monitoring
+            Vom BFSG Schnellcheck zum monatlichen BFSG Monitoring
           </h2>
         </div>
 

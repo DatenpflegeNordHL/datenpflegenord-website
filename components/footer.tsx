@@ -5,10 +5,10 @@ const footerLinks = [
   {
     heading: "Produkte",
     links: [
-      { label: "WebPflicht Monitor", href: "#webpflicht" },
-      { label: "BetriebsKI", href: "#betriebski" },
-      { label: "Klarsicht Portal", href: "#portal" },
-      { label: "Pakete", href: "#pakete" },
+      { label: "NordAudit Portal", href: "#nordaudit" },
+      { label: "KI Prozessautomatisierung", href: "#ki-automatisierung" },
+      { label: "Kundenportal", href: "#portal" },
+      { label: "Preise", href: "#pakete" },
     ],
   },
   {

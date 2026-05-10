@@ -23,16 +23,16 @@ export function HeroSection() {
           {/* Left: Copy */}
           <div className="flex flex-col gap-6">
             <Badge variant="secondary" className="w-fit text-xs font-medium tracking-wide uppercase">
-              Für deutsche KMU
+              Digitale Prüf- und KI-Systeme für deutsche KMU
             </Badge>
 
             <h1 className="text-4xl md:text-5xl lg:text-5xl font-bold text-balance leading-tight text-foreground">
-              Website-Checks und KI-Automatisierung für deutsche KMU
+              Websites prüfen. Unternehmensprozesse mit KI automatisieren.
             </h1>
 
             <p className="text-lg text-muted-foreground leading-relaxed">
-              DatenpflegeNord führt automatisierte Vorprüfungen durch und entwickelt maßgeschneiderte KI-Systeme 
-              für wiederkehrende Unternehmensprozesse.
+              DatenpflegeNord unterstützt deutsche KMU mit BFSG Website Audits, Barrierefreiheitsprüfungen, 
+              technischem Website-Monitoring und individueller KI Prozessautomatisierung.
             </p>
 
             <p className="text-sm text-muted-foreground border-l-2 border-accent pl-4 leading-relaxed">
@@ -43,11 +43,11 @@ export function HeroSection() {
             <div className="flex flex-wrap gap-3 pt-2">
               <Button asChild size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90">
                 <Link href="#domain-check">
-                  Website jetzt prüfen <ArrowRight className="ml-2 w-4 h-4" />
+                  BFSG Schnellcheck starten <ArrowRight className="ml-2 w-4 h-4" />
                 </Link>
               </Button>
               <Button asChild variant="outline" size="lg">
-                <Link href="#betriebski">BetriebsKI erkunden</Link>
+                <Link href="#ki-automatisierung">KI Prozesscheck anfragen</Link>
               </Button>
             </div>
 

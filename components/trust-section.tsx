@@ -5,11 +5,11 @@ const trustCards = [
   },
   {
     title: "Keine falsche Rechtssicherheit",
-    text: "WebPflicht liefert technische und strukturelle Hinweise, ersetzt aber keine anwaltliche Rechtsberatung.",
+    text: "Das NordAudit Portal liefert technische und strukturelle Hinweise, ersetzt aber keine anwaltliche Rechtsberatung.",
   },
   {
     title: "Keine KI-Magie",
-    text: "BetriebsKI unterstützt konkrete Aufgaben. Der Mensch entscheidet.",
+    text: "KI Prozessautomatisierung unterstützt konkrete Aufgaben. Der Mensch entscheidet.",
   },
   {
     title: "KMU-tauglich aufgebaut",

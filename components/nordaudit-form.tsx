@@ -7,17 +7,17 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { X } from "lucide-react"
 
-interface BetriebsKIFormProps {
+interface NordAuditFormProps {
   open: boolean
   onOpenChange: (open: boolean) => void
 }
 
-export function BetriebsKIForm({ open, onOpenChange }: BetriebsKIFormProps) {
+export function NordAuditForm({ open, onOpenChange }: NordAuditFormProps) {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     company: "",
-    focus: "",
+    domain: "",
     message: "",
   })
   const [submitted, setSubmitted] = useState(false)
@@ -29,12 +29,12 @@ export function BetriebsKIForm({ open, onOpenChange }: BetriebsKIFormProps) {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    console.log("[v0] BetriebsKI form submitted:", formData)
+    // Form submission would be handled by API
     setSubmitted(true)
     setTimeout(() => {
       setSubmitted(false)
       onOpenChange(false)
-      setFormData({ name: "", email: "", company: "", focus: "", message: "" })
+      setFormData({ name: "", email: "", company: "", domain: "", message: "" })
     }, 2000)
   }
 
@@ -42,9 +42,9 @@ export function BetriebsKIForm({ open, onOpenChange }: BetriebsKIFormProps) {
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-md">
         <DialogHeader>
-          <DialogTitle>BetriebsKI Potenzialcheck anfragen</DialogTitle>
+          <DialogTitle>Barrierefreiheits-Audit anfragen</DialogTitle>
           <DialogDescription>
-            KI-unterstützte Automatisierung Ihrer Unternehmensprozesse
+            BFSG Website Audit, Barrierefreiheitsprüfung und Monitoring für KMU
           </DialogDescription>
         </DialogHeader>
 
@@ -53,7 +53,7 @@ export function BetriebsKIForm({ open, onOpenChange }: BetriebsKIFormProps) {
             <div className="text-4xl mb-3">✓</div>
             <p className="font-medium text-foreground mb-2">Vielen Dank!</p>
             <p className="text-sm text-muted-foreground">
-              Wir analysieren Ihre Anforderungen und melden uns zeitnah.
+              Wir melden uns bald bei Ihnen.
             </p>
           </div>
         ) : (
@@ -85,7 +85,7 @@ export function BetriebsKIForm({ open, onOpenChange }: BetriebsKIFormProps) {
             </div>
             <div>
               <label className="block text-sm font-medium text-foreground mb-1">
-                Unternehmen / Abteilung
+                Unternehmen
               </label>
               <Input
                 name="company"
@@ -96,22 +96,22 @@ export function BetriebsKIForm({ open, onOpenChange }: BetriebsKIFormProps) {
             </div>
             <div>
               <label className="block text-sm font-medium text-foreground mb-1">
-                Prozess / Fokus
+                Website-Domain
               </label>
               <Input
-                name="focus"
-                placeholder="z.B. Rechnungsverarbeitung, Dokumentenanalyse"
-                value={formData.focus}
+                name="domain"
+                placeholder="z.B. beispiel.de"
+                value={formData.domain}
                 onChange={handleChange}
               />
             </div>
             <div>
               <label className="block text-sm font-medium text-foreground mb-1">
-                Nachricht
+                Nachricht (optional)
               </label>
               <Textarea
                 name="message"
-                placeholder="Beschreiben Sie Ihr Anliegen und Ihre Anforderungen..."
+                placeholder="Zusätzliche Informationen..."
                 value={formData.message}
                 onChange={handleChange}
                 rows={3}
@@ -120,15 +120,15 @@ export function BetriebsKIForm({ open, onOpenChange }: BetriebsKIFormProps) {
 
             <div className="text-xs text-muted-foreground border-t pt-3 mt-4">
               <p>
-                Hinweis: BetriebsKI unterstützt den Menschen bei wiederkehrenden Aufgaben.
-                Der Mensch entscheidet und trägt die Verantwortung.
+                Hinweis: Dies ist keine anwaltliche Rechtsberatung. Das NordAudit Portal bietet eine 
+                automatisierte Vorab-Prüfung nach aktuellem Prüfstand.
               </p>
             </div>
 
             <div className="flex gap-2 pt-4">
               <Button
                 type="submit"
-                className="flex-1 bg-accent hover:bg-accent/90 text-accent-foreground"
+                className="flex-1 bg-primary hover:bg-primary/90 text-primary-foreground"
               >
                 Anfrage senden
               </Button>

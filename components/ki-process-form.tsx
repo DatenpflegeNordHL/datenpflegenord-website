@@ -7,17 +7,17 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { X } from "lucide-react"
 
-interface WebPflichtFormProps {
+interface KIProcessFormProps {
   open: boolean
   onOpenChange: (open: boolean) => void
 }
 
-export function WebPflichtForm({ open, onOpenChange }: WebPflichtFormProps) {
+export function KIProcessForm({ open, onOpenChange }: KIProcessFormProps) {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     company: "",
-    domain: "",
+    focus: "",
     message: "",
   })
   const [submitted, setSubmitted] = useState(false)
@@ -29,12 +29,12 @@ export function WebPflichtForm({ open, onOpenChange }: WebPflichtFormProps) {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    console.log("[v0] WebPflicht form submitted:", formData)
+    // Form submission would be handled by API
     setSubmitted(true)
     setTimeout(() => {
       setSubmitted(false)
       onOpenChange(false)
-      setFormData({ name: "", email: "", company: "", domain: "", message: "" })
+      setFormData({ name: "", email: "", company: "", focus: "", message: "" })
     }, 2000)
   }
 
@@ -42,9 +42,9 @@ export function WebPflichtForm({ open, onOpenChange }: WebPflichtFormProps) {
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-md">
         <DialogHeader>
-          <DialogTitle>WebPflicht Audit anfragen</DialogTitle>
+          <DialogTitle>KI Prozesscheck anfragen</DialogTitle>
           <DialogDescription>
-            Kontinuierliche Website-Prüfung für BFSG, Datenschutz & Technik
+            Individuelle KI-Agenten und Workflow-Automatisierung für wiederkehrende Unternehmensaufgaben
           </DialogDescription>
         </DialogHeader>
 
@@ -53,7 +53,7 @@ export function WebPflichtForm({ open, onOpenChange }: WebPflichtFormProps) {
             <div className="text-4xl mb-3">✓</div>
             <p className="font-medium text-foreground mb-2">Vielen Dank!</p>
             <p className="text-sm text-muted-foreground">
-              Wir melden uns bald bei Ihnen.
+              Wir analysieren Ihre Anforderungen und melden uns zeitnah.
             </p>
           </div>
         ) : (
@@ -85,7 +85,7 @@ export function WebPflichtForm({ open, onOpenChange }: WebPflichtFormProps) {
             </div>
             <div>
               <label className="block text-sm font-medium text-foreground mb-1">
-                Unternehmen
+                Unternehmen / Abteilung
               </label>
               <Input
                 name="company"
@@ -96,22 +96,22 @@ export function WebPflichtForm({ open, onOpenChange }: WebPflichtFormProps) {
             </div>
             <div>
               <label className="block text-sm font-medium text-foreground mb-1">
-                Website-Domain
+                Prozess / Fokus
               </label>
               <Input
-                name="domain"
-                placeholder="z.B. beispiel.de"
-                value={formData.domain}
+                name="focus"
+                placeholder="z.B. Rechnungsverarbeitung, Dokumentenanalyse"
+                value={formData.focus}
                 onChange={handleChange}
               />
             </div>
             <div>
               <label className="block text-sm font-medium text-foreground mb-1">
-                Nachricht (optional)
+                Nachricht
               </label>
               <Textarea
                 name="message"
-                placeholder="Zusätzliche Informationen..."
+                placeholder="Beschreiben Sie Ihr Anliegen und Ihre Anforderungen..."
                 value={formData.message}
                 onChange={handleChange}
                 rows={3}
@@ -120,15 +120,15 @@ export function WebPflichtForm({ open, onOpenChange }: WebPflichtFormProps) {
 
             <div className="text-xs text-muted-foreground border-t pt-3 mt-4">
               <p>
-                Hinweis: Dies ist keine anwaltliche Rechtsberatung. WebPflicht bietet eine automatisierte
-                Vorab-Prüfung potentieller Risiken.
+                Hinweis: Die KI Prozessautomatisierung unterstützt den Menschen bei wiederkehrenden Aufgaben.
+                Der Mensch entscheidet und trägt die Verantwortung.
               </p>
             </div>
 
             <div className="flex gap-2 pt-4">
               <Button
                 type="submit"
-                className="flex-1 bg-primary hover:bg-primary/90 text-primary-foreground"
+                className="flex-1 bg-accent hover:bg-accent/90 text-accent-foreground"
               >
                 Anfrage senden
               </Button>

@@ -10,11 +10,11 @@ const inter = Inter({
 })
 
 export const metadata: Metadata = {
-  title: 'DatenpflegeNord | Automatisierte Website-Prüfung & KI-Automation für KMU',
+  title: 'DatenpflegeNord | BFSG Website Audit & KI Prozessautomatisierung für KMU',
   description:
-    'WebPflicht Monitor: Automatisierte Vorab-Prüfung Ihrer Website auf BFSG-Anforderungen, Datenschutz & Technik. BetriebsKI: KI-unterstützte Automatisierung Ihrer Unternehmensprozesse. Klarstand Portal: Dashboard für alle Erkenntnisse und KI-Status.',
+    'NordAudit Portal: BFSG Website Audit, Barrierefreiheitsprüfung und Monitoring für KMU. KI Prozessautomatisierung: Individuelle KI-Agenten und Workflow-Automatisierung für wiederkehrende Unternehmensaufgaben.',
   generator: 'v0.app',
-  keywords: 'Website-Check, BFSG, Barrierefreiheit, Datenschutz, KI-Automation, KMU',
+  keywords: 'BFSG Website Audit, BFSG Schnellcheck, Barrierefreiheitsprüfung Website, Website Audit für KMU, BFSG Monitoring, WCAG Prüfung, KI Prozessautomatisierung, KI Agenten für Unternehmen, Workflow Automatisierung',
 }
 
 export const viewport = {

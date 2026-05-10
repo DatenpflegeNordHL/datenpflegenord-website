@@ -21,48 +21,48 @@ const steps: StepItem[] = [
   {
     number: "01",
     title: "Prozess auswählen",
-    text: "Zum Beispiel Rechnungsverarbeitung, Kundenservice, Dokumentensuche, Personalplanung oder Angebotsvorbereitung.",
+    text: "Zum Beispiel Buchhaltung, Abrechnung, Dokumentenverarbeitung, Personalplanung, Ausfallmanagement, Kundenservice oder interne Wissensdatenbanken.",
     icon: ListChecks,
   },
   {
     number: "02",
-    title: "KI-Potenzialcheck durchführen",
+    title: "KI Prozesscheck durchführen",
     text: "Wir prüfen Aufwand, Datenlage, Risiken, Schnittstellen und Nutzen.",
     icon: Search,
   },
   {
     number: "03",
-    title: "Pilotprojekt planen",
+    title: "KI Workflow Pilot planen",
     text: "Ein klar begrenzter Prozess wird als Prototyp umgesetzt.",
     icon: FlaskConical,
   },
   {
     number: "04",
-    title: "KI-Agent oder individuelles System entwickeln",
+    title: "KI-Agenten für Unternehmen entwickeln",
     text: "Der Agent unterstützt wiederkehrende Aufgaben, bereitet Entscheidungen vor und dokumentiert Ergebnisse.",
     icon: Workflow,
   },
   {
     number: "05",
-    title: "Betrieb und Optimierung",
+    title: "KI Betrieb & Automatisierungs-Support",
     text: "Abläufe werden kontrolliert, verbessert und mit Human-in-the-loop-Freigaben abgesichert.",
     icon: Settings2,
   },
 ]
 
-export function BetriebskiProcess() {
+export function KIProcessAutomation() {
   return (
-    <section id="betriebski-prozess" className="py-16 md:py-24 bg-secondary/40">
+    <section id="ki-prozess" className="py-16 md:py-24 bg-secondary/40">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-2xl mb-12">
           <span className="inline-block px-3 py-1 rounded-full bg-accent/10 text-accent text-xs font-semibold tracking-wide uppercase mb-4">
-            BetriebsKI
+            KI Prozessautomatisierung
           </span>
           <h2 className="text-3xl md:text-4xl font-bold text-foreground text-balance mb-4">
             Von der wiederkehrenden Aufgabe zum produktiven KI-System
           </h2>
           <p className="text-muted-foreground leading-relaxed">
-            BetriebsKI beginnt nicht mit einem Tool, sondern mit einem konkreten Prozess.
+            KI Prozessautomatisierung für KMU beginnt nicht mit einem Tool, sondern mit einem konkreten Prozess.
             Gemeinsam prüfen wir, wo KI sinnvoll unterstützt, welche Daten benötigt werden
             und welche Freigaben beim Menschen bleiben.
           </p>
@@ -106,7 +106,7 @@ export function BetriebskiProcess() {
         <div className="mt-4">
           <Button asChild size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90">
             <Link href="#pakete">
-              BetriebsKI Check anfragen <ArrowRight className="ml-2 w-4 h-4" />
+              KI Prozesscheck anfragen <ArrowRight className="ml-2 w-4 h-4" />
             </Link>
           </Button>
         </div>
