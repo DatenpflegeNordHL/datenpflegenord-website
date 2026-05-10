@@ -17,58 +17,48 @@ export function HeroSection() {
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
           {/* Left: Copy */}
           <div className="relative flex flex-col gap-6">
-            {/* Technical grid background — data/audit atmosphere, desktop only */}
+            {/* Technical grid background — data/audit atmosphere, desktop only, strictly behind content */}
             <svg
-              className="hidden md:block absolute inset-0 w-full h-full pointer-events-none select-none"
+              className="hidden md:block absolute inset-0 w-full h-full pointer-events-none select-none -z-10"
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               preserveAspectRatio="xMidYMid slice"
             >
               <defs>
-                {/* Fine grid pattern */}
                 <pattern id="grid-sm" width="28" height="28" patternUnits="userSpaceOnUse">
                   <path d="M 28 0 L 0 0 0 28" fill="none" stroke="currentColor" strokeWidth="0.5" className="text-border" />
                 </pattern>
-                {/* Slightly larger accent grid */}
                 <pattern id="grid-lg" width="112" height="112" patternUnits="userSpaceOnUse">
                   <rect width="112" height="112" fill="url(#grid-sm)" />
                   <path d="M 112 0 L 0 0 0 112" fill="none" stroke="currentColor" strokeWidth="1" className="text-border" />
                 </pattern>
               </defs>
 
-              {/* Base grid — very subtle */}
-              <rect width="100%" height="100%" fill="url(#grid-lg)" opacity="0.55" />
+              {/* Base grid */}
+              <rect width="100%" height="100%" fill="url(#grid-lg)" opacity="0.45" />
 
-              {/* Diagonal data-flow lines — evoke structured analysis/audit */}
-              <line x1="0" y1="60%" x2="35%" y2="100%" stroke="currentColor" strokeWidth="0.75" className="text-accent" opacity="0.12" />
-              <line x1="20%" y1="0" x2="80%" y2="100%" stroke="currentColor" strokeWidth="0.5" className="text-primary" opacity="0.07" />
-              <line x1="55%" y1="0" x2="100%" y2="55%" stroke="currentColor" strokeWidth="0.5" className="text-primary" opacity="0.06" />
+              {/* Diagonal data-flow lines */}
+              <line x1="0" y1="60%" x2="35%" y2="100%" stroke="currentColor" strokeWidth="0.75" className="text-accent" opacity="0.1" />
+              <line x1="20%" y1="0" x2="80%" y2="100%" stroke="currentColor" strokeWidth="0.5" className="text-primary" opacity="0.06" />
+              <line x1="55%" y1="0" x2="100%" y2="55%" stroke="currentColor" strokeWidth="0.5" className="text-primary" opacity="0.05" />
 
               {/* Horizontal data-level lines */}
-              <line x1="0" y1="33%" x2="100%" y2="33%" stroke="currentColor" strokeWidth="0.5" className="text-accent" opacity="0.1" />
-              <line x1="0" y1="66%" x2="100%" y2="66%" stroke="currentColor" strokeWidth="0.5" className="text-accent" opacity="0.08" />
+              <line x1="0" y1="33%" x2="100%" y2="33%" stroke="currentColor" strokeWidth="0.5" className="text-accent" opacity="0.08" />
+              <line x1="0" y1="66%" x2="100%" y2="66%" stroke="currentColor" strokeWidth="0.5" className="text-accent" opacity="0.06" />
 
-              {/* Node dots at grid intersections — network/system metaphor */}
-              <circle cx="28%" cy="33%" r="2.5" fill="currentColor" className="text-accent" opacity="0.18" />
-              <circle cx="56%" cy="33%" r="1.5" fill="currentColor" className="text-primary" opacity="0.12" />
-              <circle cx="84%" cy="33%" r="2" fill="currentColor" className="text-accent" opacity="0.14" />
-              <circle cx="14%" cy="66%" r="1.5" fill="currentColor" className="text-primary" opacity="0.1" />
-              <circle cx="42%" cy="66%" r="2.5" fill="currentColor" className="text-accent" opacity="0.16" />
-              <circle cx="70%" cy="66%" r="2" fill="currentColor" className="text-primary" opacity="0.1" />
-              <circle cx="98%" cy="66%" r="1.5" fill="currentColor" className="text-accent" opacity="0.12" />
+              {/* Node dots */}
+              <circle cx="28%" cy="33%" r="2.5" fill="currentColor" className="text-accent" opacity="0.15" />
+              <circle cx="56%" cy="33%" r="1.5" fill="currentColor" className="text-primary" opacity="0.1" />
+              <circle cx="84%" cy="33%" r="2" fill="currentColor" className="text-accent" opacity="0.12" />
+              <circle cx="14%" cy="66%" r="1.5" fill="currentColor" className="text-primary" opacity="0.08" />
+              <circle cx="42%" cy="66%" r="2.5" fill="currentColor" className="text-accent" opacity="0.13" />
+              <circle cx="70%" cy="66%" r="2" fill="currentColor" className="text-primary" opacity="0.08" />
 
-              {/* Small connector lines between nodes — audit link metaphor */}
-              <line x1="28%" y1="33%" x2="42%" y2="66%" stroke="currentColor" strokeWidth="0.75" className="text-accent" opacity="0.13" />
-              <line x1="56%" y1="33%" x2="42%" y2="66%" stroke="currentColor" strokeWidth="0.75" className="text-accent" opacity="0.1" />
-              <line x1="56%" y1="33%" x2="70%" y2="66%" stroke="currentColor" strokeWidth="0.75" className="text-accent" opacity="0.1" />
-              <line x1="84%" y1="33%" x2="70%" y2="66%" stroke="currentColor" strokeWidth="0.75" className="text-accent" opacity="0.1" />
-
-              {/* Soft radial fade to keep text area uncluttered */}
-              <radialGradient id="fade" cx="40%" cy="50%" r="60%">
-                <stop offset="0%" stopColor="white" stopOpacity="0.92" />
-                <stop offset="100%" stopColor="white" stopOpacity="0" />
-              </radialGradient>
-              <rect width="100%" height="100%" fill="url(#fade)" />
+              {/* Connector lines between nodes */}
+              <line x1="28%" y1="33%" x2="42%" y2="66%" stroke="currentColor" strokeWidth="0.75" className="text-accent" opacity="0.1" />
+              <line x1="56%" y1="33%" x2="42%" y2="66%" stroke="currentColor" strokeWidth="0.75" className="text-accent" opacity="0.08" />
+              <line x1="56%" y1="33%" x2="70%" y2="66%" stroke="currentColor" strokeWidth="0.75" className="text-accent" opacity="0.08" />
+              <line x1="84%" y1="33%" x2="70%" y2="66%" stroke="currentColor" strokeWidth="0.75" className="text-accent" opacity="0.08" />
             </svg>
             <div className="flex flex-col gap-1">
               <Badge variant="secondary" className="w-fit text-xs font-medium tracking-wide uppercase">
