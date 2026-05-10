@@ -10,6 +10,7 @@ import { NordAuditFunnel } from "@/components/nordaudit-funnel"
 import { PruefbereicheSection } from "@/components/pruefbereiche-section"
 import { KIProcessAutomation } from "@/components/ki-process-automation"
 import { PortalSection } from "@/components/portal-section"
+import { MassnahmenPortalSection } from "@/components/massnahmen-portal-section"
 import { PackagesSection } from "@/components/packages-section"
 import { TrustSection } from "@/components/trust-section"
 import { FaqSection } from "@/components/faq-section"
@@ -31,6 +32,7 @@ export default function HomePage() {
       <SolutionSection />
       <NordAuditFunnel />
       <PruefbereicheSection />
+      <MassnahmenPortalSection />
       <KIProcessAutomation />
       <PortalSection />
       <PackagesSection 
