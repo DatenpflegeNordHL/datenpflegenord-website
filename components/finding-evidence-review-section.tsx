@@ -51,9 +51,17 @@ const benefitCards = [
   },
 ]
 
+// ── Types ──────────────────────────────────────────────────────────────────
+
+interface FindingEvidenceReviewSectionProps {
+  onAuditRequestClick?: () => void
+}
+
 // ── Main Component ────────────────────────────────────────────────────────
 
-export function FindingEvidenceReviewSection() {
+export function FindingEvidenceReviewSection({
+  onAuditRequestClick,
+}: FindingEvidenceReviewSectionProps) {
   return (
     <section className="py-16 md:py-24 bg-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -252,7 +260,7 @@ export function FindingEvidenceReviewSection() {
 
         {/* CTA Section */}
         <div className="text-center">
-          <Button size="lg" className="mb-4">
+          <Button size="lg" className="mb-4" onClick={onAuditRequestClick}>
             Audit mit Evidence anfragen
             <ArrowRight className="w-4 h-4" aria-hidden="true" />
           </Button>
