@@ -7,6 +7,7 @@ import { ProductsSection } from "@/components/products-section"
 import { ProblemsSection } from "@/components/problems-section"
 import { SolutionSection } from "@/components/solution-section"
 import { NordAuditFunnel } from "@/components/nordaudit-funnel"
+import { NordAuditProcessSection } from "@/components/nordaudit-process-section"
 import { PruefbereicheSection } from "@/components/pruefbereiche-section"
 import { KIProcessAutomation } from "@/components/ki-process-automation"
 import { PortalSection } from "@/components/portal-section"
@@ -33,6 +34,7 @@ export default function HomePage() {
       <ProblemsSection />
       <SolutionSection />
       <NordAuditFunnel />
+      <NordAuditProcessSection onAuditRequestClick={() => setNordAuditOpen(true)} />
       <PruefbereicheSection />
       <MassnahmenPortalSection />
       <FindingEvidenceReviewSection onAuditRequestClick={() => setNordAuditOpen(true)} />
