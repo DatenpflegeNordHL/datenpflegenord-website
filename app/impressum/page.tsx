@@ -27,7 +27,7 @@ export default function ImpressumPage() {
               </p>
               <p className="text-amber-800 text-sm leading-relaxed">
                 Die folgenden Felder sind Platzhalter und müssen vor dem Livegang mit den echten
-                Unternehmensdaten ausgefüllt werden.                 Kein juristischer Text — nur strukturierte
+                Unternehmensdaten ausgefüllt werden. Kein juristischer Text — nur strukturierte
                 Pflichtangaben gemäß § 5 DDG.
               </p>
             </div>
