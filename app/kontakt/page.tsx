@@ -74,7 +74,7 @@ function KontaktForm() {
             <p className="text-sm font-semibold text-foreground">Danke. Anfrage erfasst.</p>
             <p className="text-sm text-muted-foreground leading-relaxed">
               Ihre Anfrage wurde lokal erfasst. Die echte Formularanbindung wird noch
-              eingerichtet. Bitte senden Sie dringende Anfragen zusätzlich per E-Mail.
+              eingerichtet. Für dringende Anliegen nutzen Sie bitte den vereinbarten Kontaktweg.
             </p>
           </div>
         </div>
