@@ -1,8 +1,14 @@
 import { ServiceDetailPage } from "@/components/service-detail-page"
-import { services } from "@/content/services"
+import { getServiceByHref } from "@/content/services"
+import { getServiceDetailByHref } from "@/content/service-details"
 
-const service = services.find((s) => s.href === "/leistungen/ki-bueroautomation")!
+const href = "/leistungen/ki-bueroautomation"
 
 export default function KiBueroautomationPage() {
-  return <ServiceDetailPage service={service} />
+  return (
+    <ServiceDetailPage
+      service={getServiceByHref(href)}
+      details={getServiceDetailByHref(href)}
+    />
+  )
 }

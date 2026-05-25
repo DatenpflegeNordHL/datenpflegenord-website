@@ -75,3 +75,11 @@ export const services: Service[] = [
     ],
   },
 ]
+
+export function getServiceByHref(href: string): Service {
+  const service = services.find((s) => s.href === href)
+  if (!service) {
+    throw new Error(`Missing service for href: ${href}`)
+  }
+  return service
+}
