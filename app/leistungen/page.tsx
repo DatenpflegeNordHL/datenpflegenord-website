@@ -1,6 +1,7 @@
 import Link from "next/link"
 import { ArrowRight, CheckCircle2 } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button"
 import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
 import { services } from "@/content/services"
@@ -77,6 +78,18 @@ export default function LeistungenPage() {
                   </Link>
                 </div>
               ))}
+            </div>
+
+            <div className="mt-12 pt-10 border-t border-border flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+              <p className="text-sm text-muted-foreground leading-relaxed max-w-xl">
+                Unsicher, welcher Einstieg passt? Starten Sie mit einem Quickcheck – wir ordnen
+                technisch ein, welches Angebot sinnvoll ist.
+              </p>
+              <Button asChild variant="outline" size="sm" className="shrink-0">
+                <Link href="/kontakt?anliegen=quickcheck" className="flex items-center gap-1.5">
+                  Quickcheck starten <ArrowRight className="w-3.5 h-3.5" aria-hidden="true" />
+                </Link>
+              </Button>
             </div>
           </div>
         </section>
