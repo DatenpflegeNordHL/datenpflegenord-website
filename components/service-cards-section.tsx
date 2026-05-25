@@ -1,51 +1,23 @@
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import { Search, ShieldCheck, BrainCircuit, CalendarCheck, ArrowRight, CheckCircle2 } from "lucide-react"
+import { ArrowRight, CheckCircle2 } from "lucide-react"
+import { services } from "@/content/services"
+import type { ServiceStatus } from "@/content/services"
 
-type ServiceCard = {
-  icon: React.ElementType
-  title: string
-  text: string
-  bullets: string[]
-  price: string
-  href: string
+const statusLabels: Record<ServiceStatus, string> = {
+  entry: "Einstieg",
+  recommended: "Empfohlen",
+  custom: "Individual",
+  monitoring: "Monitoring",
 }
 
-const services: ServiceCard[] = [
-  {
-    icon: Search,
-    title: "Sichtbarkeits-Check",
-    text: "Google-Profil, lokale SEO, Bewertungen, Website-Auffindbarkeit und Anfragewege prüfen.",
-    bullets: ["Google-Unternehmensprofil", "Lokale SEO", "Bewertungen", "Anfragewege"],
-    price: "ab 490 €",
-    href: "/sichtbarkeits-check",
-  },
-  {
-    icon: ShieldCheck,
-    title: "Technischer Web-Check",
-    text: "Website-Technik, Mobile, Ladezeit, BFSG-Relevanz, Datenschutz-Basis, Cookie/Tracking und Barrierefreiheit prüfen.",
-    bullets: ["Technik & Mobile", "Cookie/Datenschutz-Basis", "BFSG-Relevanz", "Barrierefreiheit"],
-    price: "ab 790 €",
-    href: "/technischer-web-check",
-  },
-  {
-    icon: BrainCircuit,
-    title: "KI-Lösungen für Ihr Unternehmen",
-    text: "E-Rechnung, Dokumente, E-Mails, Kundenanfragen und Büroprozesse mit KI vereinfachen.",
-    bullets: ["E-Rechnung", "Dokumente", "E-Mails", "Büroprozesse"],
-    price: "ab 990 €",
-    href: "/ki-loesungen",
-  },
-  {
-    icon: CalendarCheck,
-    title: "Monatlicher Audit-Check",
-    text: "Website, Google-Profil, Technik, Bewertungen und offene Digitalaufgaben regelmäßig prüfen lassen.",
-    bullets: ["Monatsbericht", "Audit-Historie", "Aufgabenliste", "Kleine Fixes optional"],
-    price: "ab 99 €/Monat",
-    href: "/monatlicher-audit-check",
-  },
-]
+const statusBadgeVariant: Record<ServiceStatus, "default" | "secondary" | "outline"> = {
+  entry: "secondary",
+  recommended: "default",
+  custom: "outline",
+  monitoring: "secondary",
+}
 
 export function ServiceCardsSection() {
   return (
@@ -62,7 +34,7 @@ export function ServiceCardsSection() {
         </div>
 
         <div className="grid sm:grid-cols-2 gap-5">
-          {services.map(({ icon: Icon, title, text, bullets, price, href }) => (
+          {services.map(({ icon: Icon, title, description, bullets, price, status, href }) => (
             <div
               key={title}
               className="bg-card border border-border rounded-2xl p-6 flex flex-col gap-4"
@@ -71,12 +43,17 @@ export function ServiceCardsSection() {
                 <div className="w-10 h-10 rounded-xl bg-primary/8 flex items-center justify-center shrink-0">
                   <Icon className="w-5 h-5 text-primary" aria-hidden="true" />
                 </div>
-                <Badge variant="secondary" className="text-xs shrink-0">{price}</Badge>
+                <div className="flex items-center gap-2 shrink-0">
+                  <Badge variant={statusBadgeVariant[status]} className="text-xs">
+                    {statusLabels[status]}
+                  </Badge>
+                  <Badge variant="secondary" className="text-xs">{price}</Badge>
+                </div>
               </div>
 
               <div>
                 <h3 className="font-bold text-foreground mb-1.5 text-balance">{title}</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">{text}</p>
+                <p className="text-sm text-muted-foreground leading-relaxed">{description}</p>
               </div>
 
               <ul className="flex flex-col gap-1.5">

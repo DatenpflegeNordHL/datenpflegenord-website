@@ -2,6 +2,7 @@ import { Header } from "@/components/header"
 import { HeroSection } from "@/components/hero-section"
 import { ProblemsSection } from "@/components/problems-section"
 import { ServiceCardsSection } from "@/components/service-cards-section"
+import { ComplianceTopicsSection } from "@/components/compliance-topics-section"
 import { ComparisonSection } from "@/components/comparison-section"
 import { StepsSection } from "@/components/steps-section"
 import { PortalTeaserSection } from "@/components/portal-teaser-section"
@@ -15,6 +16,7 @@ export default function HomePage() {
       <HeroSection />
       <ProblemsSection />
       <ServiceCardsSection />
+      <ComplianceTopicsSection />
       <ComparisonSection />
       <StepsSection />
       <PortalTeaserSection />
