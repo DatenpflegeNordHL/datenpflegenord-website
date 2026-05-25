@@ -1,30 +1,54 @@
 "use client"
 
-import { useState } from "react"
+import { Suspense, useState } from "react"
+import { useSearchParams } from "next/navigation"
 import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
-import { CheckCircle2, Mail, Phone } from "lucide-react"
+import { CheckCircle2, Info } from "lucide-react"
 
 const topics = [
-  "Sichtbarkeits-Check",
-  "Technischer Web-Check",
-  "KI-Lösungen",
-  "Monatlicher Audit-Check",
-  "Portal",
+  "Quickcheck / erste Einordnung",
+  "BFSG-Signalcheck",
+  "Pflichten-Check",
+  "KI & Büroautomation",
+  "Audit-Monitoring",
   "Sonstiges",
 ]
 
-export default function KontaktPage() {
+const anliegenMap: Record<string, string> = {
+  quickcheck: "Quickcheck / erste Einordnung",
+  signalcheck: "BFSG-Signalcheck",
+}
+
+const angebotMap: Record<string, string> = {
+  "pflichten-check": "Pflichten-Check",
+  "ki-bueroautomation": "KI & Büroautomation",
+  monitoring: "Audit-Monitoring",
+}
+
+function resolveInitialTopic(anliegen: string | null, angebot: string | null): string {
+  if (anliegen && anliegenMap[anliegen]) return anliegenMap[anliegen]
+  if (angebot && angebotMap[angebot]) return angebotMap[angebot]
+  return ""
+}
+
+function KontaktForm() {
+  const searchParams = useSearchParams()
+  const initialTopic = resolveInitialTopic(
+    searchParams.get("anliegen"),
+    searchParams.get("angebot")
+  )
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     company: "",
     website: "",
     location: "",
-    topic: "",
+    topic: initialTopic,
     message: "",
   })
   const [submitted, setSubmitted] = useState(false)
@@ -41,181 +65,174 @@ export default function KontaktPage() {
     setSubmitted(true)
   }
 
+  if (submitted) {
+    return (
+      <div className="flex flex-col gap-4 py-10">
+        <div className="flex items-start gap-3 rounded-xl border border-border bg-card p-5">
+          <CheckCircle2 className="w-5 h-5 text-accent shrink-0 mt-0.5" aria-hidden="true" />
+          <div className="flex flex-col gap-1">
+            <p className="text-sm font-semibold text-foreground">Danke. Anfrage erfasst.</p>
+            <p className="text-sm text-muted-foreground leading-relaxed">
+              Ihre Anfrage wurde lokal erfasst. Die echte Formularanbindung wird noch
+              eingerichtet. Bitte senden Sie dringende Anfragen zusätzlich per E-Mail.
+            </p>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  return (
+    <div className="flex flex-col gap-8">
+      <div>
+        <h1 className="text-2xl md:text-3xl font-bold text-foreground text-balance leading-tight mb-3">
+          Signalcheck anfragen
+        </h1>
+        <p className="text-base text-muted-foreground leading-relaxed">
+          Senden Sie Website, Ort und Anliegen. Wir prüfen den passenden Einstieg und melden uns
+          mit einer technischen Ersteinschätzung.
+        </p>
+      </div>
+
+      {/* Pending form notice */}
+      <div className="flex items-start gap-3 bg-muted/50 border border-border rounded-xl p-4">
+        <Info className="w-4 h-4 text-muted-foreground shrink-0 mt-0.5" aria-hidden="true" />
+        <p className="text-sm text-muted-foreground leading-relaxed">
+          Direkte Kontaktdaten werden final ergänzt. Bis zur Formularanbindung nutzen Sie bitte
+          den vereinbarten Kontaktweg.
+        </p>
+      </div>
+
+      <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+        <div>
+          <label className="block text-sm font-medium text-foreground mb-1" htmlFor="name">
+            Name <span className="text-destructive">*</span>
+          </label>
+          <Input
+            id="name"
+            name="name"
+            placeholder="Ihr Name"
+            value={formData.name}
+            onChange={handleChange}
+            required
+          />
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium text-foreground mb-1" htmlFor="email">
+            E-Mail <span className="text-destructive">*</span>
+          </label>
+          <Input
+            id="email"
+            name="email"
+            type="email"
+            placeholder="ihre@email.de"
+            value={formData.email}
+            onChange={handleChange}
+            required
+          />
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium text-foreground mb-1" htmlFor="company">
+            Unternehmen
+          </label>
+          <Input
+            id="company"
+            name="company"
+            placeholder="Name des Unternehmens"
+            value={formData.company}
+            onChange={handleChange}
+          />
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium text-foreground mb-1" htmlFor="website">
+            Website
+          </label>
+          <Input
+            id="website"
+            name="website"
+            placeholder="z. B. beispiel.de"
+            value={formData.website}
+            onChange={handleChange}
+          />
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium text-foreground mb-1" htmlFor="location">
+            Ort
+          </label>
+          <Input
+            id="location"
+            name="location"
+            placeholder="z. B. Lübeck"
+            value={formData.location}
+            onChange={handleChange}
+          />
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium text-foreground mb-1" htmlFor="topic">
+            Thema
+          </label>
+          <select
+            id="topic"
+            name="topic"
+            value={formData.topic}
+            onChange={handleChange}
+            className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-ring"
+          >
+            <option value="">Thema auswählen</option>
+            {topics.map((t) => (
+              <option key={t} value={t}>
+                {t}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium text-foreground mb-1" htmlFor="message">
+            Nachricht (optional)
+          </label>
+          <Textarea
+            id="message"
+            name="message"
+            placeholder="Weitere Informationen..."
+            value={formData.message}
+            onChange={handleChange}
+            rows={3}
+          />
+        </div>
+
+        <p className="text-xs text-muted-foreground border-t pt-3">
+          Unsere Rückmeldung liefert technische Hinweise und Prioritäten. Sie ersetzt keine
+          Rechtsberatung und keine behördliche Zertifizierung.
+        </p>
+
+        <Button
+          type="submit"
+          size="lg"
+          className="w-full bg-primary text-primary-foreground hover:bg-primary/90"
+        >
+          Anfrage senden
+        </Button>
+      </form>
+    </div>
+  )
+}
+
+export default function KontaktPage() {
   return (
     <>
       <Header />
       <main className="min-h-screen bg-background">
         <section className="py-14 md:py-20">
           <div className="max-w-xl mx-auto px-4 sm:px-6 lg:px-8">
-            {submitted ? (
-              <div className="flex flex-col gap-4 py-10">
-                <div className="flex items-start gap-3 rounded-xl border border-border bg-card p-4">
-                  <CheckCircle2 className="w-5 h-5 text-accent shrink-0 mt-0.5" aria-hidden="true" />
-                  <p className="text-sm text-foreground leading-relaxed">
-                    Danke. Dies ist aktuell eine Formularvorschau. Bitte senden Sie Ihre Anfrage
-                    zusätzlich per E-Mail, bis die Formularanbindung aktiviert ist.
-                  </p>
-                </div>
-                <p className="text-xs text-muted-foreground">
-                  Hinweis: Die Formularanbindung wird noch eingerichtet.
-                </p>
-              </div>
-            ) : (
-              <div className="flex flex-col gap-8">
-                <div>
-                  <h1 className="text-3xl md:text-4xl font-bold text-foreground text-balance leading-tight mb-3">
-                    Schnellcheck starten
-                  </h1>
-                  <p className="text-base text-muted-foreground leading-relaxed">
-                    Senden Sie Website, Ort und Thema. Wir prüfen, welcher Einstieg sinnvoll ist:
-                    Sichtbarkeit, Technik, KI oder monatlicher Audit-Check.
-                  </p>
-                </div>
-
-                {/* Direct contact options */}
-                <div className="flex flex-col gap-3">
-                  <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">
-                    Direkt kontaktieren
-                  </p>
-                  <div className="grid sm:grid-cols-2 gap-3">
-                    <a
-                      href="mailto:TODO@datenpflegenord.de"
-                      className="flex items-center gap-3 rounded-xl border border-border bg-card px-4 py-3.5 hover:border-accent/40 transition-colors"
-                    >
-                      <Mail className="w-4 h-4 text-accent shrink-0" aria-hidden="true" />
-                      <div className="flex flex-col gap-0.5">
-                        <span className="text-xs text-muted-foreground">E-Mail</span>
-                        <span className="text-sm font-medium text-foreground">
-                          TODO@datenpflegenord.de
-                        </span>
-                      </div>
-                    </a>
-                    <div className="flex items-center gap-3 rounded-xl border border-border bg-card px-4 py-3.5">
-                      <Phone className="w-4 h-4 text-accent shrink-0" aria-hidden="true" />
-                      <div className="flex flex-col gap-0.5">
-                        <span className="text-xs text-muted-foreground">Telefon</span>
-                        <span className="text-sm font-medium text-foreground">
-                          TODO
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="rounded-xl border border-border bg-card px-4 py-3 text-sm text-muted-foreground">
-                  Die Formularanbindung wird noch eingerichtet. Bis dahin bitte direkt per
-                  E-Mail kontaktieren.
-                </div>
-
-                <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-                  <div>
-                    <label className="block text-sm font-medium text-foreground mb-1" htmlFor="name">
-                      Name <span className="text-destructive">*</span>
-                    </label>
-                    <Input
-                      id="name"
-                      name="name"
-                      placeholder="Ihr Name"
-                      value={formData.name}
-                      onChange={handleChange}
-                      required
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-foreground mb-1" htmlFor="email">
-                      E-Mail <span className="text-destructive">*</span>
-                    </label>
-                    <Input
-                      id="email"
-                      name="email"
-                      type="email"
-                      placeholder="ihre@email.de"
-                      value={formData.email}
-                      onChange={handleChange}
-                      required
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-foreground mb-1" htmlFor="company">
-                      Unternehmen
-                    </label>
-                    <Input
-                      id="company"
-                      name="company"
-                      placeholder="Name des Unternehmens"
-                      value={formData.company}
-                      onChange={handleChange}
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-foreground mb-1" htmlFor="website">
-                      Website
-                    </label>
-                    <Input
-                      id="website"
-                      name="website"
-                      placeholder="z. B. beispiel.de"
-                      value={formData.website}
-                      onChange={handleChange}
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-foreground mb-1" htmlFor="location">
-                      Ort
-                    </label>
-                    <Input
-                      id="location"
-                      name="location"
-                      placeholder="z. B. Lübeck"
-                      value={formData.location}
-                      onChange={handleChange}
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-foreground mb-1" htmlFor="topic">
-                      Thema
-                    </label>
-                    <select
-                      id="topic"
-                      name="topic"
-                      value={formData.topic}
-                      onChange={handleChange}
-                      className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-ring"
-                    >
-                      <option value="">Thema auswählen</option>
-                      {topics.map((t) => (
-                        <option key={t} value={t}>{t}</option>
-                      ))}
-                    </select>
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-foreground mb-1" htmlFor="message">
-                      Nachricht (optional)
-                    </label>
-                    <Textarea
-                      id="message"
-                      name="message"
-                      placeholder="Weitere Informationen..."
-                      value={formData.message}
-                      onChange={handleChange}
-                      rows={3}
-                    />
-                  </div>
-
-                  <p className="text-xs text-muted-foreground border-t pt-3">
-                    Keine Rechtsberatung. Keine Steuerberatung. Keine behördliche Zertifizierung.
-                  </p>
-
-                  <Button
-                    type="submit"
-                    size="lg"
-                    className="w-full bg-primary text-primary-foreground hover:bg-primary/90"
-                  >
-                    Anfrage senden
-                  </Button>
-                </form>
-              </div>
-            )}
+            <Suspense fallback={<div className="h-96 animate-pulse bg-muted rounded-2xl" />}>
+              <KontaktForm />
+            </Suspense>
           </div>
         </section>
       </main>
