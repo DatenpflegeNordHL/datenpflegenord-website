@@ -8,12 +8,11 @@ import { Logo } from "@/components/logo"
 import { Menu, X } from "lucide-react"
 
 const navLinks = [
-  { label: "Sichtbarkeits-Check", href: "/sichtbarkeits-check" },
-  { label: "Technischer Web-Check", href: "/technischer-web-check" },
-  { label: "KI-Lösungen", href: "/ki-loesungen" },
-  { label: "Audit-Check", href: "/monatlicher-audit-check" },
-  { label: "Portal", href: "/portal" },
+  { label: "Quickcheck", href: "/kontakt" },
+  { label: "Leistungen", href: "/leistungen" },
   { label: "Branchen", href: "/branchen" },
+  { label: "Monitoring", href: "/monitoring" },
+  { label: "Über uns", href: "/ueber-uns" },
   { label: "Kontakt", href: "/kontakt" },
 ]
 
@@ -51,7 +50,7 @@ export function Header() {
             {/* Desktop CTA */}
             <div className="hidden lg:flex items-center">
               <Button asChild size="sm" className="bg-primary text-primary-foreground hover:bg-primary/90">
-                <Link href="/kontakt">Schnellcheck starten</Link>
+                <Link href="/kontakt">Signalcheck starten</Link>
               </Button>
             </div>
 
@@ -91,7 +90,7 @@ export function Header() {
               <div className="pt-3">
                 <Button asChild size="sm" className="w-full bg-primary text-primary-foreground hover:bg-primary/90">
                   <Link href="/kontakt" onClick={() => setMobileOpen(false)}>
-                    Schnellcheck starten
+                    Signalcheck starten
                   </Link>
                 </Button>
               </div>
@@ -103,7 +102,7 @@ export function Header() {
       {/* Sticky mobile CTA bar */}
       <div className="lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-background border-t border-border px-4 py-3">
         <Button asChild size="sm" className="w-full bg-primary text-primary-foreground hover:bg-primary/90">
-          <Link href="/kontakt">Schnellcheck starten</Link>
+          <Link href="/kontakt">Signalcheck starten</Link>
         </Button>
       </div>
     </>
