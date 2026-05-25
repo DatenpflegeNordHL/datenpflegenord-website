@@ -15,7 +15,7 @@ export default function UeberUnsPage() {
               Über uns
             </h1>
             <p className="text-base text-muted-foreground leading-relaxed mb-8">
-              DatenpflegeNord ist ein technisches Dienstleistungsbüro aus Hamburg. Wir prüfen
+              DatenpflegeNord ist ein technisches Prüf- und Umsetzungsbüro für kleine Unternehmen in Schleswig-Holstein. Wir prüfen
               digitale Pflichtstellen, Barrierefreiheits-Signale und Büroprozesse – mit klaren
               Prioritäten und ohne Rechtsberatungsversprechen.
             </p>
