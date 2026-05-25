@@ -8,7 +8,7 @@ import { Logo } from "@/components/logo"
 import { Menu, X } from "lucide-react"
 
 const navLinks = [
-  { label: "Quickcheck", href: "/kontakt" },
+  { label: "Quickcheck", href: "/kontakt?anliegen=quickcheck" },
   { label: "Leistungen", href: "/leistungen" },
   { label: "Branchen", href: "/branchen" },
   { label: "Monitoring", href: "/monitoring" },
