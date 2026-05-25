@@ -8,7 +8,7 @@ import type { ServiceStatus } from "@/content/services"
 const statusLabels: Record<ServiceStatus, string> = {
   entry: "Einstieg",
   recommended: "Empfohlen",
-  custom: "Individual",
+  custom: "Individuell",
   monitoring: "Monitoring",
 }
 
