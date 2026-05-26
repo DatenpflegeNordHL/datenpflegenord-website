@@ -1,28 +1,9 @@
-import type { Metadata } from "next"
 import Link from "next/link"
+import { ArrowRight, CheckCircle2, Info } from "lucide-react"
+import { Button } from "@/components/ui/button"
 import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
-import { Button } from "@/components/ui/button"
-import { ArrowRight } from "lucide-react"
-
-export const metadata: Metadata = {
-  title: "Branchen | DatenpflegeNord",
-  description:
-    "DatenpflegeNord arbeitet mit lokalen Unternehmen in Schleswig-Holstein: Hotels, Restaurants, Handwerker, Pflegedienste und viele mehr.",
-}
-
-const branchen = [
-  { name: "Hotels & Ferienwohnungen", text: "Sichtbarkeit bei Google, Bewertungsmanagement und technischer Website-Check." },
-  { name: "Restaurants & Cafés", text: "Google-Profil optimieren, Speisekarte einbinden, lokale SEO stärken." },
-  { name: "Handwerker", text: "Anfragewege prüfen, Website-Technik verbessern, Angebotsprozesse vereinfachen." },
-  { name: "Kosmetik & Friseure", text: "Online-Buchungen, Google-Bewertungen und lokale Auffindbarkeit verbessern." },
-  { name: "Pflegedienste", text: "Datenschutz-Basis prüfen, Kontaktprozesse und BFSG-Relevanz klären." },
-  { name: "Fahrschulen", text: "Website-Technik, Google-Sichtbarkeit und Anmeldeformulare prüfen." },
-  { name: "Autohäuser", text: "Sichtbarkeit für Modelle und Standort, technische Website-Prüfung." },
-  { name: "Lokale Shops", text: "Google Shopping, lokale SEO und Ladezeiten verbessern." },
-  { name: "Fitnessstudios", text: "Google-Profil, Bewertungen und Online-Buchungsprozesse optimieren." },
-  { name: "Hausverwaltungen", text: "Datenschutz-Basis, BFSG-Relevanz und digitale Prozesse prüfen." },
-]
+import { industries } from "@/content/industries"
 
 export default function BranchenPage() {
   return (
@@ -30,35 +11,66 @@ export default function BranchenPage() {
       <Header />
       <main className="min-h-screen bg-background">
         <section className="py-14 md:py-20">
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex flex-col gap-8">
-              <div className="max-w-2xl">
-                <h1 className="text-3xl md:text-4xl font-bold text-foreground text-balance leading-tight mb-4">
-                  Für lokale Unternehmen in Schleswig-Holstein
-                </h1>
-                <p className="text-lg text-muted-foreground leading-relaxed">
-                  Wir kennen die Anforderungen lokaler Betriebe — und helfen dabei, online
-                  besser gefunden zu werden und Prozesse effizienter aufzustellen.
-                </p>
-              </div>
-
-              <div className="grid sm:grid-cols-2 gap-4">
-                {branchen.map((b) => (
-                  <div key={b.name} className="bg-card border border-border rounded-xl p-5 flex flex-col gap-2">
-                    <p className="text-sm font-semibold text-foreground">{b.name}</p>
-                    <p className="text-sm text-muted-foreground leading-relaxed">{b.text}</p>
-                  </div>
-                ))}
-              </div>
-
-              <div className="pt-2">
-                <Button asChild size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90">
-                  <Link href="/kontakt" className="flex items-center gap-2">
-                    Schnellcheck starten <ArrowRight className="w-4 h-4" />
-                  </Link>
-                </Button>
-              </div>
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="max-w-2xl mb-10">
+              <h1 className="text-2xl md:text-3xl font-bold text-foreground text-balance leading-tight mb-3">
+                Branchen, für die DatenpflegeNord prüft
+              </h1>
+              <p className="text-base text-muted-foreground leading-relaxed">
+                Wir helfen kleinen Unternehmen in Schleswig-Holstein, digitale Pflichtstellen,
+                Website-Technik und Büroprozesse verständlich zu sortieren.
+              </p>
             </div>
+
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5 mb-10">
+              {industries.map((industry) => (
+                <div
+                  key={industry.slug}
+                  className="bg-card border border-border rounded-2xl p-6 flex flex-col gap-4"
+                >
+                  <div>
+                    <h2 className="font-bold text-foreground mb-1.5 text-balance">
+                      {industry.title}
+                    </h2>
+                    <p className="text-sm text-muted-foreground leading-relaxed">
+                      {industry.description}
+                    </p>
+                  </div>
+
+                  <ul className="flex flex-col gap-1.5">
+                    {industry.typicalChallenges.slice(0, 3).map((challenge) => (
+                      <li key={challenge} className="flex items-start gap-2 text-sm text-foreground">
+                        <CheckCircle2
+                          className="w-3.5 h-3.5 text-accent shrink-0 mt-0.5"
+                          aria-hidden="true"
+                        />
+                        {challenge}
+                      </li>
+                    ))}
+                  </ul>
+
+                  <Link
+                    href={`/branchen/${industry.slug}`}
+                    className="mt-auto inline-flex items-center gap-1.5 text-sm text-primary font-medium hover:underline w-fit"
+                  >
+                    Branche ansehen <ArrowRight className="w-3.5 h-3.5" aria-hidden="true" />
+                  </Link>
+                </div>
+              ))}
+            </div>
+
+            <div className="flex items-start gap-3 bg-muted/50 border border-border rounded-xl p-4 mb-8">
+              <Info className="w-4 h-4 text-muted-foreground shrink-0 mt-0.5" aria-hidden="true" />
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                Unsere Einschätzungen sind technische Hinweise und ersetzen keine Rechtsberatung.
+              </p>
+            </div>
+
+            <Button asChild size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90">
+              <Link href="/kontakt?anliegen=quickcheck" className="flex items-center gap-2">
+                Quickcheck starten <ArrowRight className="w-4 h-4" aria-hidden="true" />
+              </Link>
+            </Button>
           </div>
         </section>
       </main>
