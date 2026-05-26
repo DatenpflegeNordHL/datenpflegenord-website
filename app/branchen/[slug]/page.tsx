@@ -1,3 +1,4 @@
+import type { Metadata } from "next"
 import Link from "next/link"
 import { notFound } from "next/navigation"
 import { ArrowRight, CheckCircle2, Info } from "lucide-react"
@@ -12,6 +13,20 @@ type PageProps = {
 
 export function generateStaticParams() {
   return industries.map((industry) => ({ slug: industry.slug }))
+}
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { slug } = await params
+  try {
+    const industry = getIndustryBySlug(slug)
+    return {
+      title: industry.title,
+      description: industry.description,
+      alternates: { canonical: `https://datenpflegenord.de/branchen/${industry.slug}` },
+    }
+  } catch {
+    return {}
+  }
 }
 
 export default async function BrancheDetailPage({ params }: PageProps) {

@@ -1,4 +1,12 @@
+import type { Metadata } from "next"
 import { ServiceDetailPage } from "@/components/service-detail-page"
+
+export const metadata: Metadata = {
+  title: "BFSG-Signalcheck",
+  description:
+    "Technische Vorprüfung von BFSG- und Barrierefreiheits-Signalen für Websites, Shops und digitale Kontaktwege.",
+  alternates: { canonical: "https://datenpflegenord.de/leistungen/bfsg-signalcheck" },
+}
 import { getServiceByHref } from "@/content/services"
 import { getServiceDetailByHref } from "@/content/service-details"
 
