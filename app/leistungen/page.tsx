@@ -1,12 +1,5 @@
 import type { Metadata } from "next"
 import Link from "next/link"
-
-export const metadata: Metadata = {
-  title: "Leistungen",
-  description:
-    "BFSG-Signalcheck, Pflichten-Check, KI & Büroautomation und Audit-Monitoring für kleine Unternehmen.",
-  alternates: { canonical: "https://datenpflegenord.de/leistungen" },
-}
 import { ArrowRight, CheckCircle2 } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
@@ -14,6 +7,13 @@ import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
 import { services } from "@/content/services"
 import type { ServiceStatus } from "@/content/services"
+
+export const metadata: Metadata = {
+  title: "Leistungen",
+  description:
+    "BFSG-Signalcheck, Pflichten-Check, KI & Büroautomation und Audit-Monitoring für kleine Unternehmen.",
+  alternates: { canonical: "https://datenpflegenord.de/leistungen" },
+}
 
 const statusLabels: Record<ServiceStatus, string> = {
   entry: "Einstieg",

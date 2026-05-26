@@ -1,5 +1,9 @@
 import type { Metadata } from "next"
 import Link from "next/link"
+import { ArrowRight, Globe, ScanSearch, ListOrdered, Info } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { Header } from "@/components/header"
+import { Footer } from "@/components/footer"
 
 export const metadata: Metadata = {
   title: "Quickcheck starten",
@@ -7,10 +11,6 @@ export const metadata: Metadata = {
     "Website, Ort und Anliegen einreichen und den passenden technischen Einstieg für DatenpflegeNord prüfen lassen.",
   alternates: { canonical: "https://datenpflegenord.de/quickcheck" },
 }
-import { ArrowRight, Globe, ScanSearch, ListOrdered, Info } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Header } from "@/components/header"
-import { Footer } from "@/components/footer"
 
 const steps = [
   {

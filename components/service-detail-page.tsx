@@ -17,6 +17,13 @@ import { Footer } from "@/components/footer"
 import type { Service, ServiceStatus } from "@/content/services"
 import type { ServiceDetailContent } from "@/content/service-details"
 
+const contactHrefMap: Record<string, string> = {
+  "/leistungen/bfsg-signalcheck": "/kontakt?anliegen=signalcheck",
+  "/leistungen/pflichten-check": "/kontakt?angebot=pflichten-check",
+  "/leistungen/ki-bueroautomation": "/kontakt?angebot=ki-bueroautomation",
+  "/monitoring": "/kontakt?angebot=monitoring",
+}
+
 const statusLabels: Record<ServiceStatus, string> = {
   entry: "Einstieg",
   recommended: "Empfohlen",
@@ -70,7 +77,8 @@ function BulletList({ items }: { items: string[] }) {
 }
 
 export function ServiceDetailPage({ service, details }: ServiceDetailPageProps) {
-  const { icon: Icon, title, description, price, status } = service
+  const { icon: Icon, title, description, price, status, href } = service
+  const contactHref = contactHrefMap[href] ?? "/kontakt"
 
   return (
     <>
@@ -192,7 +200,7 @@ export function ServiceDetailPage({ service, details }: ServiceDetailPageProps) 
 
             {/* CTA */}
             <Button asChild size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 w-fit">
-              <Link href="/kontakt" className="flex items-center gap-2">
+              <Link href={contactHref} className="flex items-center gap-2">
                 Jetzt anfragen <ArrowRight className="w-4 h-4" aria-hidden="true" />
               </Link>
             </Button>
