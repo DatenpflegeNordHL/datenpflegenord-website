@@ -3,6 +3,7 @@ import { Header } from "@/components/header"
 import { HeroSection } from "@/components/hero-section"
 import { ProblemsSection } from "@/components/problems-section"
 import { ServiceCardsSection } from "@/components/service-cards-section"
+import { ProcessJourneySection } from "@/components/process-journey-section"
 import { ComplianceTopicsSection } from "@/components/compliance-topics-section"
 import { SampleAuditPreview } from "@/components/sample-audit-preview"
 import { ComparisonSection } from "@/components/comparison-section"
@@ -25,6 +26,7 @@ export default function HomePage() {
       <HeroSection />
       <ProblemsSection />
       <ServiceCardsSection />
+      <ProcessJourneySection />
       <StepsSection />
       <PortalTeaserSection />
       <SampleAuditPreview />
