@@ -25,11 +25,11 @@ export default function HomePage() {
       <HeroSection />
       <ProblemsSection />
       <ServiceCardsSection />
-      <ComplianceTopicsSection />
-      <SampleAuditPreview />
-      <ComparisonSection />
       <StepsSection />
       <PortalTeaserSection />
+      <SampleAuditPreview />
+      <ComparisonSection />
+      <ComplianceTopicsSection />
       <BranchenRegionCtaSection />
       <Footer />
     </main>
