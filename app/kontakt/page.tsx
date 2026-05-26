@@ -7,32 +7,18 @@ import { Footer } from "@/components/footer"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
-import { CheckCircle2, Info } from "lucide-react"
+import { CheckCircle2, Info, AlertCircle, Loader2 } from "lucide-react"
+import { contactTopics, resolveInitialTopic } from "@/content/contact-topics"
 
-const topics = [
-  "Quickcheck / erste Einordnung",
-  "BFSG-Signalcheck",
-  "Pflichten-Check",
-  "KI & Büroautomation",
-  "Audit-Monitoring",
-  "Sonstiges",
-]
+type FormState =
+  | { status: "idle" }
+  | { status: "loading" }
+  | { status: "success" }
+  | { status: "error"; errors: Record<string, string> }
 
-const anliegenMap: Record<string, string> = {
-  quickcheck: "Quickcheck / erste Einordnung",
-  signalcheck: "BFSG-Signalcheck",
-}
-
-const angebotMap: Record<string, string> = {
-  "pflichten-check": "Pflichten-Check",
-  "ki-bueroautomation": "KI & Büroautomation",
-  monitoring: "Audit-Monitoring",
-}
-
-function resolveInitialTopic(anliegen: string | null, angebot: string | null): string {
-  if (anliegen && anliegenMap[anliegen]) return anliegenMap[anliegen]
-  if (angebot && angebotMap[angebot]) return angebotMap[angebot]
-  return ""
+function FieldError({ message }: { message?: string }) {
+  if (!message) return null
+  return <p className="text-xs text-destructive mt-1">{message}</p>
 }
 
 function KontaktForm() {
@@ -50,8 +36,9 @@ function KontaktForm() {
     location: "",
     topic: initialTopic,
     message: "",
+    websiteUrl: "", // honeypot
   })
-  const [submitted, setSubmitted] = useState(false)
+  const [formState, setFormState] = useState<FormState>({ status: "idle" })
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
@@ -60,20 +47,45 @@ function KontaktForm() {
     setFormData((prev) => ({ ...prev, [name]: value }))
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    setSubmitted(true)
+    setFormState({ status: "loading" })
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      })
+      const data = await res.json()
+
+      if (data.ok) {
+        setFormState({ status: "success" })
+      } else {
+        setFormState({
+          status: "error",
+          errors: data.errors ?? { _form: "Bitte prüfen Sie die Angaben und versuchen Sie es erneut." },
+        })
+      }
+    } catch {
+      setFormState({
+        status: "error",
+        errors: { _form: "Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut." },
+      })
+    }
   }
 
-  if (submitted) {
+  const errors = formState.status === "error" ? formState.errors : {}
+
+  if (formState.status === "success") {
     return (
       <div className="flex flex-col gap-4 py-10">
         <div className="flex items-start gap-3 rounded-xl border border-border bg-card p-5">
           <CheckCircle2 className="w-5 h-5 text-accent shrink-0 mt-0.5" aria-hidden="true" />
           <div className="flex flex-col gap-1">
-            <p className="text-sm font-semibold text-foreground">Danke. Anfrage erfasst.</p>
+            <p className="text-sm font-semibold text-foreground">Danke. Anfrage angenommen.</p>
             <p className="text-sm text-muted-foreground leading-relaxed">
-              Ihre Anfrage wurde lokal erfasst. Die echte Formularanbindung wird noch
+              Danke. Ihre Anfrage wurde technisch angenommen. Die finale Zustellung wird aktuell
               eingerichtet. Für dringende Anliegen nutzen Sie bitte den vereinbarten Kontaktweg.
             </p>
           </div>
@@ -81,6 +93,8 @@ function KontaktForm() {
       </div>
     )
   }
+
+  const isLoading = formState.status === "loading"
 
   return (
     <div className="flex flex-col gap-8">
@@ -94,16 +108,28 @@ function KontaktForm() {
         </p>
       </div>
 
-      {/* Pending form notice */}
-      <div className="flex items-start gap-3 bg-muted/50 border border-border rounded-xl p-4">
-        <Info className="w-4 h-4 text-muted-foreground shrink-0 mt-0.5" aria-hidden="true" />
-        <p className="text-sm text-muted-foreground leading-relaxed">
-          Direkte Kontaktdaten werden final ergänzt. Bis zur Formularanbindung nutzen Sie bitte
-          den vereinbarten Kontaktweg.
-        </p>
-      </div>
+      {errors._form && (
+        <div className="flex items-start gap-3 bg-destructive/5 border border-destructive/20 rounded-xl p-4">
+          <AlertCircle className="w-4 h-4 text-destructive shrink-0 mt-0.5" aria-hidden="true" />
+          <p className="text-sm text-destructive leading-relaxed">{errors._form}</p>
+        </div>
+      )}
 
-      <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+      <form onSubmit={handleSubmit} className="flex flex-col gap-4" noValidate>
+        {/* Honeypot – hidden from real users */}
+        <div aria-hidden="true" className="hidden">
+          <label htmlFor="websiteUrl">Website URL</label>
+          <input
+            id="websiteUrl"
+            name="websiteUrl"
+            type="text"
+            tabIndex={-1}
+            autoComplete="off"
+            value={formData.websiteUrl}
+            onChange={handleChange}
+          />
+        </div>
+
         <div>
           <label className="block text-sm font-medium text-foreground mb-1" htmlFor="name">
             Name <span className="text-destructive">*</span>
@@ -114,8 +140,10 @@ function KontaktForm() {
             placeholder="Ihr Name"
             value={formData.name}
             onChange={handleChange}
+            aria-describedby={errors.name ? "name-error" : undefined}
             required
           />
+          <FieldError message={errors.name} />
         </div>
 
         <div>
@@ -129,8 +157,10 @@ function KontaktForm() {
             placeholder="ihre@email.de"
             value={formData.email}
             onChange={handleChange}
+            aria-describedby={errors.email ? "email-error" : undefined}
             required
           />
+          <FieldError message={errors.email} />
         </div>
 
         <div>
@@ -144,6 +174,7 @@ function KontaktForm() {
             value={formData.company}
             onChange={handleChange}
           />
+          <FieldError message={errors.company} />
         </div>
 
         <div>
@@ -157,6 +188,7 @@ function KontaktForm() {
             value={formData.website}
             onChange={handleChange}
           />
+          <FieldError message={errors.website} />
         </div>
 
         <div>
@@ -170,6 +202,7 @@ function KontaktForm() {
             value={formData.location}
             onChange={handleChange}
           />
+          <FieldError message={errors.location} />
         </div>
 
         <div>
@@ -184,12 +217,13 @@ function KontaktForm() {
             className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-ring"
           >
             <option value="">Thema auswählen</option>
-            {topics.map((t) => (
-              <option key={t} value={t}>
-                {t}
+            {contactTopics.map((t) => (
+              <option key={t.value} value={t.value}>
+                {t.label}
               </option>
             ))}
           </select>
+          <FieldError message={errors.topic} />
         </div>
 
         <div>
@@ -204,6 +238,7 @@ function KontaktForm() {
             onChange={handleChange}
             rows={3}
           />
+          <FieldError message={errors.message} />
         </div>
 
         <p className="text-xs text-muted-foreground border-t pt-3">
@@ -214,9 +249,17 @@ function KontaktForm() {
         <Button
           type="submit"
           size="lg"
+          disabled={isLoading}
           className="w-full bg-primary text-primary-foreground hover:bg-primary/90"
         >
-          Anfrage senden
+          {isLoading ? (
+            <span className="flex items-center gap-2">
+              <Loader2 className="w-4 h-4 animate-spin" aria-hidden="true" />
+              Wird gesendet…
+            </span>
+          ) : (
+            "Anfrage senden"
+          )}
         </Button>
       </form>
     </div>
