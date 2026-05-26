@@ -16,9 +16,13 @@ type FormState =
   | { status: "success" }
   | { status: "error"; errors: Record<string, string> }
 
-function FieldError({ message }: { message?: string }) {
+function FieldError({ id, message }: { id: string; message?: string }) {
   if (!message) return null
-  return <p className="text-xs text-destructive mt-1">{message}</p>
+  return (
+    <p id={id} className="text-xs text-destructive mt-1">
+      {message}
+    </p>
+  )
 }
 
 function KontaktForm() {
@@ -143,7 +147,7 @@ function KontaktForm() {
             aria-describedby={errors.name ? "name-error" : undefined}
             required
           />
-          <FieldError message={errors.name} />
+          <FieldError id="name-error" message={errors.name} />
         </div>
 
         <div>
@@ -160,7 +164,7 @@ function KontaktForm() {
             aria-describedby={errors.email ? "email-error" : undefined}
             required
           />
-          <FieldError message={errors.email} />
+          <FieldError id="email-error" message={errors.email} />
         </div>
 
         <div>
@@ -173,8 +177,9 @@ function KontaktForm() {
             placeholder="Name des Unternehmens"
             value={formData.company}
             onChange={handleChange}
+            aria-describedby={errors.company ? "company-error" : undefined}
           />
-          <FieldError message={errors.company} />
+          <FieldError id="company-error" message={errors.company} />
         </div>
 
         <div>
@@ -187,8 +192,9 @@ function KontaktForm() {
             placeholder="z. B. beispiel.de"
             value={formData.website}
             onChange={handleChange}
+            aria-describedby={errors.website ? "website-error" : undefined}
           />
-          <FieldError message={errors.website} />
+          <FieldError id="website-error" message={errors.website} />
         </div>
 
         <div>
@@ -201,8 +207,9 @@ function KontaktForm() {
             placeholder="z. B. Lübeck"
             value={formData.location}
             onChange={handleChange}
+            aria-describedby={errors.location ? "location-error" : undefined}
           />
-          <FieldError message={errors.location} />
+          <FieldError id="location-error" message={errors.location} />
         </div>
 
         <div>
@@ -214,6 +221,7 @@ function KontaktForm() {
             name="topic"
             value={formData.topic}
             onChange={handleChange}
+            aria-describedby={errors.topic ? "topic-error" : undefined}
             className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-ring"
           >
             <option value="">Thema auswählen</option>
@@ -223,7 +231,7 @@ function KontaktForm() {
               </option>
             ))}
           </select>
-          <FieldError message={errors.topic} />
+          <FieldError id="topic-error" message={errors.topic} />
         </div>
 
         <div>
@@ -237,8 +245,9 @@ function KontaktForm() {
             value={formData.message}
             onChange={handleChange}
             rows={3}
+            aria-describedby={errors.message ? "message-error" : undefined}
           />
-          <FieldError message={errors.message} />
+          <FieldError id="message-error" message={errors.message} />
         </div>
 
         <p className="text-xs text-muted-foreground border-t pt-3">
