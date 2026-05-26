@@ -87,10 +87,11 @@ function KontaktForm() {
         <div className="flex items-start gap-3 rounded-xl border border-border bg-card p-5">
           <CheckCircle2 className="w-5 h-5 text-accent shrink-0 mt-0.5" aria-hidden="true" />
           <div className="flex flex-col gap-1">
-            <p className="text-sm font-semibold text-foreground">Danke. Anfrage angenommen.</p>
+            <p className="text-sm font-semibold text-foreground">Danke. Anfrage technisch geprüft.</p>
             <p className="text-sm text-muted-foreground leading-relaxed">
-              Danke. Ihre Anfrage wurde technisch angenommen. Die finale Zustellung wird aktuell
-              eingerichtet. Für dringende Anliegen nutzen Sie bitte den vereinbarten Kontaktweg.
+              Ihre Angaben wurden technisch geprüft. Die finale Zustellung wird nach
+              Anbieter-Anbindung aktiviert. Für dringende Anliegen nutzen Sie bitte den
+              vereinbarten Kontaktweg.
             </p>
           </div>
         </div>
