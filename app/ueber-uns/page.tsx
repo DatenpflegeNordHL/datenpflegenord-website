@@ -1,4 +1,12 @@
+import type { Metadata } from "next"
 import Link from "next/link"
+
+export const metadata: Metadata = {
+  title: "Über uns",
+  description:
+    "DatenpflegeNord ist ein technisches Prüf- und Umsetzungsbüro für kleine Unternehmen in Schleswig-Holstein.",
+  alternates: { canonical: "https://datenpflegenord.de/ueber-uns" },
+}
 import { ArrowRight, Info, Search, ListOrdered, Wrench } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Header } from "@/components/header"

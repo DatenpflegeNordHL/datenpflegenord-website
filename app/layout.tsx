@@ -10,11 +10,54 @@ const inter = Inter({
 })
 
 export const metadata: Metadata = {
-  title: 'DatenpflegeNord | Website, Sichtbarkeit und KI für Schleswig-Holstein',
+  metadataBase: new URL('https://datenpflegenord.de'),
+  title: {
+    default: 'DatenpflegeNord – Website-Checks und KI-Systeme für KMU',
+    template: '%s | DatenpflegeNord',
+  },
   description:
-    'DatenpflegeNord hilft Unternehmen in Schleswig-Holstein mit Sichtbarkeits-Check, technischem Web-Check, KI-Lösungen und monatlichem Audit-Check.',
-  generator: 'v0.app',
-  keywords: 'Sichtbarkeits-Check, technischer Web-Check, KI-Lösungen, monatlicher Audit-Check, Website Schleswig-Holstein, Google Sichtbarkeit, BFSG, Barrierefreiheit, KI Büroprozesse, Lübeck, Kiel, Flensburg',
+    'Technische Website-Checks, digitale Pflichtstellen und KI-gestützte Büroautomation für kleine Unternehmen in Schleswig-Holstein.',
+  applicationName: 'DatenpflegeNord',
+  creator: 'DatenpflegeNord',
+  publisher: 'DatenpflegeNord',
+  keywords: [
+    'BFSG-Signalcheck',
+    'Pflichten-Check',
+    'KI Büroautomation',
+    'Website-Check',
+    'digitale Pflichtstellen',
+    'Schleswig-Holstein',
+    'KMU',
+    'Barrierefreiheit',
+    'E-Rechnung',
+    'Audit-Monitoring',
+  ],
+  robots: {
+    index: true,
+    follow: true,
+  },
+  openGraph: {
+    type: 'website',
+    locale: 'de_DE',
+    siteName: 'DatenpflegeNord',
+    url: 'https://datenpflegenord.de',
+    title: 'DatenpflegeNord – Website-Checks und KI-Systeme für KMU',
+    description:
+      'Technische Website-Checks, digitale Pflichtstellen und KI-gestützte Büroautomation für kleine Unternehmen in Schleswig-Holstein.',
+    images: [
+      {
+        url: '/logo.png',
+        alt: 'DatenpflegeNord',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'DatenpflegeNord – Website-Checks und KI-Systeme für KMU',
+    description:
+      'Technische Website-Checks, digitale Pflichtstellen und KI-gestützte Büroautomation für kleine Unternehmen in Schleswig-Holstein.',
+    images: ['/logo.png'],
+  },
 }
 
 export const viewport = {

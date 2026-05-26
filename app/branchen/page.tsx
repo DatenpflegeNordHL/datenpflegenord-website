@@ -1,4 +1,12 @@
+import type { Metadata } from "next"
 import Link from "next/link"
+
+export const metadata: Metadata = {
+  title: "Branchen",
+  description:
+    "Technische Prüfungen für Handwerk, Onlinehandel, Pflege, Tourismus und Dienstleister in Schleswig-Holstein.",
+  alternates: { canonical: "https://datenpflegenord.de/branchen" },
+}
 import { ArrowRight, CheckCircle2, Info } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Header } from "@/components/header"
