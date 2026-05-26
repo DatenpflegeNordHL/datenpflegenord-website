@@ -26,7 +26,7 @@ export function Header() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
-            <Link href="/" className="flex items-center shrink-0">
+            <Link href="/" className="flex items-center shrink-0" aria-label="DatenpflegeNord – zur Startseite">
               <Logo variant="header" showLabel={true} />
             </Link>
 
@@ -60,6 +60,7 @@ export function Header() {
               onClick={() => setMobileOpen(!mobileOpen)}
               aria-label={mobileOpen ? "Menü schließen" : "Menü öffnen"}
               aria-expanded={mobileOpen}
+              aria-controls="mobile-nav"
             >
               {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
@@ -70,6 +71,7 @@ export function Header() {
         {mobileOpen && (
           <div className="lg:hidden border-t border-border bg-background">
             <nav
+              id="mobile-nav"
               className="max-w-7xl mx-auto px-4 py-4 flex flex-col gap-1"
               aria-label="Mobile Navigation"
             >

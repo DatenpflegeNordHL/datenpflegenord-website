@@ -1,5 +1,7 @@
 import type { Metadata } from "next"
 import { ServiceDetailPage } from "@/components/service-detail-page"
+import { getServiceByHref } from "@/content/services"
+import { getServiceDetailByHref } from "@/content/service-details"
 
 export const metadata: Metadata = {
   title: "Audit-Monitoring",
@@ -7,8 +9,6 @@ export const metadata: Metadata = {
     "Regelmäßige technische Wiederholprüfungen für Website-Status, Pflichtstellen und offene Aufgaben.",
   alternates: { canonical: "https://datenpflegenord.de/monitoring" },
 }
-import { getServiceByHref } from "@/content/services"
-import { getServiceDetailByHref } from "@/content/service-details"
 
 const href = "/monitoring"
 

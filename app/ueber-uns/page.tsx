@@ -1,5 +1,10 @@
 import type { Metadata } from "next"
 import Link from "next/link"
+import { ArrowRight, Info, Search, ListOrdered, Wrench } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { Header } from "@/components/header"
+import { Footer } from "@/components/footer"
+import { TeamSection } from "@/components/team-section"
 
 export const metadata: Metadata = {
   title: "Über uns",
@@ -7,11 +12,6 @@ export const metadata: Metadata = {
     "DatenpflegeNord ist ein technisches Prüf- und Umsetzungsbüro für kleine Unternehmen in Schleswig-Holstein.",
   alternates: { canonical: "https://datenpflegenord.de/ueber-uns" },
 }
-import { ArrowRight, Info, Search, ListOrdered, Wrench } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Header } from "@/components/header"
-import { Footer } from "@/components/footer"
-import { TeamSection } from "@/components/team-section"
 
 const pillars = [
   {
@@ -103,7 +103,7 @@ export default function UeberUnsPage() {
               </p>
             </div>
             <Button asChild size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 w-fit">
-              <Link href="/kontakt" className="flex items-center gap-2">
+              <Link href="/kontakt?anliegen=quickcheck" className="flex items-center gap-2">
                 Kontakt aufnehmen <ArrowRight className="w-4 h-4" aria-hidden="true" />
               </Link>
             </Button>
