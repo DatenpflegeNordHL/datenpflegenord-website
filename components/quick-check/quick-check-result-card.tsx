@@ -1,67 +1,85 @@
-import { ArrowRight } from "lucide-react"
+import { ArrowRight, CheckCircle2, CircleAlert, CircleHelp, SearchX } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
-import { ScanResult } from "@/lib/quick-check-types"
-import { QuickCheckScoreGrid } from "./quick-check-score-grid"
+import type { QuickCheckStatus, ScanResult } from "@/lib/quick-check-types"
 import { QuickCheckSummaryBadges } from "./quick-check-summary-badges"
 import { QuickCheckChecksList } from "./quick-check-checks-list"
-import { QuickCheckFindingsList } from "./quick-check-findings-list"
 import { QuickCheckDisclaimer } from "./quick-check-disclaimer"
 
 interface QuickCheckResultCardProps {
   result: ScanResult
 }
 
+const statusConfig: Record<
+  QuickCheckStatus,
+  { label: string; description: string; icon: React.ElementType; color: string }
+> = {
+  ok: {
+    label: "Keine direkten Auffälligkeiten",
+    description: "Der automatisierte Schnellcheck wurde abgeschlossen.",
+    icon: CheckCircle2,
+    color: "text-accent",
+  },
+  check: {
+    label: "Prüfung empfohlen",
+    description: "Der Schnellcheck sieht Punkte, die manuell geprüft werden sollten.",
+    icon: CircleAlert,
+    color: "text-amber-600",
+  },
+  missing: {
+    label: "Angaben fehlen",
+    description: "Der Schnellcheck konnte einzelne Informationen nicht finden.",
+    icon: SearchX,
+    color: "text-destructive",
+  },
+  unknown: {
+    label: "Status unklar",
+    description: "Der Schnellcheck konnte kein eindeutiges Ergebnis ableiten.",
+    icon: CircleHelp,
+    color: "text-muted-foreground",
+  },
+}
+
 export function QuickCheckResultCard({ result }: QuickCheckResultCardProps) {
   const handleCtaClick = () => {
     document.getElementById("pakete")?.scrollIntoView({ behavior: "smooth" })
   }
+  const status = statusConfig[result.status]
+  const StatusIcon = status.icon
 
   return (
     <div className="flex flex-col gap-4">
-      {/* Header: domain + summary pills */}
       <Card>
         <CardContent className="pt-5 pb-5">
-          <div className="flex flex-col gap-3">
-            <div>
+          <div className="flex items-start gap-3">
+            <StatusIcon
+              className={`w-5 h-5 shrink-0 mt-0.5 ${status.color}`}
+              aria-hidden="true"
+            />
+            <div className="min-w-0">
               <p className="text-xs text-muted-foreground mb-0.5">Geprüfte Domain</p>
-              <p className="text-sm font-semibold text-foreground truncate mb-1">
-                {result.normalizedUrl}
+              <p className="text-sm font-semibold text-foreground truncate">
+                {result.input.normalized_url}
               </p>
-              <p className="text-[11px] text-muted-foreground mb-3">
-                Scan:{" "}
-                {new Date(result.scannedAt).toLocaleString("de-DE", {
-                  day: "2-digit",
-                  month: "2-digit",
-                  year: "numeric",
-                  hour: "2-digit",
-                  minute: "2-digit",
-                })}{" "}
-                Uhr
+              <p className={`text-xs font-semibold mt-2 ${status.color}`}>{status.label}</p>
+              <p className="text-[11px] text-muted-foreground leading-relaxed">
+                {status.description}
               </p>
-              <QuickCheckSummaryBadges summary={result.summary} />
             </div>
           </div>
         </CardContent>
       </Card>
 
-      {/* Score Grid */}
       <Card>
         <CardContent className="pt-5 pb-5">
-          <QuickCheckScoreGrid score={result.score} />
+          <QuickCheckSummaryBadges summary={result.summary} />
         </CardContent>
       </Card>
 
-      {/* Four check-area cards */}
       <QuickCheckChecksList checks={result.checks} />
 
-      {/* Findings */}
-      <QuickCheckFindingsList findings={result.findings} />
-
-      {/* Disclaimer */}
       <QuickCheckDisclaimer text={result.disclaimer} />
 
-      {/* CTA */}
       <div className="flex flex-col gap-2 pt-1">
         <Button
           className="w-full bg-accent hover:bg-accent/90 text-accent-foreground font-medium"
@@ -71,8 +89,7 @@ export function QuickCheckResultCard({ result }: QuickCheckResultCardProps) {
           <ArrowRight className="ml-2 w-4 h-4" aria-hidden="true" />
         </Button>
         <p className="text-[11px] text-muted-foreground text-center leading-relaxed">
-          Manuelle Prüfung empfohlen. Automatisierte Hinweise ersetzen keine fachkundige
-          Begutachtung.
+          Manuelle Prüfung empfohlen. Automatisierte Hinweise ersetzen keine fachkundige Prüfung.
         </p>
       </div>
     </div>

@@ -1,12 +1,10 @@
-import { ScanResult } from "@/lib/quick-check-types"
-
-const DEFAULT_TIMEOUT_MS = 15000
-const MISSING_CONFIG_MESSAGE = "Schnellcheck ist aktuell noch nicht konfiguriert."
+import type { ScanResult } from "@/lib/quick-check-types"
 
 export type QuickCheckErrorCode =
   | "missing-config"
   | "timeout"
   | "api"
+  | "rate-limit"
   | "network"
   | "invalid-response"
 
@@ -22,78 +20,36 @@ export class QuickCheckError extends Error {
   }
 }
 
-function getApiBaseUrl(): string {
-  const value = process.env.NEXT_PUBLIC_NORDAUDIT_API_URL?.trim()
-  if (!value) {
-    throw new QuickCheckError("missing-config", MISSING_CONFIG_MESSAGE)
-  }
-  return value.replace(/\/+$/, "")
-}
-
 function isScanResult(value: unknown): value is ScanResult {
   if (!value || typeof value !== "object") return false
   const data = value as Partial<ScanResult>
+  const input = data.input as Partial<ScanResult["input"]> | undefined
 
   return (
-    data.status === "completed" &&
-    typeof data.inputUrl === "string" &&
-    typeof data.normalizedUrl === "string" &&
-    typeof data.scannedAt === "string" &&
-    typeof data.summary === "object" &&
-    typeof data.score === "object" &&
+    data.ok === true &&
+    typeof input === "object" &&
+    typeof input?.normalized_url === "string" &&
+    ["ok", "check", "missing", "unknown"].includes(String(data.status)) &&
     typeof data.checks === "object" &&
-    Array.isArray(data.findings) &&
+    data.checks !== null &&
+    typeof data.summary === "string" &&
     typeof data.disclaimer === "string"
   )
 }
 
 export async function quickCheck(domainOrUrl: string): Promise<ScanResult> {
-  const baseUrl = getApiBaseUrl()
-  const endpoint = `${baseUrl}/public/quick-check`
-  const controller = new AbortController()
-  const timeout = setTimeout(() => controller.abort(), DEFAULT_TIMEOUT_MS)
-
   let response: Response
   try {
-    response = await fetch(endpoint, {
+    response = await fetch("/api/quick-check", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ domain: domainOrUrl }),
-      signal: controller.signal,
+      body: JSON.stringify({ url: domainOrUrl }),
     })
-  } catch (error) {
-    if (error instanceof DOMException && error.name === "AbortError") {
-      throw new QuickCheckError(
-        "timeout",
-        "Die Prüfung hat zu lange gedauert. Bitte versuchen Sie es erneut.",
-      )
-    }
+  } catch {
     throw new QuickCheckError(
       "network",
-      "Der Schnellcheck konnte gerade nicht erreicht werden. Bitte versuchen Sie es erneut.",
+      "Dienst aktuell nicht erreichbar. Bitte versuchen Sie es später erneut.",
     )
-  } finally {
-    clearTimeout(timeout)
-  }
-
-  if (response.status === 503) {
-    throw new QuickCheckError("missing-config", MISSING_CONFIG_MESSAGE, response.status)
-  }
-
-  if (!response.ok) {
-    let apiMessage = "Die Prüfung konnte nicht abgeschlossen werden. Bitte versuchen Sie es erneut."
-    try {
-      const body = (await response.json()) as { message?: string; error?: string }
-      if (typeof body.message === "string" && body.message.trim()) {
-        apiMessage = body.message
-      } else if (typeof body.error === "string" && body.error.trim()) {
-        apiMessage = body.error
-      }
-    } catch {
-      // keep fallback message
-    }
-
-    throw new QuickCheckError("api", apiMessage, response.status)
   }
 
   let payload: unknown
@@ -105,6 +61,25 @@ export async function quickCheck(domainOrUrl: string): Promise<ScanResult> {
       "Ungültige Serverantwort beim Schnellcheck.",
       response.status,
     )
+  }
+
+  if (!response.ok) {
+    const body = payload as { error?: string; message?: string }
+    const message =
+      typeof body.message === "string" && body.message.trim()
+        ? body.message
+        : "Die Prüfung konnte nicht abgeschlossen werden. Bitte versuchen Sie es erneut."
+
+    const code: QuickCheckErrorCode =
+      response.status === 503
+        ? "missing-config"
+        : response.status === 429
+          ? "rate-limit"
+          : response.status >= 500
+            ? "network"
+            : "api"
+
+    throw new QuickCheckError(code, message, response.status)
   }
 
   if (!isScanResult(payload)) {
