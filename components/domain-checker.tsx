@@ -4,16 +4,27 @@ import { useState } from "react"
 import { Loader2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { UIState, ScanResult } from "@/lib/quick-check-types"
+import type { UIState, ScanResult } from "@/lib/quick-check-types"
 import { QuickCheckError, quickCheck } from "@/lib/nordaudit-api"
 import { QuickCheckResultCard } from "@/components/quick-check/quick-check-result-card"
 import { QuickCheckErrorState } from "@/components/quick-check/quick-check-error-state"
 import { QuickCheckLoadingState } from "@/components/quick-check/quick-check-loading-state"
 import { QuickCheckMissingConfigState } from "@/components/quick-check/quick-check-missing-config-state"
 
-function validateDomain(value: string): boolean {
-  const clean = value.replace(/^https?:\/\//, "").replace(/\/$/, "")
-  return /^(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z]{2,}$/i.test(clean)
+function validateWebsiteInput(value: string): boolean {
+  const clean = value.trim()
+  if (!clean) return false
+
+  if (/^https?:\/\//i.test(clean)) {
+    try {
+      const parsed = new URL(clean)
+      return Boolean(parsed.hostname) && parsed.hostname.includes(".")
+    } catch {
+      return false
+    }
+  }
+
+  return /^(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z]{2,}(?:\/.*)?$/i.test(clean)
 }
 
 export function DomainChecker() {
@@ -30,8 +41,8 @@ export function DomainChecker() {
       setErrorMessage("Bitte geben Sie eine Domain ein.")
       return
     }
-    if (!validateDomain(trimmed)) {
-      setErrorMessage("Ungültige Domain. Beispiel: beispiel.de")
+    if (!validateWebsiteInput(trimmed)) {
+      setErrorMessage("Ungültige Eingabe. Beispiel: beispiel.de oder https://beispiel.de")
       return
     }
 
@@ -75,14 +86,14 @@ export function DomainChecker() {
           aria-hidden="true"
         />
         <span className="text-[10px] font-semibold uppercase tracking-widest text-accent">
-          NordAudit Portal
+          Schnellcheck
         </span>
       </div>
       <p className="text-base font-semibold text-foreground mb-1">
         Website-Schnellcheck
       </p>
       <p className="text-xs text-muted-foreground mb-4 leading-relaxed">
-        Vorprüfung zu Technik, Ladezeit, Datenschutz-Hinweisen, BFSG-Relevanz und SEO.
+        Schneller technischer Vorabcheck zu Erreichbarkeit, Pflichtlinks und Basisstruktur.
       </p>
 
       {/* Input row */}
@@ -95,7 +106,7 @@ export function DomainChecker() {
           onKeyDown={handleKeyDown}
           disabled={state === "loading"}
           className="flex-1 text-sm"
-          aria-label="Domain eingeben"
+          aria-label="Website oder Domain eingeben"
         />
         <Button
           onClick={state === "result" ? handleReset : handleCheck}
@@ -123,6 +134,7 @@ export function DomainChecker() {
 
       <p className="text-[11px] text-muted-foreground leading-relaxed mb-5">
         Automatisierte Vorprüfung - keine Rechtsberatung, keine behördliche Zertifizierung.
+        Der vollständige Audit prüft tiefer.
       </p>
 
       {/* State panels */}

@@ -1,14 +1,13 @@
 import type { Metadata } from "next"
-import Link from "next/link"
-import { ArrowRight, Globe, ScanSearch, ListOrdered, Info } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import { Globe, ScanSearch, ListOrdered, Info } from "lucide-react"
 import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
+import { DomainChecker } from "@/components/domain-checker"
 
 export const metadata: Metadata = {
   title: "Quickcheck starten",
   description:
-    "Website, Ort und Anliegen einreichen und den passenden technischen Einstieg für DatenpflegeNord prüfen lassen.",
+    "Website einreichen und eine technische Ersteinschätzung für DatenpflegeNord prüfen lassen.",
   alternates: { canonical: "https://datenpflegenord.de/quickcheck" },
 }
 
@@ -17,7 +16,7 @@ const steps = [
     icon: Globe,
     title: "Website einreichen",
     description:
-      "Teilen Sie Ihre Website-URL, Ihren Ort und Ihr Anliegen. Das reicht für eine erste technische Einordnung.",
+      "Teilen Sie Ihre Website-URL oder Domain. Das reicht für eine erste technische Einordnung.",
   },
   {
     icon: ScanSearch,
@@ -47,9 +46,8 @@ export default function QuickcheckPage() {
               Quickcheck starten
             </h1>
             <p className="text-base text-muted-foreground leading-relaxed mb-10">
-              Senden Sie Website, Ort und Thema. Wir ordnen ein, welcher technische Einstieg
-              sinnvoll ist – BFSG-Signalcheck, Pflichten-Check, KI &amp; Büroautomation oder
-              Monitoring.
+              Senden Sie Ihre Website oder Domain. Der Schnellcheck liefert eine technische
+              Ersteinschätzung zu sichtbaren Signalen und möglichen nächsten Schritten.
             </p>
 
             <div className="grid md:grid-cols-3 gap-5 mb-10">
@@ -82,15 +80,9 @@ export default function QuickcheckPage() {
               </p>
             </div>
 
-            <Button
-              asChild
-              size="lg"
-              className="bg-primary text-primary-foreground hover:bg-primary/90"
-            >
-              <Link href="/kontakt?anliegen=quickcheck" className="flex items-center gap-2">
-                Anfrage vorbereiten <ArrowRight className="w-4 h-4" aria-hidden="true" />
-              </Link>
-            </Button>
+            <div className="bg-card border border-border rounded-2xl p-5 md:p-6">
+              <DomainChecker />
+            </div>
           </div>
         </section>
       </main>
