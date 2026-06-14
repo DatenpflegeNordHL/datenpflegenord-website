@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   title: "Kontakt",
   description:
     "Signalcheck anfragen: Website, Ort und Anliegen einreichen. DatenpflegeNord prüft den passenden technischen Einstieg.",
-  alternates: { canonical: "https://datenpflegenord.de/kontakt" },
+  alternates: { canonical: "https://datenpflege-nord.de/kontakt" },
 }
 
 export default function KontaktPage() {

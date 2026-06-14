@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   title: "Leistungen",
   description:
     "BFSG-Signalcheck, Pflichten-Check, KI & Büroautomation und Audit-Monitoring für kleine Unternehmen.",
-  alternates: { canonical: "https://datenpflegenord.de/leistungen" },
+  alternates: { canonical: "https://datenpflege-nord.de/leistungen" },
 }
 
 const statusLabels: Record<ServiceStatus, string> = {

@@ -6,6 +6,6 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: '*',
       allow: '/',
     },
-    sitemap: 'https://datenpflegenord.de/sitemap.xml',
+    sitemap: 'https://datenpflege-nord.de/sitemap.xml',
   }
 }

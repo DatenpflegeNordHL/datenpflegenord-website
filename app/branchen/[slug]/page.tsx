@@ -22,7 +22,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     return {
       title: industry.title,
       description: industry.description,
-      alternates: { canonical: `https://datenpflegenord.de/branchen/${industry.slug}` },
+      alternates: { canonical: `https://datenpflege-nord.de/branchen/${industry.slug}` },
     }
   } catch {
     return {}

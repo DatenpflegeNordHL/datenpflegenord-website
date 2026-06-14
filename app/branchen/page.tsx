@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   title: "Branchen",
   description:
     "Technische Prüfungen für Handwerk, Onlinehandel, Pflege, Tourismus und Dienstleister in Schleswig-Holstein.",
-  alternates: { canonical: "https://datenpflegenord.de/branchen" },
+  alternates: { canonical: "https://datenpflege-nord.de/branchen" },
 }
 
 export default function BranchenPage() {

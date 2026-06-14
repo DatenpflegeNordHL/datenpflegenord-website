@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   title: "KI & Büroautomation",
   description:
     "Pragmatische KI- und Automationsansätze für wiederkehrende Büroprozesse, Dokumente, E-Mails und Rechnungen.",
-  alternates: { canonical: "https://datenpflegenord.de/leistungen/ki-bueroautomation" },
+  alternates: { canonical: "https://datenpflege-nord.de/leistungen/ki-bueroautomation" },
 }
 
 const href = "/leistungen/ki-bueroautomation"

@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   title: "BFSG-Signalcheck",
   description:
     "Technische Vorprüfung von BFSG- und Barrierefreiheits-Signalen für Websites, Shops und digitale Kontaktwege.",
-  alternates: { canonical: "https://datenpflegenord.de/leistungen/bfsg-signalcheck" },
+  alternates: { canonical: "https://datenpflege-nord.de/leistungen/bfsg-signalcheck" },
 }
 
 const href = "/leistungen/bfsg-signalcheck"

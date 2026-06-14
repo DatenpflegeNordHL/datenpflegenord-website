@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   title: "Audit-Monitoring",
   description:
     "Regelmäßige technische Wiederholprüfungen für Website-Status, Pflichtstellen und offene Aufgaben.",
-  alternates: { canonical: "https://datenpflegenord.de/monitoring" },
+  alternates: { canonical: "https://datenpflege-nord.de/monitoring" },
 }
 
 const href = "/monitoring"

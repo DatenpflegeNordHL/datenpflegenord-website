@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   title: "Über uns",
   description:
     "DatenpflegeNord ist ein technisches Prüf- und Umsetzungsbüro für kleine Unternehmen in Schleswig-Holstein.",
-  alternates: { canonical: "https://datenpflegenord.de/ueber-uns" },
+  alternates: { canonical: "https://datenpflege-nord.de/ueber-uns" },
 }
 
 const pillars = [

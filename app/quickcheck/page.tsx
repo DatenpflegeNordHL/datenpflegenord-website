@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   title: "Quickcheck starten",
   description:
     "Website einreichen und eine technische Ersteinschätzung für DatenpflegeNord prüfen lassen.",
-  alternates: { canonical: "https://datenpflegenord.de/quickcheck" },
+  alternates: { canonical: "https://datenpflege-nord.de/quickcheck" },
 }
 
 const steps = [

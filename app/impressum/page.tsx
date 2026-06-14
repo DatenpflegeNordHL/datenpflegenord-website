@@ -52,7 +52,7 @@ export default function ImpressumPage() {
               <h2 className="font-semibold text-base text-foreground">Kontakt</h2>
               <p className="text-muted-foreground">
                 <span className="block">Telefon: TODO</span>
-                <span className="block">E-Mail: TODO@datenpflegenord.de</span>
+                <span className="block">E-Mail: TODO@datenpflege-nord.de</span>
               </p>
             </div>
 

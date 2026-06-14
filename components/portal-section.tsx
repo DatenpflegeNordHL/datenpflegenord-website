@@ -92,7 +92,7 @@ export function PortalSection() {
               <div className="w-3 h-3 rounded-full bg-border" />
             </div>
             <div className="flex-1 mx-4 bg-background/80 rounded px-3 py-1 text-xs text-muted-foreground border border-border">
-              portal.datenpflegenord.de
+              portal.datenpflege-nord.de
             </div>
           </div>
 

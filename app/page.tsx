@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   title: "Website-Checks und KI-Systeme für KMU",
   description:
     "DatenpflegeNord prüft Websites, digitale Pflichtstellen und Büroprozesse für kleine Unternehmen in Schleswig-Holstein – technisch, verständlich und ohne Rechtsberatung.",
-  alternates: { canonical: "https://datenpflegenord.de" },
+  alternates: { canonical: "https://datenpflege-nord.de" },
 }
 
 export default function HomePage() {

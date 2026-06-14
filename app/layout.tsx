@@ -10,7 +10,7 @@ const inter = Inter({
 })
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://datenpflegenord.de'),
+  metadataBase: new URL('https://datenpflege-nord.de'),
   title: {
     default: 'DatenpflegeNord – Website-Checks und KI-Systeme für KMU',
     template: '%s | DatenpflegeNord',
@@ -40,7 +40,7 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'de_DE',
     siteName: 'DatenpflegeNord',
-    url: 'https://datenpflegenord.de',
+    url: 'https://datenpflege-nord.de',
     title: 'DatenpflegeNord – Website-Checks und KI-Systeme für KMU',
     description:
       'Technische Website-Checks, digitale Pflichtstellen und KI-gestützte Büroautomation für kleine Unternehmen in Schleswig-Holstein.',

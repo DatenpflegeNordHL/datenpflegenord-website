@@ -1,7 +1,7 @@
 import type { MetadataRoute } from 'next'
 import { industries } from '@/content/industries'
 
-const baseUrl = 'https://datenpflegenord.de'
+const baseUrl = 'https://datenpflege-nord.de'
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const industryEntries: MetadataRoute.Sitemap = industries.map((industry) => ({
