@@ -20,15 +20,13 @@ export default function ImpressumPage() {
 
           <div className="flex flex-col gap-8 text-sm text-foreground leading-relaxed">
 
-            {/* Angaben gemäß § 5 DDG */}
-            <div className="flex flex-col gap-3 rounded-xl border border-amber-200 bg-amber-50 p-5">
-              <p className="text-xs font-semibold uppercase tracking-widest text-amber-700">
-                TODO — Pflichtangaben noch nicht eingetragen
+            <div className="flex flex-col gap-3 rounded-xl border border-border bg-muted/50 p-5">
+              <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">
+                Anbieterkennzeichnung
               </p>
-              <p className="text-amber-800 text-sm leading-relaxed">
-                Die folgenden Felder sind Platzhalter und müssen vor dem Livegang mit den echten
-                Unternehmensdaten ausgefüllt werden. Kein juristischer Text — nur strukturierte
-                Pflichtangaben gemäß § 5 DDG.
+              <p className="text-muted-foreground text-sm leading-relaxed">
+                Diese Website ist der öffentliche Auftritt der Marke DatenpflegeNord. Juristische
+                Gesellschaft ist die NordWerk Digital GmbH.
               </p>
             </div>
 
@@ -37,31 +35,32 @@ export default function ImpressumPage() {
                 Angaben gemäß § 5 DDG
               </h2>
               <p className="text-muted-foreground">
-                <span className="block font-medium text-foreground">TODO: Unternehmensname</span>
-                TODO: Rechtsform (z. B. Einzelunternehmen, GbR, UG, GmbH)
+                <span className="block font-medium text-foreground">NordWerk Digital GmbH</span>
+                Handelnd unter der Marke DatenpflegeNord
               </p>
+              {/* FIXME: Final registered business address is missing and must be added once available. */}
               <p className="text-muted-foreground">
-                <span className="block font-medium text-foreground">Adresse</span>
-                TODO: Straße und Hausnummer<br />
-                TODO: PLZ Ort<br />
-                Deutschland
+                Die vollständige Geschäftsanschrift wird ergänzt, sobald die finalen Stammdaten
+                vorliegen.
               </p>
             </div>
 
             <div className="flex flex-col gap-2">
               <h2 className="font-semibold text-base text-foreground">Kontakt</h2>
+              {/* FIXME: Public contact email and phone number are missing and must be added once available. */}
               <p className="text-muted-foreground">
-                <span className="block">Telefon: TODO</span>
-                <span className="block">E-Mail: TODO@datenpflege-nord.de</span>
+                Die öffentlichen Kontaktangaben werden ergänzt, sobald die finalen Kontaktdaten
+                vorliegen.
               </p>
             </div>
 
             <div className="flex flex-col gap-2">
               <h2 className="font-semibold text-base text-foreground">
-                Umsatzsteuer-Identifikationsnummer
+                Register- und Steuerangaben
               </h2>
+              {/* FIXME: Handelsregister, register court, tax number and VAT ID are missing. Do not invent these values. */}
               <p className="text-muted-foreground">
-                TODO: Umsatzsteuer-ID gemäß § 27a UStG (sofern vorhanden)
+                Register- und Steuerangaben werden ergänzt, sobald sie verlässlich vorliegen.
               </p>
             </div>
 
@@ -69,12 +68,10 @@ export default function ImpressumPage() {
               <h2 className="font-semibold text-base text-foreground">
                 Verantwortlich für journalistisch-redaktionelle Inhalte gemäß Medienstaatsvertrag
               </h2>
-              <p className="text-xs text-muted-foreground italic mb-1">
-                Nur ausfüllen, falls journalistisch-redaktionelle Inhalte angeboten werden.
-              </p>
+              {/* FIXME: Responsible person and address for MStV information are missing if this section is required. */}
               <p className="text-muted-foreground">
-                TODO: Vor- und Nachname<br />
-                TODO: Adresse (wie oben oder abweichend)
+                Angaben zu journalistisch-redaktionellen Inhalten werden ergänzt, falls ein
+                entsprechendes Angebot bereitgestellt wird.
               </p>
             </div>
 

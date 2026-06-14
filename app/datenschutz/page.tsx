@@ -20,16 +20,14 @@ export default function DatenschutzPage() {
 
           <div className="flex flex-col gap-8 text-sm text-foreground leading-relaxed">
 
-            {/* TODO-Banner */}
-            <div className="flex flex-col gap-3 rounded-xl border border-amber-200 bg-amber-50 p-5">
-              <p className="text-xs font-semibold uppercase tracking-widest text-amber-700">
-                TODO — Datenschutzerklärung noch nicht vollständig
+            <div className="flex flex-col gap-3 rounded-xl border border-border bg-muted/50 p-5">
+              <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">
+                Hinweis zur Aktualisierung
               </p>
-              <p className="text-amber-800 text-sm leading-relaxed">
-                Diese Seite enthält Struktur-Platzhalter. Vor dem Livegang muss eine vollständige
-                Datenschutzerklärung durch einen Datenschutzbeauftragten oder geprüften Generator
-                erstellt werden. Die folgenden Abschnitte sind inhaltliche Hinweise — kein
-                juristisch geprüfter Text.
+              <p className="text-muted-foreground text-sm leading-relaxed">
+                Diese Datenschutzerklärung wird nach Abschluss der Stammdaten- und Anbieterprüfung
+                aktualisiert. Es werden keine noch nicht verlässlich vorliegenden Angaben
+                veröffentlicht.
               </p>
             </div>
 
@@ -37,9 +35,11 @@ export default function DatenschutzPage() {
               <h2 className="font-semibold text-base text-foreground">
                 1. Verantwortlicher
               </h2>
+              {/* FIXME: Final address, public email and phone number are missing and must be added once available. */}
               <p className="text-muted-foreground">
-                TODO: Unternehmensname, Adresse, E-Mail und Telefon des Verantwortlichen
-                (identisch mit Impressum).
+                Verantwortlich ist die NordWerk Digital GmbH, handelnd unter der Marke
+                DatenpflegeNord. Vollständige Kontakt- und Anschriftsdaten werden ergänzt, sobald
+                die finalen Stammdaten vorliegen.
               </p>
             </div>
 
@@ -47,10 +47,11 @@ export default function DatenschutzPage() {
               <h2 className="font-semibold text-base text-foreground">
                 2. Erhobene Daten beim Besuch der Website
               </h2>
+              {/* FIXME: Hosting provider and exact server-log details are missing and must be verified. */}
               <p className="text-muted-foreground">
-                TODO: Beschreibung der beim Seitenaufruf technisch erfassten Daten
-                (z. B. IP-Adresse, Browsertyp, Zeitstempel). Angabe des Hosting-Anbieters
-                und Rechtsgrundlage (Art. 6 Abs. 1 lit. f DSGVO).
+                Beim Besuch der Website können technisch erforderliche Zugriffsdaten verarbeitet
+                werden, damit die Website ausgeliefert und stabil betrieben werden kann. Details
+                zum Hosting-Anbieter und zu Server-Logdaten werden nach technischer Prüfung ergänzt.
               </p>
             </div>
 
@@ -58,10 +59,11 @@ export default function DatenschutzPage() {
               <h2 className="font-semibold text-base text-foreground">
                 3. Kontaktformular
               </h2>
+              {/* FIXME: Contact form processing details must be finalized once delivery provider is configured. */}
               <p className="text-muted-foreground">
-                TODO: Erläuterung welche Daten im Kontaktformular verarbeitet werden,
-                wie sie gespeichert werden und wie lange. Rechtsgrundlage angeben
-                (Art. 6 Abs. 1 lit. b oder lit. f DSGVO).
+                Wenn Sie ein Kontaktformular nutzen, werden die von Ihnen eingegebenen Daten zur
+                Bearbeitung der Anfrage verarbeitet. Details zur Zustellung und Speicherdauer
+                werden nach Abschluss der Anbieteranbindung ergänzt.
               </p>
               <p className="text-muted-foreground">
                 Hinweis: Das Kontaktformular ist aktuell noch nicht aktiv angebunden.
@@ -72,9 +74,10 @@ export default function DatenschutzPage() {
               <h2 className="font-semibold text-base text-foreground">
                 4. Cookies und Tracking
               </h2>
+              {/* FIXME: Cookie and tracking inventory must be verified before publication of final details. */}
               <p className="text-muted-foreground">
-                TODO: Angabe ob und welche Cookies gesetzt werden (technisch notwendige vs.
-                optionale). Hinweis auf vorhandene oder geplante Consent-Lösung.
+                Angaben zu technisch notwendigen Cookies, optionalen Diensten und einer möglichen
+                Consent-Lösung werden nach technischer Prüfung ergänzt.
               </p>
             </div>
 
@@ -82,9 +85,10 @@ export default function DatenschutzPage() {
               <h2 className="font-semibold text-base text-foreground">
                 5. Externe Dienste
               </h2>
+              {/* FIXME: External services inventory must be verified and listed once final. */}
               <p className="text-muted-foreground">
-                TODO: Auflistung aller eingebundenen externen Dienste (z. B. Google Fonts,
-                Analysedienste, CDN) mit Angabe zu Datenweitergabe und Rechtsgrundlage.
+                Externe Dienste werden aufgeführt, sobald die technische Anbieterprüfung
+                abgeschlossen ist.
               </p>
             </div>
 
@@ -92,10 +96,10 @@ export default function DatenschutzPage() {
               <h2 className="font-semibold text-base text-foreground">
                 6. Ihre Rechte
               </h2>
+              {/* FIXME: Final privacy notice should be reviewed before publication. */}
               <p className="text-muted-foreground">
-                TODO: Hinweis auf Betroffenenrechte gemäß DSGVO: Auskunft, Berichtigung,
-                Löschung, Einschränkung, Datenübertragbarkeit, Widerspruch sowie
-                Beschwerderecht bei der zuständigen Aufsichtsbehörde.
+                Angaben zu Betroffenenrechten und Kontaktwegen für Datenschutzanfragen werden in
+                der finalen Datenschutzerklärung ergänzt.
               </p>
               <p className="text-muted-foreground">
                 Zuständige Aufsichtsbehörde für Schleswig-Holstein: Unabhängiges
@@ -105,8 +109,7 @@ export default function DatenschutzPage() {
 
             <div className="border-t border-border pt-6">
               <p className="text-xs text-muted-foreground">
-                DatenpflegeNord bietet technische und organisatorische Prüfung,
-                Umsetzungshilfe und digitale Prozessunterstützung. Keine Rechtsberatung,
+                DatenpflegeNord ist die Marke der NordWerk Digital GmbH. Keine Rechtsberatung,
                 keine Steuerberatung und keine behördliche Zertifizierung.
               </p>
             </div>

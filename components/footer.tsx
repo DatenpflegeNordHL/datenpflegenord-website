@@ -5,11 +5,12 @@ const footerCols = [
   {
     heading: "Leistungen",
     links: [
-      { label: "Sichtbarkeits-Check", href: "/sichtbarkeits-check" },
-      { label: "Technischer Web-Check", href: "/technischer-web-check" },
-      { label: "KI-Lösungen", href: "/ki-loesungen" },
-      { label: "Monatlicher Audit-Check", href: "/monatlicher-audit-check" },
-      { label: "Portal", href: "/portal" },
+      { label: "Alle Leistungen", href: "/leistungen" },
+      { label: "BFSG-Signalcheck", href: "/leistungen/bfsg-signalcheck" },
+      { label: "Pflichten-Check", href: "/leistungen/pflichten-check" },
+      { label: "KI & Büroautomation", href: "/leistungen/ki-bueroautomation" },
+      { label: "Monitoring", href: "/monitoring" },
+      { label: "Quickcheck", href: "/quickcheck" },
     ],
   },
   {
@@ -52,9 +53,9 @@ export function Footer() {
               Mehr Sichtbarkeit. Weniger Website-Risiko. Weniger Büroarbeit.
             </p>
             <p className="text-xs text-navy-foreground/40 leading-relaxed">
-              DatenpflegeNord bietet technische und organisatorische Prüfung,
-              Umsetzungshilfe und digitale Prozessunterstützung. Keine Rechtsberatung,
-              keine Steuerberatung und keine behördliche Zertifizierung.
+              DatenpflegeNord ist die Marke der NordWerk Digital GmbH für technische und
+              organisatorische Prüfung, Umsetzungshilfe und digitale Prozessunterstützung.
+              Keine Rechtsberatung, keine Steuerberatung und keine behördliche Zertifizierung.
             </p>
           </div>
 
@@ -81,7 +82,8 @@ export function Footer() {
 
         <div className="border-t border-navy-foreground/10 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3">
           <p className="text-xs text-navy-foreground/40">
-            &copy; {new Date().getFullYear()} DatenpflegeNord. Alle Rechte vorbehalten.
+            &copy; {new Date().getFullYear()} NordWerk Digital GmbH · Marke DatenpflegeNord.
+            Alle Rechte vorbehalten.
           </p>
           <p className="text-xs text-navy-foreground/40">
             Keine anwaltliche Rechtsberatung. Technische und strukturelle Vorprüfung.
