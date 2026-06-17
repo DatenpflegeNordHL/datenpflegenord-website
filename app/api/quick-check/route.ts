@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server"
 import type { ScanResult } from "@/lib/quick-check-types"
 
 const REQUEST_TIMEOUT_MS = 15000
+const BACKEND_QUICK_CHECK_PATH = "/public/quick-check"
 
 function jsonError(message: string, status: number, error = "quick_check_error") {
   return NextResponse.json({ ok: false, error, message }, { status })
@@ -10,7 +11,14 @@ function jsonError(message: string, status: number, error = "quick_check_error")
 function getBackendBaseUrl(): string | null {
   const value = process.env.NORTHACCESS_API_BASE_URL?.trim()
   if (!value) return null
-  return value.replace(/\/+$/, "")
+
+  try {
+    const parsed = new URL(value)
+    if (parsed.protocol !== "http:" && parsed.protocol !== "https:") return null
+    return value.replace(/\/+$/, "")
+  } catch {
+    return null
+  }
 }
 
 function isQuickCheckStatus(value: unknown): boolean {
@@ -28,6 +36,14 @@ function isCheckItem(value: unknown): boolean {
   )
 }
 
+function isChecksPayload(value: unknown): boolean {
+  return (
+    typeof value === "object" &&
+    value !== null &&
+    Object.values(value).every(isCheckItem)
+  )
+}
+
 function isScanResult(value: unknown): value is ScanResult {
   if (!value || typeof value !== "object") return false
   const data = value as Partial<ScanResult>
@@ -38,21 +54,10 @@ function isScanResult(value: unknown): value is ScanResult {
     typeof input === "object" &&
     typeof input?.normalized_url === "string" &&
     isQuickCheckStatus(data.status) &&
-    typeof data.checks === "object" &&
-    data.checks !== null &&
-    Object.values(data.checks).every(isCheckItem) &&
+    isChecksPayload(data.checks) &&
     typeof data.summary === "string" &&
     typeof data.disclaimer === "string"
   )
-}
-
-function extractBackendMessage(payload: unknown, fallback: string): string {
-  if (!payload || typeof payload !== "object") return fallback
-  const body = payload as { message?: unknown; detail?: unknown; error?: unknown }
-  if (typeof body.message === "string" && body.message.trim()) return body.message
-  if (typeof body.detail === "string" && body.detail.trim()) return body.detail
-  if (typeof body.error === "string" && body.error.trim()) return body.error
-  return fallback
 }
 
 export async function POST(request: NextRequest) {
@@ -71,7 +76,11 @@ export async function POST(request: NextRequest) {
 
   const baseUrl = getBackendBaseUrl()
   if (!baseUrl) {
-    return jsonError("Schnellcheck ist aktuell noch nicht konfiguriert.", 503, "missing_config")
+    return jsonError(
+      "Schnellcheck ist aktuell nicht korrekt konfiguriert.",
+      503,
+      "missing_config",
+    )
   }
 
   const controller = new AbortController()
@@ -79,14 +88,21 @@ export async function POST(request: NextRequest) {
 
   let response: Response
   try {
-    response = await fetch(`${baseUrl}/public/quick-check`, {
+    response = await fetch(`${baseUrl}${BACKEND_QUICK_CHECK_PATH}`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ url }),
       signal: controller.signal,
     })
-  } catch {
+  } catch (error) {
     clearTimeout(timeout)
+    if (error instanceof DOMException && error.name === "AbortError") {
+      return jsonError(
+        "Der Schnellcheck hat zu lange gedauert. Bitte versuchen Sie es gleich erneut.",
+        504,
+        "timeout",
+      )
+    }
     return jsonError(
       "Dienst aktuell nicht erreichbar. Bitte versuchen Sie es später erneut.",
       502,
@@ -116,10 +132,7 @@ export async function POST(request: NextRequest) {
 
   if (response.status === 400 || response.status === 422) {
     return jsonError(
-      extractBackendMessage(
-        payload,
-        "Die Eingabe konnte nicht geprüft werden. Bitte prüfen Sie die URL.",
-      ),
+      "Die Eingabe konnte nicht geprüft werden. Bitte prüfen Sie die URL.",
       response.status,
       "invalid_input",
     )

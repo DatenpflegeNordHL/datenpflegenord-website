@@ -38,10 +38,18 @@ if docker ps -a --format '{{.Names}}' | grep -Fxq "${CONTAINER_NAME}"; then
 fi
 
 echo "Starting container: ${CONTAINER_NAME}"
+DOCKER_ENV_ARGS=()
+if [[ -n "${NORTHACCESS_API_BASE_URL:-}" ]]; then
+  DOCKER_ENV_ARGS+=(--env "NORTHACCESS_API_BASE_URL=${NORTHACCESS_API_BASE_URL}")
+else
+  echo "Warning: NORTHACCESS_API_BASE_URL is not set; QuickCheck will show missing config."
+fi
+
 docker run -d \
   --name "${CONTAINER_NAME}" \
   -p "${HOST_PORT}:${CONTAINER_PORT}" \
   --restart unless-stopped \
+  "${DOCKER_ENV_ARGS[@]}" \
   "${IMAGE_NAME}"
 
 echo "Current container status:"
