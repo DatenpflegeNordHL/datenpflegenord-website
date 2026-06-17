@@ -1,35 +1,45 @@
+export type TeamMemberType = "person" | "department"
+
 export type TeamMember = {
+  type: TeamMemberType
   name: string
   role: string
   focus: string
   description: string
   initials: string
   imageSrc?: string
+  badges?: string[]
 }
 
 export const teamMembers: TeamMember[] = [
   {
+    type: "person",
     name: "Dustin Zander",
-    role: "Ansprechpartner & Projektaufbau",
-    focus: "Digitale Pflichtstellen, Website-Prüfung und KMU-Prozesse",
+    role: "Geschäftsführung & Projektleitung",
+    focus: "Ansprechpartner",
     description:
-      "Koordiniert Prüfungen, priorisiert Ergebnisse und übersetzt technische Signale in verständliche nächste Schritte.",
+      "Koordiniert Prüfungen, priorisiert Ergebnisse und begleitet Unternehmen von der ersten Analyse bis zum nächsten sinnvollen KI- oder Automationssystem.",
     initials: "DZ",
+    badges: ["Ansprechpartner", "KI-Systeme", "Website-Checks", "KMU-Prozesse", "Umsetzung"],
   },
   {
-    name: "Technische Prüfung",
-    role: "Website & Pflichtstellen",
-    focus: "BFSG-Signale, Technik, Struktur und Monitoring",
+    type: "department",
+    name: "KI-Systeme & Automation",
+    role: "Fachbereich",
+    focus: "KI-Prozesse & Assistenten",
     description:
-      "Prüft Websites auf technische Hinweise, Auffindbarkeit, Basisstruktur und wiederkehrende Risiken.",
-    initials: "TP",
+      "Entwickelt einfache, nachvollziehbare KI-Systeme zur Unterstützung wiederkehrender Unternehmensprozesse.",
+    initials: "KI",
+    badges: ["KI-Prozesse", "Assistenten", "Dokumente", "E-Mail", "Workflows"],
   },
   {
-    name: "Umsetzung & Automation",
-    role: "KI & Büroprozesse",
-    focus: "Dokumente, E-Mails, Rechnungen und interne Abläufe",
+    type: "department",
+    name: "Website-Prüfung & Auswertung",
+    role: "Fachbereich",
+    focus: "Technische Signale",
     description:
-      "Ordnet wiederkehrende Aufgaben und entwickelt einfache, nachvollziehbare Automationsansätze.",
-    initials: "UA",
+      "Strukturiert Website-Signale, Statuswerte und wiederkehrende Prüfungen als Einstieg in digitale Verbesserungen.",
+    initials: "WP",
+    badges: ["QuickCheck", "Pflichtstellen", "Monitoring", "Technische Signale"],
   },
 ]

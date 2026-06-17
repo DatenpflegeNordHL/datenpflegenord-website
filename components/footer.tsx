@@ -1,40 +1,42 @@
 import Link from "next/link"
 import { Logo } from "@/components/logo"
 
+// TODO: Replace /portal with the final login route once auth is set up
+const PORTAL_HREF = "/portal"
+
 const footerCols = [
   {
-    heading: "Leistungen",
+    heading: "KI-Systeme",
     links: [
-      { label: "Alle Leistungen", href: "/leistungen" },
-      { label: "BFSG-Signalcheck", href: "/leistungen/bfsg-signalcheck" },
-      { label: "Pflichten-Check", href: "/leistungen/pflichten-check" },
-      { label: "KI & Büroautomation", href: "/leistungen/ki-bueroautomation" },
-      { label: "Monitoring", href: "/monitoring" },
-      { label: "Quickcheck", href: "/quickcheck" },
+      { label: "KI-Prozesscheck", href: "/kontakt?anliegen=ki-prozesscheck" },
+      { label: "KI-Assistenzsysteme", href: "/leistungen/ki-bueroautomation" },
+      { label: "Büroautomation", href: "/leistungen/ki-bueroautomation" },
+      { label: "Dokumenten- & E-Mail-Automation", href: "/leistungen/ki-bueroautomation" },
     ],
   },
   {
-    heading: "Regionen",
+    heading: "Website-Checks",
     links: [
-      { label: "Lübeck", href: "/branchen" },
-      { label: "Kiel", href: "/branchen" },
-      { label: "Flensburg", href: "/branchen" },
-      { label: "Neumünster", href: "/branchen" },
-      { label: "Alle Regionen", href: "/branchen" },
+      { label: "Website-Schnellcheck", href: "/quickcheck" },
+      { label: "Website-Signalcheck", href: "/leistungen/bfsg-signalcheck" },
+      { label: "Digitalpflichten-Check", href: "/leistungen/pflichten-check" },
+      { label: "Website-Monitoring", href: "/monitoring" },
     ],
   },
   {
     heading: "Unternehmen",
     links: [
+      { label: "Über uns", href: "/ueber-uns" },
       { label: "Branchen", href: "/branchen" },
       { label: "Kontakt", href: "/kontakt" },
+      { label: "Portal Login", href: PORTAL_HREF },
     ],
   },
   {
     heading: "Rechtliches",
     links: [
-      { label: "Datenschutz", href: "/datenschutz" },
       { label: "Impressum", href: "/impressum" },
+      { label: "Datenschutz", href: "/datenschutz" },
     ],
   },
 ]
@@ -49,13 +51,16 @@ export function Footer() {
             <div className="mb-4">
               <Logo variant="footer" showLabel={true} />
             </div>
+            <p className="text-xs font-semibold text-navy-foreground/50 uppercase tracking-widest mb-2">
+              Eine Marke der NordWerk Digital GmbH
+            </p>
             <p className="text-sm text-navy-foreground/60 leading-relaxed mb-3">
-              Mehr Sichtbarkeit. Weniger Website-Risiko. Weniger Büroarbeit.
+              KI-Systeme für Unternehmen. Website-Checks als Einstieg. Automationen zur
+              Prozessunterstützung.
             </p>
             <p className="text-xs text-navy-foreground/40 leading-relaxed">
-              DatenpflegeNord ist die Marke der NordWerk Digital GmbH für technische und
-              organisatorische Prüfung, Umsetzungshilfe und digitale Prozessunterstützung.
-              Keine Rechtsberatung, keine Steuerberatung und keine behördliche Zertifizierung.
+              Keine Rechtsberatung. Keine Steuerberatung. Keine behördliche Zertifizierung.
+              Technische und strukturelle Vorprüfung.
             </p>
           </div>
 
@@ -80,14 +85,23 @@ export function Footer() {
           ))}
         </div>
 
+        {/* Portal nudge above the line */}
         <div className="border-t border-navy-foreground/10 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3">
           <p className="text-xs text-navy-foreground/40">
             &copy; {new Date().getFullYear()} NordWerk Digital GmbH · Marke DatenpflegeNord.
             Alle Rechte vorbehalten.
           </p>
-          <p className="text-xs text-navy-foreground/40">
-            Keine anwaltliche Rechtsberatung. Technische und strukturelle Vorprüfung.
-          </p>
+          <div className="flex items-center gap-4">
+            <Link
+              href={PORTAL_HREF}
+              className="text-xs text-navy-foreground/50 hover:text-navy-foreground/80 transition-colors duration-150 underline underline-offset-2"
+            >
+              Bereits Kunde? Portal Login
+            </Link>
+            <p className="text-xs text-navy-foreground/40 hidden sm:block">
+              Keine anwaltliche Rechtsberatung. Technische Vorprüfung.
+            </p>
+          </div>
         </div>
       </div>
     </footer>
