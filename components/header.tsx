@@ -30,10 +30,10 @@ export function Header() {
   }, [])
 
   const navLinkClass = (href: string) =>
-    `text-[11px] tracking-[0.2em] font-light transition-colors duration-200 ${
+    `font-sans text-[10px] tracking-[0.22em] font-light transition-colors duration-200 ${
       pathname === href
         ? "text-foreground underline underline-offset-4"
-        : "text-foreground/70 hover:text-foreground"
+        : "text-foreground/60 hover:text-foreground"
     }`
 
   return (

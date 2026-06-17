@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Inter, Josefin_Sans } from 'next/font/google'
+import { Inter } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
 
@@ -9,12 +9,6 @@ const inter = Inter({
   display: 'swap',
 })
 
-const josefin = Josefin_Sans({
-  subsets: ['latin'],
-  variable: '--font-josefin',
-  display: 'swap',
-  weight: ['100', '300', '400', '600', '700'],
-})
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://datenpflege-nord.de'),
@@ -79,7 +73,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="de" className={`${inter.variable} ${josefin.variable} bg-background`}>
+    <html lang="de" className={`${inter.variable} bg-background`}>
       <body className="font-sans antialiased">
         {children}
         {process.env.NODE_ENV === 'production' && <Analytics />}

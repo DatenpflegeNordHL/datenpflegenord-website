@@ -23,13 +23,13 @@ export default function HomePage() {
       <StepsSection />
 
       {/* Disclaimer */}
-      <section aria-label="Rechtlicher Hinweis" className="bg-background border-t border-border/40 py-10">
-        <div className="max-w-[1400px] mx-auto px-8">
+      <section aria-label="Rechtlicher Hinweis" className="bg-background border-t border-border/20 py-10">
+        <div className="max-w-[1400px] mx-auto px-8 md:px-16">
           <div className="max-w-2xl">
-            <p className="text-[10px] tracking-[0.22em] font-light uppercase text-foreground/30 mb-3">
+            <p className="font-sans text-[10px] tracking-[0.26em] font-light uppercase text-foreground/25 mb-3">
               Sachliche Einschätzung statt Versprechen
             </p>
-            <p className="text-[12px] font-light text-foreground/40 leading-relaxed">
+            <p className="font-sans text-[12px] font-light text-foreground/35 leading-relaxed">
               Unsere Auswertung zeigt sichtbare technische und strukturelle Hinweise, priorisiert nächste Schritte
               und ersetzt keine anwaltliche Rechtsberatung. Wir behaupten keine behördliche Zertifizierung
               und keine garantierte Konformität.
