@@ -12,25 +12,28 @@ const inter = Inter({
 export const metadata: Metadata = {
   metadataBase: new URL('https://datenpflege-nord.de'),
   title: {
-    default: 'DatenpflegeNord – Website-Checks und KI-Systeme für KMU',
+    default: 'KI-Systeme & Website-Checks in Schleswig-Holstein | DatenpflegeNord',
     template: '%s | DatenpflegeNord',
   },
   description:
-    'Technische Website-Checks, digitale Pflichtstellen und KI-gestützte Büroautomation für kleine Unternehmen in Schleswig-Holstein.',
+    'DatenpflegeNord unterstützt Unternehmen in Schleswig-Holstein, Lübeck, Kiel und Hamburg mit KI-Systemen, Website-Checks, Monitoring und klaren Maßnahmen für digitale Prozesse.',
   applicationName: 'DatenpflegeNord',
   creator: 'DatenpflegeNord',
   publisher: 'DatenpflegeNord',
   keywords: [
-    'BFSG-Signalcheck',
-    'Pflichten-Check',
-    'KI Büroautomation',
+    'KI-Systeme',
     'Website-Check',
-    'digitale Pflichtstellen',
+    'Website-Schnellcheck',
+    'Website-Monitoring',
+    'KI Büroprozesse',
+    'Büroautomation',
     'Schleswig-Holstein',
-    'KMU',
+    'Lübeck',
+    'Kiel',
+    'Hamburg',
+    'BFSG',
     'Barrierefreiheit',
-    'E-Rechnung',
-    'Audit-Monitoring',
+    'lokale SEO',
   ],
   robots: {
     index: true,
@@ -41,9 +44,9 @@ export const metadata: Metadata = {
     locale: 'de_DE',
     siteName: 'DatenpflegeNord',
     url: 'https://datenpflege-nord.de',
-    title: 'DatenpflegeNord – Website-Checks und KI-Systeme für KMU',
+    title: 'KI-Systeme & Website-Checks in Schleswig-Holstein | DatenpflegeNord',
     description:
-      'Technische Website-Checks, digitale Pflichtstellen und KI-gestützte Büroautomation für kleine Unternehmen in Schleswig-Holstein.',
+      'DatenpflegeNord unterstützt Unternehmen in Schleswig-Holstein, Lübeck, Kiel und Hamburg mit KI-Systemen, Website-Checks, Monitoring und klaren Maßnahmen für digitale Prozesse.',
     images: [
       {
         url: '/logo.png',
@@ -53,9 +56,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'DatenpflegeNord – Website-Checks und KI-Systeme für KMU',
+    title: 'KI-Systeme & Website-Checks in Schleswig-Holstein | DatenpflegeNord',
     description:
-      'Technische Website-Checks, digitale Pflichtstellen und KI-gestützte Büroautomation für kleine Unternehmen in Schleswig-Holstein.',
+      'DatenpflegeNord unterstützt Unternehmen in Schleswig-Holstein, Lübeck, Kiel und Hamburg mit KI-Systemen, Website-Checks, Monitoring und klaren Maßnahmen für digitale Prozesse.',
     images: ['/logo.png'],
   },
 }

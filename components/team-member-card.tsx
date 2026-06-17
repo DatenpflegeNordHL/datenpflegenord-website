@@ -11,7 +11,7 @@ type TeamMemberCardProps = {
  * Uses a subtle geometric grid pattern and large watermark initials
  * with a Nord-inspired color palette. Prepares for imageSrc prop.
  *
- * TODO: Add real portrait image when available:
+ * FIXME: Add real portrait image when available:
  *   imageSrc: "/team/dustin-zander.jpg"
  * in content/team.ts. The Image block below will take over automatically.
  */
@@ -68,10 +68,6 @@ function PersonCardPlaceholder({ initials }: { initials: string }) {
 }
 
 function PersonCard({ member }: TeamMemberCardProps) {
-  /*
-   * TODO: Final login route once customer portal authentication is available.
-   * imageSrc will be set to "/team/dustin-zander.jpg" in content/team.ts.
-   */
   return (
     <div className="bg-card border border-border rounded-2xl overflow-hidden flex flex-col h-full">
       {/* Image / placeholder area */}

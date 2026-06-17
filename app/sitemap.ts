@@ -51,6 +51,26 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'monthly',
       priority: 0.7,
     },
+    {
+      url: `${baseUrl}/ki-systeme-website-check-schleswig-holstein`,
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/ki-systeme-website-check-luebeck`,
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/ki-systeme-website-check-kiel`,
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/ki-systeme-website-check-hamburg`,
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
     ...industryEntries,
     {
       url: `${baseUrl}/kontakt`,

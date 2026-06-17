@@ -26,7 +26,7 @@ export async function POST(request: NextRequest) {
     })
   }
 
-  // TODO: Integrate mail/CRM provider once decided (see docs/contact-lead-integration.md)
+  // FIXME: Integrate mail/CRM provider once decided (see docs/contact-lead-integration.md)
   // No personal data is logged until a provider is configured.
   console.info("[contact-lead] validated lead received; delivery provider pending")
 

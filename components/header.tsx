@@ -5,17 +5,15 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Logo } from "@/components/logo"
-import { Menu, X, LogIn } from "lucide-react"
+import { Menu, X } from "lucide-react"
 
 const navLinks = [
-  { label: "KI-Lösungen", href: "/leistungen/ki-bueroautomation" },
-  { label: "Website-Checks", href: "/quickcheck" },
-  { label: "Branchen & Regionen", href: "/branchen" },
+  { label: "KI-Lösungen", href: "/ki-loesungen" },
+  { label: "Website-Checks", href: "/#leistungen" },
+  { label: "Regionen", href: "/#regionen" },
+  { label: "Branchen", href: "/branchen" },
   { label: "Kontakt", href: "/kontakt" },
 ]
-
-// TODO: Replace /portal with the final login route once auth is set up
-const PORTAL_HREF = "/portal"
 
 export function Header() {
   const [mobileOpen, setMobileOpen] = useState(false)
@@ -60,19 +58,9 @@ export function Header() {
               <Button
                 asChild
                 size="sm"
-                className="bg-accent text-accent-foreground hover:bg-accent/90 transition-colors duration-150"
-              >
-                <Link href={PORTAL_HREF} className="flex items-center gap-1.5">
-                  <LogIn className="w-3.5 h-3.5" aria-hidden="true" />
-                  Portal Login
-                </Link>
-              </Button>
-              <Button
-                asChild
-                size="sm"
                 className="bg-primary text-primary-foreground hover:bg-primary/90 transition-colors duration-150"
               >
-                <Link href="/quickcheck">Website-Schnellcheck starten</Link>
+                <Link href="/kontakt">Website-Schnellcheck starten</Link>
               </Button>
             </div>
 
@@ -117,12 +105,12 @@ export function Header() {
                   size="sm"
                   className="w-full bg-primary text-primary-foreground hover:bg-primary/90"
                 >
-                  <Link href="/quickcheck" onClick={() => setMobileOpen(false)}>
+                  <Link href="/kontakt" onClick={() => setMobileOpen(false)}>
                     Website-Schnellcheck starten
                   </Link>
                 </Button>
                 <Button asChild size="sm" variant="outline" className="w-full">
-                  <Link href="/kontakt?anliegen=ki-prozesscheck" onClick={() => setMobileOpen(false)}>
+                  <Link href="/ki-loesungen" onClick={() => setMobileOpen(false)}>
                     KI-Potenzial prüfen
                   </Link>
                 </Button>
@@ -140,14 +128,14 @@ export function Header() {
           variant="outline"
           className="flex-1 border-border text-foreground"
         >
-          <Link href="/kontakt?anliegen=ki-prozesscheck">KI-Potenzial prüfen</Link>
+          <Link href="/ki-loesungen">KI-Potenzial prüfen</Link>
         </Button>
         <Button
           asChild
           size="sm"
           className="flex-1 bg-primary text-primary-foreground hover:bg-primary/90"
         >
-          <Link href="/quickcheck">Schnellcheck starten</Link>
+          <Link href="/kontakt">Schnellcheck starten</Link>
         </Button>
       </div>
     </>

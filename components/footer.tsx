@@ -1,7 +1,6 @@
 import Link from "next/link"
 import { Logo } from "@/components/logo"
 
-// TODO: Replace /portal with the final login route once auth is set up
 const PORTAL_HREF = "/portal"
 
 const footerCols = [
@@ -32,6 +31,15 @@ const footerCols = [
     ],
   },
   {
+    heading: "Regionen",
+    links: [
+      { label: "Schleswig-Holstein", href: "/ki-systeme-website-check-schleswig-holstein" },
+      { label: "Lübeck", href: "/ki-systeme-website-check-luebeck" },
+      { label: "Kiel", href: "/ki-systeme-website-check-kiel" },
+      { label: "Hamburg", href: "/ki-systeme-website-check-hamburg" },
+    ],
+  },
+  {
     heading: "Rechtliches",
     links: [
       { label: "Impressum", href: "/impressum" },
@@ -44,7 +52,7 @@ export function Footer() {
   return (
     <footer className="bg-navy text-navy-foreground">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
-        <div className="grid sm:grid-cols-2 lg:grid-cols-6 gap-10 mb-12">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-[2fr_repeat(5,1fr)] gap-10 mb-12">
           {/* Brand */}
           <div className="sm:col-span-2">
             <div className="mb-4">
@@ -54,8 +62,8 @@ export function Footer() {
               Eine Marke der NordWerk Digital GmbH
             </p>
             <p className="text-sm text-navy-foreground/60 leading-relaxed mb-3">
-              KI-Systeme für Unternehmen. Website-Checks als Einstieg. Automationen zur
-              Prozessunterstützung.
+              KI-Systeme, Website-Checks und klare digitale Maßnahmen für Unternehmen in
+              Norddeutschland.
             </p>
             <p className="text-xs text-navy-foreground/40 leading-relaxed">
               Keine Rechtsberatung. Keine Steuerberatung. Keine behördliche Zertifizierung.

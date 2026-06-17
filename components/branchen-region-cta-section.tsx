@@ -16,14 +16,26 @@ const branchen = [
 ]
 
 const regionen = [
-  "Lübeck",
-  "Kiel",
-  "Flensburg",
-  "Neumünster",
-  "Ostholstein",
-  "Stormarn",
-  "Segeberg",
-  "Rendsburg-Eckernförde",
+  {
+    title: "Schleswig-Holstein",
+    text: "Für Handwerk, Pflege, Tourismus, Handel und Dienstleistung in der Region.",
+    href: "/ki-systeme-website-check-schleswig-holstein",
+  },
+  {
+    title: "Lübeck",
+    text: "Für Dienstleister, Praxen, Handwerk und Tourismusbetriebe in Lübeck und Umgebung.",
+    href: "/ki-systeme-website-check-luebeck",
+  },
+  {
+    title: "Kiel",
+    text: "Für Dienstleister, Beratung, Bildung, maritime Betriebe und regionale Unternehmen.",
+    href: "/ki-systeme-website-check-kiel",
+  },
+  {
+    title: "Hamburg",
+    text: "Für Unternehmen in Hamburg und Norddeutschland mit vielen digitalen Anfragen und Büroprozessen.",
+    href: "/ki-systeme-website-check-hamburg",
+  },
 ]
 
 export function BranchenRegionCtaSection() {
@@ -56,37 +68,36 @@ export function BranchenRegionCtaSection() {
       </section>
 
       {/* Region */}
-      <section className="bg-secondary py-10 md:py-14">
+      <section id="regionen" className="bg-secondary py-10 md:py-14">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-8 items-center">
-            <div>
+          <div className="flex flex-col gap-8">
+            <div className="max-w-2xl">
               <h2 className="text-xl md:text-2xl font-bold text-foreground text-balance leading-tight mb-3">
-                Fokus auf Schleswig-Holstein
+                Regionen im Norden
               </h2>
               <p className="text-sm text-muted-foreground leading-relaxed">
-                Wir arbeiten mit Unternehmen aus{" "}
-                {regionen.slice(0, -1).join(", ")} und {regionen[regionen.length - 1]} sowie
-                dem gesamten Umland.
+                DatenpflegeNord unterstützt Unternehmen in Schleswig-Holstein, Lübeck, Kiel,
+                Hamburg und Norddeutschland mit KI-Systemen, Website-Checks und klaren Maßnahmen.
               </p>
             </div>
-            {/* Region card */}
-            <div className="bg-card border border-border rounded-2xl p-5">
-              <div className="flex items-center gap-2 mb-4">
-                <MapPin className="w-4 h-4 text-accent shrink-0" aria-hidden="true" />
-                <span className="text-xs font-semibold uppercase tracking-widest text-accent">
-                  Einsatzgebiet
-                </span>
-              </div>
-              <div className="flex flex-wrap gap-2">
-                {regionen.map((r) => (
-                  <span
-                    key={r}
-                    className="inline-flex items-center text-xs text-foreground bg-secondary border border-border rounded-full px-3 py-1"
-                  >
-                    {r}
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              {regionen.map((region) => (
+                <Link
+                  key={region.title}
+                  href={region.href}
+                  className="group rounded-2xl border border-border bg-card p-5 transition-all duration-150 hover:-translate-y-0.5 hover:shadow-sm"
+                >
+                  <div className="mb-3 flex items-center gap-2">
+                    <MapPin className="w-4 h-4 text-accent shrink-0" aria-hidden="true" />
+                    <h3 className="text-sm font-bold text-foreground">{region.title}</h3>
+                  </div>
+                  <p className="text-xs leading-relaxed text-muted-foreground">{region.text}</p>
+                  <span className="mt-4 inline-flex items-center gap-1 text-xs font-medium text-accent">
+                    Region ansehen
+                    <ArrowRight className="h-3 w-3 transition-transform duration-150 group-hover:translate-x-0.5" />
                   </span>
-                ))}
-              </div>
+                </Link>
+              ))}
             </div>
           </div>
         </div>
