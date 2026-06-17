@@ -1,44 +1,56 @@
-import { ClipboardCheck, ListChecks, SearchCheck } from "lucide-react"
-
 const benefits = [
   {
-    icon: SearchCheck,
+    number: "01",
     title: "Sichtbare Risiken erkennen",
-    text: "Wir prüfen Barrierefreiheits-, Datenschutz-, Technik- und Auffindbarkeits-Signale auf Ihrer Website.",
+    text: "Wir prüfen Barrierefreiheits-, Datenschutz-, Technik- und Auffindbarkeits-Signale auf Ihrer Website — und machen sie lesbar.",
   },
   {
-    icon: ListChecks,
+    number: "02",
     title: "Prioritäten statt Sammelliste",
-    text: "Sie erhalten eine verständliche Einordnung, welche Punkte zuerst angegangen werden sollten.",
+    text: "Sie erhalten eine verständliche Einordnung, welche Punkte zuerst angegangen werden sollten — klar sortiert nach Dringlichkeit.",
   },
   {
-    icon: ClipboardCheck,
+    number: "03",
     title: "Umsetzung vorbereiten",
-    text: "Die Ergebnisse sind so formuliert, dass Geschäftsführung, Marketing, IT oder Dienstleister damit arbeiten können.",
+    text: "Die Ergebnisse sind so formuliert, dass Geschäftsführung, Marketing, IT oder Dienstleister direkt damit arbeiten können.",
   },
 ]
 
 export function ProblemsSection() {
   return (
-    <section className="bg-secondary py-12 md:py-14">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="max-w-2xl mb-8">
-          <h2 className="text-2xl md:text-3xl font-bold text-foreground text-balance leading-tight">
-            Drei klare Nutzen für Ihre nächste Entscheidung.
-          </h2>
+    <section className="bg-background py-16 md:py-20 lg:py-24">
+      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+        {/* Section heading */}
+        <div className="grid lg:grid-cols-[1fr_2fr] gap-8 lg:gap-16 items-start mb-12 lg:mb-16">
+          <div>
+            <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-accent mb-3">
+              Nutzen
+            </p>
+            <h2 className="font-serif text-3xl md:text-4xl font-bold text-foreground text-balance leading-tight">
+              Drei klare Nutzen für Ihre nächste Entscheidung.
+            </h2>
+          </div>
+          <div className="lg:pt-10">
+            <p className="text-base text-muted-foreground leading-relaxed max-w-lg">
+              Keine endlose Liste von Fachbegriffen. Eine strukturierte Einschätzung, priorisiert und verständlich aufbereitet.
+            </p>
+          </div>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-4">
-          {benefits.map(({ icon: Icon, title, text }) => (
+        {/* Benefit cards */}
+        <div className="grid md:grid-cols-3 gap-px bg-border/60 rounded-xl overflow-hidden border border-border/60">
+          {benefits.map(({ number, title, text }) => (
             <div
-              key={title}
-              className="bg-card border border-border rounded-xl p-5 flex flex-col gap-2"
+              key={number}
+              className="bg-background p-8 flex flex-col gap-5"
             >
-              <div className="flex items-start gap-2">
-                <Icon className="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" />
-                <p className="text-sm font-semibold text-foreground">{title}</p>
+              <span className="font-serif text-5xl font-bold text-border/80 leading-none select-none" aria-hidden="true">
+                {number}
+              </span>
+              <div className="flex flex-col gap-2.5">
+                <h3 className="text-base font-semibold text-foreground leading-snug">{title}</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">{text}</p>
               </div>
-              <p className="text-sm text-muted-foreground leading-relaxed">{text}</p>
             </div>
           ))}
         </div>

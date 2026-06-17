@@ -21,21 +21,23 @@ export default function HomePage() {
       <ProblemsSection />
       <ServiceCardsSection />
       <StepsSection />
-      <section className="bg-secondary py-10 md:py-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+      {/* Disclaimer section */}
+      <section aria-label="Rechtlicher Hinweis" className="bg-secondary/40 border-t border-border/60 py-10 md:py-12">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="max-w-3xl">
-            <p className="text-sm font-semibold text-foreground mb-2">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-muted-foreground/60 mb-3">
               Sachliche Einschätzung statt Versprechen.
             </p>
-            <p className="text-sm md:text-base text-muted-foreground leading-relaxed">
+            <p className="text-sm text-muted-foreground leading-relaxed">
               Unsere Auswertung zeigt sichtbare technische und strukturelle Hinweise,
               priorisiert nächste Schritte und ersetzt keine anwaltliche Rechtsberatung.
-              Wir behaupten keine behördliche Zertifizierung und keine garantierte
-              Konformität.
+              Wir behaupten keine behördliche Zertifizierung und keine garantierte Konformität.
             </p>
           </div>
         </div>
       </section>
+
       <Footer />
     </main>
   )

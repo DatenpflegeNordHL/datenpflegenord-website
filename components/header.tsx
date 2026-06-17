@@ -22,21 +22,21 @@ export function Header() {
 
   return (
     <>
-      <header className="sticky top-0 z-50 bg-background/95 backdrop-blur border-b border-border">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
+      <header className="sticky top-0 z-50 bg-background/98 backdrop-blur-sm border-b border-border/60">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <div className="flex items-center justify-between h-[60px]">
             {/* Logo */}
             <Link href="/" className="flex items-center shrink-0" aria-label="DatenpflegeNord – zur Startseite">
               <Logo variant="header" showLabel={true} />
             </Link>
 
             {/* Desktop Nav */}
-            <nav className="hidden lg:flex items-center gap-5" aria-label="Hauptnavigation">
+            <nav className="hidden lg:flex items-center gap-7" aria-label="Hauptnavigation">
               {navLinks.map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`text-sm transition-colors ${
+                  className={`text-[13px] tracking-wide transition-colors ${
                     pathname === link.href
                       ? "text-foreground font-medium"
                       : "text-muted-foreground hover:text-foreground"
@@ -49,14 +49,18 @@ export function Header() {
 
             {/* Desktop CTA */}
             <div className="hidden lg:flex items-center">
-              <Button asChild size="sm" className="bg-primary text-primary-foreground hover:bg-primary/90">
-                <Link href="/kontakt?anliegen=signalcheck">Signalcheck starten</Link>
+              <Button
+                asChild
+                size="sm"
+                className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-full px-5 text-[13px] font-medium h-9"
+              >
+                <Link href="/kontakt?anliegen=signalcheck">Signalcheck anfragen</Link>
               </Button>
             </div>
 
             {/* Mobile burger */}
             <button
-              className="lg:hidden p-2 rounded-md text-muted-foreground hover:text-foreground"
+              className="lg:hidden p-2 -mr-2 rounded-md text-muted-foreground hover:text-foreground"
               onClick={() => setMobileOpen(!mobileOpen)}
               aria-label={mobileOpen ? "Menü schließen" : "Menü öffnen"}
               aria-expanded={mobileOpen}
@@ -69,17 +73,17 @@ export function Header() {
 
         {/* Mobile menu */}
         {mobileOpen && (
-          <div className="lg:hidden border-t border-border bg-background">
+          <div className="lg:hidden border-t border-border/60 bg-background">
             <nav
               id="mobile-nav"
-              className="max-w-7xl mx-auto px-4 py-4 flex flex-col gap-1"
+              className="max-w-7xl mx-auto px-6 py-5 flex flex-col gap-0.5"
               aria-label="Mobile Navigation"
             >
               {navLinks.map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`text-sm py-2.5 px-2 rounded-md border-b border-border last:border-0 transition-colors ${
+                  className={`text-sm py-3 border-b border-border/50 last:border-0 transition-colors ${
                     pathname === link.href
                       ? "text-foreground font-medium"
                       : "text-muted-foreground hover:text-foreground"
@@ -89,10 +93,14 @@ export function Header() {
                   {link.label}
                 </Link>
               ))}
-              <div className="pt-3">
-                <Button asChild size="sm" className="w-full bg-primary text-primary-foreground hover:bg-primary/90">
+              <div className="pt-4">
+                <Button
+                  asChild
+                  size="sm"
+                  className="w-full bg-primary text-primary-foreground hover:bg-primary/90 rounded-full"
+                >
                   <Link href="/kontakt?anliegen=signalcheck" onClick={() => setMobileOpen(false)}>
-                    Signalcheck starten
+                    Signalcheck anfragen
                   </Link>
                 </Button>
               </div>
@@ -102,9 +110,13 @@ export function Header() {
       </header>
 
       {/* Sticky mobile CTA bar */}
-      <div className="lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-background border-t border-border px-4 py-3">
-        <Button asChild size="sm" className="w-full bg-primary text-primary-foreground hover:bg-primary/90">
-          <Link href="/kontakt?anliegen=signalcheck">Signalcheck starten</Link>
+      <div className="lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-background/98 backdrop-blur-sm border-t border-border/60 px-6 py-3">
+        <Button
+          asChild
+          size="sm"
+          className="w-full bg-primary text-primary-foreground hover:bg-primary/90 rounded-full"
+        >
+          <Link href="/kontakt?anliegen=signalcheck">Signalcheck anfragen</Link>
         </Button>
       </div>
     </>

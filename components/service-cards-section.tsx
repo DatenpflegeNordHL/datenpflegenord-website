@@ -1,7 +1,6 @@
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { ArrowRight, CheckCircle2 } from "lucide-react"
+import { ArrowRight } from "lucide-react"
 import { services } from "@/content/services"
 import type { ServiceStatus } from "@/content/services"
 
@@ -12,63 +11,67 @@ const statusLabels: Record<ServiceStatus, string> = {
   monitoring: "Monitoring",
 }
 
-const statusBadgeVariant: Record<ServiceStatus, "default" | "secondary" | "outline"> = {
-  entry: "secondary",
-  recommended: "default",
-  custom: "outline",
-  monitoring: "secondary",
-}
-
 export function ServiceCardsSection() {
   return (
-    <section id="leistungen" className="bg-background py-12 md:py-14">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="max-w-2xl mb-8">
-          <h2 className="text-2xl md:text-3xl font-bold text-foreground text-balance leading-tight mb-3">
-            Leistungen kompakt
-          </h2>
-          <p className="text-base text-muted-foreground leading-relaxed">
+    <section id="leistungen" className="bg-secondary/40 py-16 md:py-20 lg:py-24">
+      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+        {/* Heading row */}
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12 lg:mb-16">
+          <div>
+            <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-accent mb-3">
+              Leistungen
+            </p>
+            <h2 className="font-serif text-3xl md:text-4xl font-bold text-foreground text-balance leading-tight">
+              Leistungen kompakt
+            </h2>
+          </div>
+          <p className="text-sm text-muted-foreground max-w-xs md:text-right leading-relaxed">
             Wählen Sie den passenden Einstieg für Prüfung, Priorisierung oder laufende Kontrolle.
           </p>
         </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        {/* Cards grid */}
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
           {services.map(({ icon: Icon, title, description, bullets, price, status, href }) => (
             <div
               key={title}
-              className="bg-card border border-border rounded-xl p-5 flex flex-col gap-3"
+              className="bg-card border border-border rounded-xl p-6 flex flex-col gap-6 hover:border-primary/30 transition-colors"
             >
-              <div className="flex items-start justify-between gap-4">
-                <div className="w-9 h-9 rounded-lg bg-primary/8 flex items-center justify-center shrink-0">
+              {/* Icon + status */}
+              <div className="flex items-start justify-between">
+                <div className="w-10 h-10 rounded-lg border border-border flex items-center justify-center shrink-0">
                   <Icon className="w-5 h-5 text-primary" aria-hidden="true" />
                 </div>
-                <div className="flex flex-col items-end gap-1 shrink-0">
-                  <Badge variant={statusBadgeVariant[status]} className="text-xs">
-                    {statusLabels[status]}
-                  </Badge>
-                  <Badge variant="secondary" className="text-xs">{price}</Badge>
-                </div>
+                <span className="text-[10px] font-semibold uppercase tracking-[0.12em] text-muted-foreground mt-1">
+                  {statusLabels[status]}
+                </span>
               </div>
 
-              <div>
-                <h3 className="font-bold text-foreground mb-1.5 text-balance">{title}</h3>
+              {/* Title + description */}
+              <div className="flex flex-col gap-2 flex-1">
+                <h3 className="font-semibold text-foreground text-balance leading-snug">{title}</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">{description}</p>
               </div>
 
-              <ul className="flex flex-col gap-1.5">
+              {/* Bullets */}
+              <ul className="flex flex-col gap-2 border-t border-border/60 pt-4">
                 {bullets.slice(0, 2).map((b) => (
-                  <li key={b} className="flex items-center gap-2 text-sm text-foreground">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-accent shrink-0" aria-hidden="true" />
+                  <li key={b} className="flex items-start gap-2.5 text-sm text-muted-foreground">
+                    <span className="w-1 h-1 rounded-full bg-accent shrink-0 mt-[7px]" aria-hidden="true" />
                     {b}
                   </li>
                 ))}
               </ul>
 
-              <Button asChild variant="outline" size="sm" className="mt-auto w-fit">
-                <Link href={href} className="flex items-center gap-1.5">
-                  Ansehen <ArrowRight className="w-3.5 h-3.5" />
-                </Link>
-              </Button>
+              {/* Price + CTA */}
+              <div className="flex items-center justify-between mt-auto pt-1">
+                <span className="text-xs text-muted-foreground">{price}</span>
+                <Button asChild variant="ghost" size="sm" className="h-7 px-3 text-xs text-primary hover:bg-primary/8">
+                  <Link href={href} className="flex items-center gap-1">
+                    Ansehen <ArrowRight className="w-3 h-3" />
+                  </Link>
+                </Button>
+              </div>
             </div>
           ))}
         </div>

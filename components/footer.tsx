@@ -42,17 +42,17 @@ const footerCols = [
 export function Footer() {
   return (
     <footer className="bg-navy text-navy-foreground">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
+      <div className="max-w-7xl mx-auto px-6 lg:px-8 pt-14 pb-8 md:pt-16 md:pb-10">
         <div className="grid sm:grid-cols-2 lg:grid-cols-6 gap-10 mb-12">
           {/* Brand */}
           <div className="sm:col-span-2">
-            <div className="mb-4">
+            <div className="mb-5">
               <Logo variant="footer" showLabel={true} />
             </div>
-            <p className="text-sm text-navy-foreground/60 leading-relaxed mb-3">
+            <p className="text-sm text-navy-foreground/60 leading-relaxed mb-4">
               Mehr Sichtbarkeit. Weniger Website-Risiko. Weniger Büroarbeit.
             </p>
-            <p className="text-xs text-navy-foreground/40 leading-relaxed">
+            <p className="text-xs text-navy-foreground/35 leading-relaxed">
               DatenpflegeNord ist die Marke der NordWerk Digital GmbH für technische und
               organisatorische Prüfung, Umsetzungshilfe und digitale Prozessunterstützung.
               Keine Rechtsberatung, keine Steuerberatung und keine behördliche Zertifizierung.
@@ -61,7 +61,7 @@ export function Footer() {
 
           {footerCols.map((col) => (
             <div key={col.heading}>
-              <p className="text-xs font-semibold uppercase tracking-widest text-navy-foreground/50 mb-4">
+              <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-navy-foreground/40 mb-4">
                 {col.heading}
               </p>
               <ul className="flex flex-col gap-2.5">
@@ -69,7 +69,7 @@ export function Footer() {
                   <li key={link.label}>
                     <Link
                       href={link.href}
-                      className="text-sm text-navy-foreground/70 hover:text-navy-foreground transition-colors"
+                      className="text-sm text-navy-foreground/60 hover:text-navy-foreground transition-colors"
                     >
                       {link.label}
                     </Link>
@@ -80,12 +80,12 @@ export function Footer() {
           ))}
         </div>
 
-        <div className="border-t border-navy-foreground/10 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3">
-          <p className="text-xs text-navy-foreground/40">
+        <div className="border-t border-navy-foreground/10 pt-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
+          <p className="text-[11px] text-navy-foreground/35">
             &copy; {new Date().getFullYear()} NordWerk Digital GmbH · Marke DatenpflegeNord.
             Alle Rechte vorbehalten.
           </p>
-          <p className="text-xs text-navy-foreground/40">
+          <p className="text-[11px] text-navy-foreground/35">
             Keine anwaltliche Rechtsberatung. Technische und strukturelle Vorprüfung.
           </p>
         </div>
