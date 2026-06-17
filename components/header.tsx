@@ -5,7 +5,7 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Logo } from "@/components/logo"
-import { Menu, X } from "lucide-react"
+import { Menu, X, LogIn } from "lucide-react"
 
 const navLinks = [
   { label: "KI-Lösungen", href: "/leistungen/ki-bueroautomation" },
@@ -58,6 +58,17 @@ export function Header() {
 
             {/* Desktop actions */}
             <div className="hidden xl:flex items-center gap-2 shrink-0">
+              <Button
+                asChild
+                size="sm"
+                variant="outline"
+                className="border-border text-muted-foreground hover:text-foreground transition-colors duration-150"
+              >
+                <Link href={PORTAL_HREF} className="flex items-center gap-1.5">
+                  <LogIn className="w-3.5 h-3.5" aria-hidden="true" />
+                  Portal Login
+                </Link>
+              </Button>
               <Button
                 asChild
                 size="sm"
