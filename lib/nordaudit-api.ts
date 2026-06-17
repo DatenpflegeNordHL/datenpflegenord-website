@@ -30,10 +30,32 @@ function isScanResult(value: unknown): value is ScanResult {
     typeof input === "object" &&
     typeof input?.normalized_url === "string" &&
     ["ok", "check", "missing", "unknown"].includes(String(data.status)) &&
-    typeof data.checks === "object" &&
-    data.checks !== null &&
+    isChecksPayload(data.checks) &&
     typeof data.summary === "string" &&
     typeof data.disclaimer === "string"
+  )
+}
+
+function isQuickCheckStatus(value: unknown): boolean {
+  return value === "ok" || value === "check" || value === "missing" || value === "unknown"
+}
+
+function isCheckItem(value: unknown): boolean {
+  if (!value || typeof value !== "object") return false
+  const item = value as Record<string, unknown>
+  return (
+    isQuickCheckStatus(item.status) &&
+    typeof item.label === "string" &&
+    typeof item.evidence === "string" &&
+    typeof item.technical_hint === "string"
+  )
+}
+
+function isChecksPayload(value: unknown): boolean {
+  return (
+    typeof value === "object" &&
+    value !== null &&
+    Object.values(value).every(isCheckItem)
   )
 }
 
@@ -70,14 +92,19 @@ export async function quickCheck(domainOrUrl: string): Promise<ScanResult> {
         ? body.message
         : "Die Prüfung konnte nicht abgeschlossen werden. Bitte versuchen Sie es erneut."
 
+    const errorCode = typeof body.error === "string" ? body.error : ""
     const code: QuickCheckErrorCode =
-      response.status === 503
+      errorCode === "missing_config" || response.status === 503
         ? "missing-config"
-        : response.status === 429
-          ? "rate-limit"
-          : response.status >= 500
-            ? "network"
-            : "api"
+        : errorCode === "timeout" || response.status === 504
+          ? "timeout"
+          : errorCode === "invalid_backend_response"
+            ? "invalid-response"
+            : response.status === 429
+              ? "rate-limit"
+              : response.status >= 500
+                ? "network"
+                : "api"
 
     throw new QuickCheckError(code, message, response.status)
   }

@@ -54,14 +54,17 @@ export function DomainChecker() {
       setResult(data)
       setState("result")
     } catch (error) {
-      if (error instanceof QuickCheckError && error.code === "missing-config") {
-        setState("missing-config")
-        return
+      if (error instanceof QuickCheckError) {
+        if (error.code === "missing-config") {
+          setState("missing-config")
+          return
+        }
+        setErrorMessage(error.message || errorMessageForCode(error.code))
+      } else {
+        setErrorMessage(
+          "Die Prüfung konnte nicht abgeschlossen werden. Bitte versuchen Sie es erneut.",
+        )
       }
-
-      const fallbackMessage =
-        "Die Prüfung konnte nicht abgeschlossen werden. Bitte versuchen Sie es erneut."
-      setErrorMessage(error instanceof Error ? error.message || fallbackMessage : fallbackMessage)
       setState("error")
     }
   }
@@ -160,4 +163,20 @@ export function DomainChecker() {
       )}
     </div>
   )
+}
+
+function errorMessageForCode(code: QuickCheckError["code"]): string {
+  switch (code) {
+    case "timeout":
+      return "Der Schnellcheck hat zu lange gedauert. Bitte versuchen Sie es gleich erneut."
+    case "rate-limit":
+      return "Zu viele Schnellchecks in kurzer Zeit. Bitte versuchen Sie es gleich erneut."
+    case "invalid-response":
+      return "Der Schnellcheck hat eine ungültige Serverantwort erhalten."
+    case "api":
+      return "Die Eingabe konnte nicht geprüft werden. Bitte prüfen Sie die URL."
+    case "network":
+    default:
+      return "Dienst aktuell nicht erreichbar. Bitte versuchen Sie es später erneut."
+  }
 }
