@@ -105,13 +105,13 @@ export function DomainChecker() {
           onChange={(e) => setDomain(e.target.value)}
           onKeyDown={handleKeyDown}
           disabled={state === "loading"}
-          className="flex-1 text-sm"
+          className="flex-1 text-sm transition-shadow duration-200 focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-0"
           aria-label="Website oder Domain eingeben"
         />
         <Button
           onClick={state === "result" ? handleReset : handleCheck}
           disabled={state === "loading"}
-          className="bg-primary hover:bg-primary/90 text-primary-foreground px-5 shrink-0"
+          className="bg-primary hover:bg-primary/90 text-primary-foreground px-5 shrink-0 transition-all duration-200 hover:shadow-sm active:scale-[0.98]"
         >
           {state === "loading" ? (
             <>
@@ -127,7 +127,7 @@ export function DomainChecker() {
       </div>
 
       {errorMessage && (
-        <p className="text-destructive text-sm mb-2" role="alert">
+        <p className="text-destructive text-sm mb-2 animate-fade-in" role="alert">
           {errorMessage}
         </p>
       )}
@@ -138,10 +138,26 @@ export function DomainChecker() {
       </p>
 
       {/* State panels */}
-      {state === "loading" && <QuickCheckLoadingState domain={domain} />}
-      {state === "missing-config" && <QuickCheckMissingConfigState />}
-      {state === "error" && <QuickCheckErrorState message={errorMessage} />}
-      {state === "result" && result && <QuickCheckResultCard result={result} />}
+      {state === "loading" && (
+        <div className="animate-fade-in">
+          <QuickCheckLoadingState domain={domain} />
+        </div>
+      )}
+      {state === "missing-config" && (
+        <div className="animate-fade-in">
+          <QuickCheckMissingConfigState />
+        </div>
+      )}
+      {state === "error" && (
+        <div className="animate-scale-in">
+          <QuickCheckErrorState message={errorMessage} />
+        </div>
+      )}
+      {state === "result" && result && (
+        <div className="animate-scale-in">
+          <QuickCheckResultCard result={result} />
+        </div>
+      )}
     </div>
   )
 }

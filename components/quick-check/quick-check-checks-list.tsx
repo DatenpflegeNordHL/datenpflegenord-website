@@ -83,14 +83,27 @@ export function QuickCheckChecksList({ checks }: QuickCheckChecksListProps) {
 
   if (entries.length === 0) return null
 
+  const delayClasses = [
+    "",
+    "animation-delay-100",
+    "animation-delay-200",
+    "animation-delay-300",
+    "animation-delay-400",
+    "animation-delay-500",
+    "animation-delay-600",
+    "animation-delay-700",
+    "animation-delay-800",
+  ]
+
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-      {entries.map(([key, check]) => {
+      {entries.map(([key, check], index) => {
         const status = statusConfig[check.status]
         const StatusIcon = status.icon
+        const delayClass = delayClasses[Math.min(index, delayClasses.length - 1)]
 
         return (
-          <Card key={key} className="overflow-hidden">
+          <Card key={key} className={`overflow-hidden animate-fade-up ${delayClass}`}>
             <CardContent className="pt-4 pb-4">
               <div className="flex items-start justify-between gap-3 mb-2">
                 <div className="flex items-center gap-1.5 min-w-0">
