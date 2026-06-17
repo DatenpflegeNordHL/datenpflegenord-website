@@ -42,7 +42,7 @@ export function Header() {
             >
               {navLinks.map((link) => (
                 <Link
-                  key={link.href}
+                  key={link.label}
                   href={link.href}
                   className={`text-sm whitespace-nowrap transition-colors duration-150 ${
                     pathname === link.href
@@ -100,7 +100,7 @@ export function Header() {
             >
               {navLinks.map((link) => (
                 <Link
-                  key={link.href}
+                  key={link.label}
                   href={link.href}
                   className={`text-sm py-2.5 px-2 rounded-md border-b border-border last:border-0 transition-colors ${
                     pathname === link.href

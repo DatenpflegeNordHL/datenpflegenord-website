@@ -9,9 +9,8 @@ const footerCols = [
     heading: "KI-Systeme",
     links: [
       { label: "KI-Prozesscheck", href: "/kontakt?anliegen=ki-prozesscheck" },
-      { label: "KI-Assistenzsysteme", href: "/leistungen/ki-bueroautomation" },
-      { label: "Büroautomation", href: "/leistungen/ki-bueroautomation" },
-      { label: "Dokumenten- & E-Mail-Automation", href: "/leistungen/ki-bueroautomation" },
+      { label: "KI-Assistenzsysteme & Büroautomation", href: "/leistungen/ki-bueroautomation" },
+      { label: "Website & Lead-Prozesse", href: "/kontakt?anliegen=ki-prozesscheck" },
     ],
   },
   {
