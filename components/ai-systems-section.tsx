@@ -6,24 +6,6 @@ import { ArrowRight, Minus } from "lucide-react"
 import { kiServices } from "@/content/services"
 import { useInView } from "@/hooks/use-in-view"
 
-const benefits = [
-  {
-    number: "01",
-    title: "Weniger manuelle Arbeit",
-    text: "Wiederkehrende Aufgaben werden strukturiert, vorbereitet oder automatisiert.",
-  },
-  {
-    number: "02",
-    title: "Bessere Übersicht",
-    text: "Prozesse, Website-Signale und Kundenanfragen werden nachvollziehbar sortiert.",
-  },
-  {
-    number: "03",
-    title: "Klare Umsetzung",
-    text: "Sie bekommen keine KI-Show, sondern konkrete Systeme, die im Arbeitsalltag helfen.",
-  },
-]
-
 export function AiSystemsSection() {
   const [sectionRef, inView] = useInView<HTMLElement>({ threshold: 0.07 })
 
@@ -105,22 +87,7 @@ export function AiSystemsSection() {
           </Button>
         </div>
 
-        {/* Benefits */}
-        <div className="border-t border-border pt-10 grid md:grid-cols-3 gap-6">
-          {benefits.map((b, i) => (
-            <div
-              key={b.number}
-              className={`flex flex-col gap-2 transition-all duration-700 ${
-                inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-              }`}
-              style={{ transitionDelay: `${500 + i * 100}ms` }}
-            >
-              <span className="text-xs font-semibold text-accent tracking-widest">{b.number}</span>
-              <p className="text-sm font-semibold text-foreground">{b.title}</p>
-              <p className="text-sm text-muted-foreground leading-relaxed">{b.text}</p>
-            </div>
-          ))}
-        </div>
+
       </div>
     </section>
   )
