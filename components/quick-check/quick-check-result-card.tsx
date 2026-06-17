@@ -49,7 +49,7 @@ export function QuickCheckResultCard({ result }: QuickCheckResultCardProps) {
 
   return (
     <div className="flex flex-col gap-4">
-      <Card>
+      <Card className="animate-fade-up">
         <CardContent className="pt-5 pb-5">
           <div className="flex items-start gap-3">
             <StatusIcon
@@ -70,19 +70,23 @@ export function QuickCheckResultCard({ result }: QuickCheckResultCardProps) {
         </CardContent>
       </Card>
 
-      <Card>
+      <Card className="animate-fade-up animation-delay-100">
         <CardContent className="pt-5 pb-5">
           <QuickCheckSummaryBadges summary={result.summary} />
         </CardContent>
       </Card>
 
-      <QuickCheckChecksList checks={result.checks} />
+      <div className="animate-fade-up animation-delay-200">
+        <QuickCheckChecksList checks={result.checks} />
+      </div>
 
-      <QuickCheckDisclaimer text={result.disclaimer} />
+      <div className="animate-fade-up animation-delay-300">
+        <QuickCheckDisclaimer text={result.disclaimer} />
+      </div>
 
-      <div className="flex flex-col gap-2 pt-1">
+      <div className="flex flex-col gap-2 pt-1 animate-fade-up animation-delay-400">
         <Button
-          className="w-full bg-accent hover:bg-accent/90 text-accent-foreground font-medium"
+          className="w-full bg-accent hover:bg-accent/90 text-accent-foreground font-medium transition-all duration-200 hover:shadow-sm active:scale-[0.99]"
           onClick={handleCtaClick}
         >
           Barrierefreiheits-Audit anfragen

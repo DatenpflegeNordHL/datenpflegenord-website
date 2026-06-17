@@ -1,7 +1,10 @@
+"use client"
+
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { ArrowRight, Globe, Cpu } from "lucide-react"
+import { useInView } from "@/hooks/use-in-view"
 
 const nordauditChips = [
   "BFSG Website Audit",
@@ -27,10 +30,13 @@ const kiAutomatisierungChips = [
 ]
 
 export function ProductsSection() {
+  const [sectionRef, sectionInView] = useInView<HTMLElement>({ threshold: 0.08 })
+
   return (
-    <section id="nordaudit" className="py-16 md:py-24 bg-secondary/40">
+    <section id="nordaudit" ref={sectionRef} className="py-16 md:py-24 bg-secondary/40">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
+        <div className={`text-center mb-12 transition-all duration-700 ${sectionInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}
+          style={{ transitionDelay: "0ms" }}>
           <h2 className="text-3xl md:text-4xl font-bold text-foreground text-balance mb-4">
             Zwei Wege zu mehr Klarheit im Unternehmen
           </h2>
@@ -42,7 +48,8 @@ export function ProductsSection() {
 
         <div className="grid md:grid-cols-2 gap-6 lg:gap-8">
           {/* NordAudit Portal */}
-          <div className="relative bg-card border border-border rounded-2xl p-8 shadow-sm flex flex-col gap-5 overflow-hidden">
+          <div className={`relative bg-card border border-border rounded-2xl p-8 shadow-sm flex flex-col gap-5 overflow-hidden transition-all duration-700 hover:shadow-md hover:-translate-y-0.5 ${sectionInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-5"}`}
+            style={{ transitionDelay: "100ms" }}>
             {/* Watermark */}
             <div className="absolute -right-6 -top-6 pointer-events-none select-none" aria-hidden="true">
               <Globe className="w-40 h-40 md:w-48 md:h-48 text-primary opacity-[0.05]" strokeWidth={0.8} />
@@ -87,7 +94,8 @@ export function ProductsSection() {
           </div>
 
           {/* KI Prozessautomatisierung */}
-          <div id="ki-automatisierung" className="relative bg-card border border-border rounded-2xl p-8 shadow-sm flex flex-col gap-5 overflow-hidden">
+          <div id="ki-automatisierung" className={`relative bg-card border border-border rounded-2xl p-8 shadow-sm flex flex-col gap-5 overflow-hidden transition-all duration-700 hover:shadow-md hover:-translate-y-0.5 ${sectionInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-5"}`}
+            style={{ transitionDelay: "200ms" }}>
             {/* Watermark */}
             <div className="absolute -right-6 -top-6 pointer-events-none select-none" aria-hidden="true">
               <Cpu className="w-40 h-40 md:w-48 md:h-48 text-accent opacity-[0.07]" strokeWidth={0.8} />
