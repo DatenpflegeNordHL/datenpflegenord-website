@@ -236,7 +236,7 @@
   /*
    * Scroll-reveal elements use explicit data-motion or .motion-* classes.
    * This avoids matching unrelated UI elements (dialogs, menus, etc.)
-   * that happen to use opacity-0 / translate-y-* / scale-* Tailwind classes.
+   * that happen to use common Tailwind visibility or transform state classes.
    */
   [data-motion="reveal"],
   [data-motion="scale"],

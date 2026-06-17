@@ -9,11 +9,7 @@ type TeamMemberCardProps = {
 /**
  * Placeholder visual for PersonCard when no real photo exists yet.
  * Uses a subtle geometric grid pattern and large watermark initials
- * with a Nord-inspired color palette. Prepares for imageSrc prop.
- *
- * TODO: Add real portrait image when available:
- *   imageSrc: "/team/dustin-zander.jpg"
- * in content/team.ts. The Image block below will take over automatically.
+ * with a Nord-inspired color palette.
  */
 function PersonCardPlaceholder({ initials }: { initials: string }) {
   return (
@@ -68,10 +64,8 @@ function PersonCardPlaceholder({ initials }: { initials: string }) {
 }
 
 function PersonCard({ member }: TeamMemberCardProps) {
-  /*
-   * TODO: Final login route once customer portal authentication is available.
-   * imageSrc will be set to "/team/dustin-zander.jpg" in content/team.ts.
-   */
+  // TODO: Add real portrait image when available:
+  // imageSrc: "/team/dustin-zander.jpg"
   return (
     <div className="bg-card border border-border rounded-2xl overflow-hidden flex flex-col h-full">
       {/* Image / placeholder area */}

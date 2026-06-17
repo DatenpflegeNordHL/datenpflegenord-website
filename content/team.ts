@@ -29,17 +29,17 @@ export const teamMembers: TeamMember[] = [
     focus: "KI-Prozesse & Assistenten",
     description:
       "Entwickelt einfache, nachvollziehbare KI-Systeme zur Unterstützung wiederkehrender Unternehmensprozesse.",
-    initials: "KI",
+    initials: "department-ki",
     badges: ["KI-Prozesse", "Assistenten", "Dokumente", "E-Mail", "Workflows"],
   },
   {
     type: "department",
-    name: "Website-Prüfung & Auswertung",
+    name: "Website-Prüfung & technische Auswertung",
     role: "Fachbereich",
     focus: "Technische Signale",
     description:
       "Strukturiert Website-Signale, Statuswerte und wiederkehrende Prüfungen als Einstieg in digitale Verbesserungen.",
-    initials: "WP",
+    initials: "department-website",
     badges: ["QuickCheck", "Pflichtstellen", "Monitoring", "Technische Signale"],
   },
 ]

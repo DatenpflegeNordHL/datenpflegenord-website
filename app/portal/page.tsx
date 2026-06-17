@@ -7,15 +7,13 @@ import { ArrowRight, History, ListChecks, CheckSquare, FileText, Clock } from "l
 
 /*
  * TODO: Final login route once customer portal authentication is available.
- * Once auth is live, this page should redirect authenticated users to their dashboard
- * and show a real login form for unauthenticated users.
  * Current state: Portalzugang in Vorbereitung – Anfrage über Kontaktformular.
  */
 
 export const metadata: Metadata = {
   title: "Kundenbereich in Vorbereitung – DatenpflegeNord Portal",
   description:
-    "Der DatenpflegeNord Kundenbereich wird vorbereitet. Portalzugang anfragen oder Zugangsdaten verwenden, sobald der Login freigeschaltet ist.",
+    "Der DatenpflegeNord Kundenbereich wird vorbereitet. Portalzugang anfragen und den nächsten Schritt abstimmen.",
 }
 
 const features = [
@@ -57,7 +55,7 @@ export default function PortalPage() {
                   <p className="text-sm font-medium text-foreground">Kundenbereich in Vorbereitung</p>
                   <p className="text-sm text-muted-foreground mt-0.5 leading-relaxed">
                     Der Portalzugang wird aktuell vorbereitet. Sie können den Zugang vorab anfragen.
-                    Sobald Ihr Login freigeschaltet ist, können Sie sich mit Ihren Zugangsdaten anmelden.
+                    Sobald der Kundenbereich bereitsteht, informieren wir über den nächsten Schritt.
                   </p>
                 </div>
               </div>
@@ -72,7 +70,8 @@ export default function PortalPage() {
                 </h1>
                 <p className="text-lg text-muted-foreground leading-relaxed">
                   Im Portal sehen Kunden ihre Prüfergebnisse, offene Aufgaben und Monatsberichte –
-                  übersichtlich und jederzeit abrufbar. Der Zugang wird nach Auftragsstart eingerichtet.
+                  übersichtlich vorbereitet für den laufenden Austausch. Der Zugang wird nach
+                  Auftragsstart eingerichtet.
                 </p>
               </div>
 
@@ -104,12 +103,12 @@ export default function PortalPage() {
                    * once the authentication flow is implemented.
                    */}
                   <Link href="/kontakt?anliegen=portal-zugang" className="flex items-center gap-2">
-                    Portalzugang vorbereiten
+                    Portal Login anfragen
                     <ArrowRight className="w-4 h-4" aria-hidden="true" />
                   </Link>
                 </Button>
                 <Button asChild size="lg" variant="outline">
-                  <Link href="/kontakt">Allgemeine Kontaktaufnahme</Link>
+                  <Link href="/quickcheck">Website prüfen lassen</Link>
                 </Button>
               </div>
 

@@ -1,14 +1,14 @@
 import Link from "next/link"
 import { Logo } from "@/components/logo"
 
-// TODO: Replace /portal with the final login route once auth is set up
+// TODO: Final login route once customer portal authentication is available.
 const PORTAL_HREF = "/portal"
 
 const footerCols = [
   {
     heading: "KI-Systeme",
     links: [
-      { label: "KI-Prozesscheck", href: "/kontakt?anliegen=ki-prozesscheck" },
+      { label: "KI-Potenzial besprechen", href: "/kontakt?anliegen=ki-prozesscheck" },
       { label: "KI-Assistenzsysteme", href: "/leistungen/ki-bueroautomation" },
       { label: "Büroautomation", href: "/leistungen/ki-bueroautomation" },
       { label: "Dokumenten- & E-Mail-Automation", href: "/leistungen/ki-bueroautomation" },

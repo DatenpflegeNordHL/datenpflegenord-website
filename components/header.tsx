@@ -5,7 +5,10 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Logo } from "@/components/logo"
-import { Menu, X, LogIn } from "lucide-react"
+import { Menu, X } from "lucide-react"
+
+// TODO: Final login route once customer portal authentication is available.
+const PORTAL_HREF = "/portal"
 
 const navLinks = [
   { label: "Website prüfen", href: "/quickcheck" },
@@ -14,11 +17,9 @@ const navLinks = [
   { label: "Monitoring", href: "/monitoring" },
   { label: "Branchen", href: "/branchen" },
   { label: "Über uns", href: "/ueber-uns" },
+  { label: "Portal Login", href: PORTAL_HREF },
   { label: "Kontakt", href: "/kontakt" },
 ]
-
-// TODO: Replace /portal with the final login route once auth is set up
-const PORTAL_HREF = "/portal"
 
 export function Header() {
   const [mobileOpen, setMobileOpen] = useState(false)
@@ -60,13 +61,6 @@ export function Header() {
 
             {/* Desktop actions */}
             <div className="hidden xl:flex items-center gap-2 shrink-0">
-              <Link
-                href={PORTAL_HREF}
-                className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors duration-150 px-3 py-1.5 rounded-md hover:bg-secondary"
-              >
-                <LogIn className="w-3.5 h-3.5" aria-hidden="true" />
-                Portal Login
-              </Link>
               <Button
                 asChild
                 size="sm"
@@ -111,15 +105,6 @@ export function Header() {
                   {link.label}
                 </Link>
               ))}
-              {/* Portal Login in mobile menu */}
-              <Link
-                href={PORTAL_HREF}
-                className="flex items-center gap-1.5 text-sm py-2.5 px-2 text-muted-foreground hover:text-foreground transition-colors border-b border-border"
-                onClick={() => setMobileOpen(false)}
-              >
-                <LogIn className="w-3.5 h-3.5" aria-hidden="true" />
-                Portal Login
-              </Link>
               <div className="pt-3 flex flex-col gap-2">
                 <Button
                   asChild
@@ -152,7 +137,7 @@ export function Header() {
           variant="outline"
           className="flex-1 border-border text-foreground"
         >
-          <Link href="/quickcheck">Website prüfen</Link>
+          <Link href="/quickcheck">Website prüfen lassen</Link>
         </Button>
         <Button
           asChild
