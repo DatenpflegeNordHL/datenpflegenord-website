@@ -8,12 +8,9 @@ import { Logo } from "@/components/logo"
 import { Menu, X, LogIn } from "lucide-react"
 
 const navLinks = [
-  { label: "Website prüfen", href: "/quickcheck" },
-  { label: "KI-Systeme", href: "/leistungen/ki-bueroautomation" },
-  { label: "Leistungen", href: "/leistungen" },
-  { label: "Monitoring", href: "/monitoring" },
-  { label: "Branchen", href: "/branchen" },
-  { label: "Über uns", href: "/ueber-uns" },
+  { label: "KI-Lösungen", href: "/leistungen/ki-bueroautomation" },
+  { label: "Website-Checks", href: "/quickcheck" },
+  { label: "Branchen & Regionen", href: "/branchen" },
   { label: "Kontakt", href: "/kontakt" },
 ]
 
@@ -45,7 +42,7 @@ export function Header() {
             >
               {navLinks.map((link) => (
                 <Link
-                  key={link.href}
+                  key={link.label}
                   href={link.href}
                   className={`text-sm whitespace-nowrap transition-colors duration-150 ${
                     pathname === link.href
@@ -60,19 +57,22 @@ export function Header() {
 
             {/* Desktop actions */}
             <div className="hidden xl:flex items-center gap-2 shrink-0">
-              <Link
-                href={PORTAL_HREF}
-                className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors duration-150 px-3 py-1.5 rounded-md hover:bg-secondary"
+              <Button
+                asChild
+                size="sm"
+                className="bg-accent text-accent-foreground hover:bg-accent/90 transition-colors duration-150"
               >
-                <LogIn className="w-3.5 h-3.5" aria-hidden="true" />
-                Portal Login
-              </Link>
+                <Link href={PORTAL_HREF} className="flex items-center gap-1.5">
+                  <LogIn className="w-3.5 h-3.5" aria-hidden="true" />
+                  Portal Login
+                </Link>
+              </Button>
               <Button
                 asChild
                 size="sm"
                 className="bg-primary text-primary-foreground hover:bg-primary/90 transition-colors duration-150"
               >
-                <Link href="/kontakt?anliegen=ki-prozesscheck">KI-Potenzial besprechen</Link>
+                <Link href="/quickcheck">Website-Schnellcheck starten</Link>
               </Button>
             </div>
 
@@ -99,7 +99,7 @@ export function Header() {
             >
               {navLinks.map((link) => (
                 <Link
-                  key={link.href}
+                  key={link.label}
                   href={link.href}
                   className={`text-sm py-2.5 px-2 rounded-md border-b border-border last:border-0 transition-colors ${
                     pathname === link.href
@@ -111,31 +111,19 @@ export function Header() {
                   {link.label}
                 </Link>
               ))}
-              {/* Portal Login in mobile menu */}
-              <Link
-                href={PORTAL_HREF}
-                className="flex items-center gap-1.5 text-sm py-2.5 px-2 text-muted-foreground hover:text-foreground transition-colors border-b border-border"
-                onClick={() => setMobileOpen(false)}
-              >
-                <LogIn className="w-3.5 h-3.5" aria-hidden="true" />
-                Portal Login
-              </Link>
               <div className="pt-3 flex flex-col gap-2">
                 <Button
                   asChild
                   size="sm"
                   className="w-full bg-primary text-primary-foreground hover:bg-primary/90"
                 >
-                  <Link
-                    href="/kontakt?anliegen=ki-prozesscheck"
-                    onClick={() => setMobileOpen(false)}
-                  >
-                    KI-Potenzial besprechen
+                  <Link href="/quickcheck" onClick={() => setMobileOpen(false)}>
+                    Website-Schnellcheck starten
                   </Link>
                 </Button>
                 <Button asChild size="sm" variant="outline" className="w-full">
-                  <Link href="/quickcheck" onClick={() => setMobileOpen(false)}>
-                    Website prüfen lassen
+                  <Link href="/kontakt?anliegen=ki-prozesscheck" onClick={() => setMobileOpen(false)}>
+                    KI-Potenzial prüfen
                   </Link>
                 </Button>
               </div>
@@ -152,14 +140,14 @@ export function Header() {
           variant="outline"
           className="flex-1 border-border text-foreground"
         >
-          <Link href="/quickcheck">Website prüfen</Link>
+          <Link href="/kontakt?anliegen=ki-prozesscheck">KI-Potenzial prüfen</Link>
         </Button>
         <Button
           asChild
           size="sm"
           className="flex-1 bg-primary text-primary-foreground hover:bg-primary/90"
         >
-          <Link href="/kontakt?anliegen=ki-prozesscheck">KI-Potenzial besprechen</Link>
+          <Link href="/quickcheck">Schnellcheck starten</Link>
         </Button>
       </div>
     </>
