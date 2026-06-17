@@ -7,17 +7,23 @@ import type {
   QuickCheckKey,
   QuickCheckStatus,
 } from "@/lib/quick-check-types"
+import {
+  getCheckDescription,
+  getCheckLabel,
+  getFriendlyTechnicalText,
+  statusPresentation,
+} from "./quick-check-presentation"
 
-const orderedChecks: Array<{ key: QuickCheckKey; fallbackLabel: string }> = [
-  { key: "reachability", fallbackLabel: "Erreichbarkeit" },
-  { key: "https", fallbackLabel: "HTTPS" },
-  { key: "title", fallbackLabel: "Title" },
-  { key: "meta_description", fallbackLabel: "Meta Description" },
-  { key: "h1", fallbackLabel: "H1" },
-  { key: "html_lang", fallbackLabel: "HTML Lang" },
-  { key: "impressum_link", fallbackLabel: "Impressum Link" },
-  { key: "privacy_link", fallbackLabel: "Datenschutz Link" },
-  { key: "tracker_signals", fallbackLabel: "Tracker Signals" },
+const orderedChecks: QuickCheckKey[] = [
+  "reachability",
+  "https",
+  "title",
+  "meta_description",
+  "h1",
+  "html_lang",
+  "impressum_link",
+  "privacy_link",
+  "tracker_signals",
 ]
 
 const statusConfig: Record<
@@ -30,25 +36,25 @@ const statusConfig: Record<
   }
 > = {
   ok: {
-    label: "ok",
+    label: statusPresentation.ok.label,
     icon: CheckCircle2,
     className: "text-accent",
     badge: "outline",
   },
   check: {
-    label: "prüfen",
+    label: statusPresentation.check.label,
     icon: CircleAlert,
     className: "text-amber-600",
     badge: "secondary",
   },
   missing: {
-    label: "fehlt",
+    label: statusPresentation.missing.label,
     icon: SearchX,
     className: "text-destructive",
     badge: "destructive",
   },
   unknown: {
-    label: "unklar",
+    label: statusPresentation.unknown.label,
     icon: CircleHelp,
     className: "text-muted-foreground",
     badge: "secondary",
@@ -61,15 +67,13 @@ interface QuickCheckChecksListProps {
 
 function getVisibleChecks(checks: QuickCheckChecks): Array<[string, QuickCheckItem]> {
   const known = orderedChecks
-    .map(({ key, fallbackLabel }) => {
+    .map((key) => {
       const item = checks[key]
-      return item
-        ? ([key, { ...item, label: item.label || fallbackLabel }] as [string, QuickCheckItem])
-        : null
+      return item ? ([key, item] as [string, QuickCheckItem]) : null
     })
     .filter((entry): entry is [string, QuickCheckItem] => Boolean(entry))
 
-  const knownKeys = new Set(orderedChecks.map(({ key }) => key))
+  const knownKeys = new Set(orderedChecks)
   const extra = Object.entries(checks).filter(
     (entry): entry is [string, QuickCheckItem] =>
       !knownKeys.has(entry[0] as QuickCheckKey) && Boolean(entry[1]),
@@ -101,6 +105,16 @@ export function QuickCheckChecksList({ checks }: QuickCheckChecksListProps) {
         const status = statusConfig[check.status]
         const StatusIcon = status.icon
         const delayClass = delayClasses[Math.min(index, delayClasses.length - 1)]
+        const label = getCheckLabel(key, check.label)
+        const description = getCheckDescription(key)
+        const evidence = getFriendlyTechnicalText(
+          check.evidence,
+          "Für diesen Prüfpunkt liegt keine Detailangabe vor.",
+        )
+        const technicalHint = getFriendlyTechnicalText(
+          check.technical_hint,
+          "Keine technische Empfehlung vorhanden.",
+        )
 
         return (
           <Card key={key} className={`overflow-hidden animate-fade-up ${delayClass}`}>
@@ -112,7 +126,7 @@ export function QuickCheckChecksList({ checks }: QuickCheckChecksListProps) {
                     aria-hidden="true"
                   />
                   <span className="text-xs font-semibold text-foreground truncate">
-                    {check.label}
+                    {label}
                   </span>
                 </div>
                 <Badge variant={status.badge} className="text-[10px] px-1.5 py-0 shrink-0">
@@ -120,12 +134,17 @@ export function QuickCheckChecksList({ checks }: QuickCheckChecksListProps) {
                 </Badge>
               </div>
               <div className="flex flex-col gap-1.5">
+                {description && (
+                  <p className="text-[11px] text-muted-foreground leading-relaxed">
+                    {description}
+                  </p>
+                )}
                 <p className="text-[11px] text-muted-foreground leading-relaxed">
-                  {check.evidence || "Keine Angabe."}
+                  <span className="font-medium text-foreground/80">Kurzbewertung:</span>{" "}
+                  {evidence}
                 </p>
                 <p className="text-[11px] text-foreground/80 leading-relaxed">
-                  <span className="font-medium">Hinweis:</span>{" "}
-                  {check.technical_hint || "Keine technische Empfehlung vorhanden."}
+                  <span className="font-medium">Technischer Hinweis:</span> {technicalHint}
                 </p>
               </div>
             </CardContent>
