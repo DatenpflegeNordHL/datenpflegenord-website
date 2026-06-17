@@ -1,211 +1,438 @@
 "use client"
 
+import { useEffect, useRef, useState } from "react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { ArrowRight, CheckCircle2, LogIn } from "lucide-react"
+import { ArrowRight, CheckCircle2, MapPin, AlertCircle, Gauge } from "lucide-react"
 
-// TODO: Replace /portal with the final login route once auth is set up
-const PORTAL_HREF = "/portal"
-
-const trustBadges = [
-  { label: "KI-Prozesscheck" },
-  { label: "Website-Schnellcheck" },
-  { label: "Büroautomation" },
-  { label: "Keine Rechtsberatung" },
-]
-
-/**
- * Abstracted Lübeck skyline SVG.
- * Inspired by the city's gothic gabled facades, the Holstentor twin towers,
- * and the silhouette of the seven church spires. Rendered as flat minimal shapes
- * in the brand navy, fading bottom-to-top via a gradient mask overlay so it
- * never competes with the text.
- */
-function LuebeckSkyline() {
+// ─── Northern Signal Map Background ──────────────────────────────────────────
+// Subtle SVG with coast-inspired contour lines, lat/lon grid, and faint city
+// markers for Schleswig-Holstein. Low opacity – never distracts from text.
+function NorthernSignalMap() {
   return (
     <div
       className="absolute inset-0 overflow-hidden pointer-events-none select-none"
       aria-hidden="true"
     >
       <svg
-        viewBox="0 0 1200 380"
-        preserveAspectRatio="xMidYMax meet"
-        className="absolute bottom-0 left-0 w-full h-full opacity-[0.075]"
-        fill="currentColor"
+        viewBox="0 0 1100 520"
+        preserveAspectRatio="xMidYMid slice"
+        className="absolute inset-0 w-full h-full"
         xmlns="http://www.w3.org/2000/svg"
+        fill="none"
       >
-        {/* Colour: navy token, rendered via text-primary */}
-        <g className="text-primary" fill="currentColor">
-          {/* ── Far-left background layer: low buildings ── */}
-          <rect x="0" y="270" width="80" height="110" />
-          <rect x="85" y="255" width="55" height="125" />
-          <rect x="145" y="265" width="40" height="115" />
+        {/* ── Latitude grid lines ── */}
+        {[80, 160, 240, 320, 400].map((y) => (
+          <line
+            key={y}
+            x1="0"
+            y1={y}
+            x2="1100"
+            y2={y}
+            stroke="#2a4a7f"
+            strokeWidth="0.5"
+            strokeOpacity="0.12"
+            strokeDasharray="6 10"
+          />
+        ))}
 
-          {/* ── Left tower group: Holstentor-style twin towers ── */}
-          {/* Left tower */}
-          <rect x="195" y="200" width="48" height="180" />
-          {/* Conical top left */}
-          <polygon points="195,200 219,155 243,200" />
-          {/* Right tower */}
-          <rect x="252" y="210" width="48" height="170" />
-          {/* Conical top right */}
-          <polygon points="252,210 276,162 300,210" />
-          {/* Bridge/arch between them */}
-          <rect x="218" y="245" width="40" height="20" />
+        {/* ── Longitude grid lines ── */}
+        {[110, 220, 330, 440, 550, 660, 770, 880, 990].map((x) => (
+          <line
+            key={x}
+            x1={x}
+            y1="0"
+            x2={x}
+            y2="520"
+            stroke="#2a4a7f"
+            strokeWidth="0.5"
+            strokeOpacity="0.10"
+            strokeDasharray="4 12"
+          />
+        ))}
 
-          {/* ── First church spire ── */}
-          <rect x="330" y="230" width="30" height="150" />
-          <polygon points="330,230 345,170 360,230" />
-          {/* Nave */}
-          <rect x="315" y="285" width="60" height="95" />
+        {/* ── Abstract coastline contours inspired by SH coast ── */}
+        {/* Outer contour – North Sea / Baltic silhouette */}
+        <path
+          d="M0 310 C60 295 120 285 180 280 C240 275 290 270 340 262 C390 254 430 244 470 238 C510 232 545 228 580 222 C630 214 680 208 730 204 C790 200 850 195 910 192 C960 190 1020 188 1100 186"
+          stroke="#2a6e8a"
+          strokeWidth="1.2"
+          strokeOpacity="0.18"
+          strokeLinecap="round"
+        />
+        {/* Inner contour */}
+        <path
+          d="M0 340 C70 326 140 316 200 310 C260 304 310 298 365 292 C420 286 465 280 510 275 C560 270 600 265 648 262 C700 258 755 254 820 252 C880 250 940 248 1100 246"
+          stroke="#2a6e8a"
+          strokeWidth="0.9"
+          strokeOpacity="0.13"
+          strokeLinecap="round"
+        />
+        {/* Tertiary contour */}
+        <path
+          d="M0 370 C80 358 155 350 220 344 C285 338 340 332 395 328 C450 324 498 320 550 316 C610 312 668 309 730 306 C800 303 870 300 950 298 C1000 297 1050 296 1100 295"
+          stroke="#2a6e8a"
+          strokeWidth="0.7"
+          strokeOpacity="0.09"
+          strokeLinecap="round"
+        />
 
-          {/* ── Stepped gable facade – 3-part ── */}
-          <rect x="400" y="260" width="30" height="120" />
-          {/* Stepped gable */}
-          <polygon points="400,260 415,220 430,260" />
-          <rect x="435" y="250" width="35" height="130" />
-          <polygon points="435,250 452,205 470,250" />
-          <rect x="475" y="268" width="30" height="112" />
-          <polygon points="475,268 490,232 505,268" />
+        {/* ── Nautical depth curves – more organic ── */}
+        <path
+          d="M0 260 Q150 248 280 244 Q400 240 520 234 Q640 228 780 226 Q900 224 1100 222"
+          stroke="#1a4060"
+          strokeWidth="0.8"
+          strokeOpacity="0.10"
+          strokeLinecap="round"
+        />
+        <path
+          d="M0 210 Q200 200 380 196 Q520 192 650 188 Q800 184 1100 180"
+          stroke="#1a4060"
+          strokeWidth="0.6"
+          strokeOpacity="0.07"
+          strokeLinecap="round"
+        />
 
-          {/* ── Tall thin spire ── */}
-          <rect x="525" y="220" width="14" height="160" />
-          <polygon points="525,220 532,170 539,220" />
-          {/* Shoulder building */}
-          <rect x="515" y="275" width="34" height="105" />
+        {/* ── City markers with rings ── */}
+        {/* Kiel */}
+        <circle cx="680" cy="170" r="3" fill="#2a6e8a" fillOpacity="0.35" />
+        <circle cx="680" cy="170" r="6" stroke="#2a6e8a" strokeWidth="0.7" strokeOpacity="0.18" />
+        <circle cx="680" cy="170" r="10" stroke="#2a6e8a" strokeWidth="0.4" strokeOpacity="0.10" />
 
-          {/* ── Wide market church silhouette – center focal ── */}
-          <rect x="575" y="200" width="50" height="180" />
-          <polygon points="575,200 600,130 625,200" />
-          <rect x="560" y="260" width="80" height="120" />
-          {/* Small transept bump */}
-          <rect x="545" y="290" width="110" height="30" />
+        {/* Lübeck */}
+        <circle cx="810" cy="240" r="3" fill="#2a6e8a" fillOpacity="0.30" />
+        <circle cx="810" cy="240" r="6" stroke="#2a6e8a" strokeWidth="0.7" strokeOpacity="0.15" />
+        <circle cx="810" cy="240" r="10" stroke="#2a6e8a" strokeWidth="0.4" strokeOpacity="0.08" />
 
-          {/* ── Second spire group ── */}
-          <rect x="660" y="215" width="18" height="165" />
-          <polygon points="660,215 669,158 678,215" />
-          <rect x="648" y="272" width="42" height="108" />
+        {/* Schleswig */}
+        <circle cx="590" cy="128" r="2.5" fill="#2a6e8a" fillOpacity="0.28" />
+        <circle cx="590" cy="128" r="5.5" stroke="#2a6e8a" strokeWidth="0.6" strokeOpacity="0.14" />
 
-          {/* ── Row of gabled townhouses ── */}
-          <rect x="715" y="265" width="28" height="115" />
-          <polygon points="715,265 729,235 743,265" />
-          <rect x="748" y="255" width="32" height="125" />
-          <polygon points="748,255 764,220 780,255" />
-          <rect x="785" y="268" width="28" height="112" />
-          <polygon points="785,268 799,240 813,268" />
-          <rect x="818" y="260" width="30" height="120" />
-          <polygon points="818,260 833,228 848,260" />
+        {/* Hamburg (south-east, partially visible) */}
+        <circle cx="820" cy="350" r="2" fill="#2a6e8a" fillOpacity="0.20" />
+        <circle cx="820" cy="350" r="5" stroke="#2a6e8a" strokeWidth="0.5" strokeOpacity="0.10" />
 
-          {/* ── Third tall spire ── */}
-          <rect x="870" y="205" width="16" height="175" />
-          <polygon points="870,205 878,148 886,205" />
-          <rect x="858" y="268" width="40" height="112" />
+        {/* ── Faint cross-hatch in upper-left quadrant ── */}
+        <line x1="30" y1="60" x2="30" y2="200" stroke="#2a4a7f" strokeWidth="0.4" strokeOpacity="0.08" />
+        <line x1="55" y1="60" x2="55" y2="200" stroke="#2a4a7f" strokeWidth="0.4" strokeOpacity="0.08" />
+        <line x1="30" y1="90" x2="180" y2="90" stroke="#2a4a7f" strokeWidth="0.4" strokeOpacity="0.08" />
+        <line x1="30" y1="115" x2="180" y2="115" stroke="#2a4a7f" strokeWidth="0.4" strokeOpacity="0.08" />
+        <line x1="30" y1="140" x2="180" y2="140" stroke="#2a4a7f" strokeWidth="0.4" strokeOpacity="0.08" />
 
-          {/* ── Far-right low cityscape ── */}
-          <rect x="920" y="270" width="60" height="110" />
-          <rect x="985" y="255" width="45" height="125" />
-          <rect x="1035" y="268" width="35" height="112" />
-          <rect x="1075" y="260" width="50" height="120" />
-          <rect x="1130" y="272" width="70" height="108" />
-        </g>
+        {/* ── Small dot constellation – SH municipalities ── */}
+        {[
+          [480, 150], [540, 162], [610, 148], [640, 178], [720, 190],
+          [760, 168], [700, 210], [650, 220], [560, 200], [510, 182],
+        ].map(([cx, cy], i) => (
+          <circle key={i} cx={cx} cy={cy} r="1.2" fill="#2a6e8a" fillOpacity="0.22" />
+        ))}
       </svg>
 
-      {/* Soft gradient mask: transparent top, white bottom – hides silhouette bottom edge */}
+      {/* Gradient fade: transparent center/left, white toward right and bottom */}
       <div
         className="absolute inset-0"
-          style={{
-            background:
-              "linear-gradient(to bottom, rgba(253,253,253,0) 0%, rgba(253,253,253,0) 62%, rgba(253,253,253,0.55) 82%, rgba(253,253,253,1) 100%)",
-          }}
+        style={{
+          background:
+            "radial-gradient(ellipse 70% 80% at 15% 30%, transparent 0%, rgba(253,253,253,0.55) 55%, rgba(253,253,253,0.92) 80%, rgba(253,253,253,1) 100%)",
+        }}
+      />
+      {/* Bottom fade */}
+      <div
+        className="absolute inset-0"
+        style={{
+          background:
+            "linear-gradient(to bottom, transparent 60%, rgba(253,253,253,0.8) 85%, rgba(253,253,253,1) 100%)",
+        }}
       />
     </div>
   )
 }
 
+// ─── Signalcheck Dashboard ────────────────────────────────────────────────────
+const scoreData = [
+  { label: "Lokale Sichtbarkeit", value: 62, max: 100, color: "#d97706" },
+  { label: "Technik & Struktur", value: 44, max: 100, color: "#dc2626" },
+  { label: "Kontakt & Vertrauen", value: 71, max: 100, color: "#2a6e8a" },
+]
+
+function ScoreBar({ value, max, color }: { value: number; max: number; color: string }) {
+  return (
+    <div className="h-1.5 w-full bg-slate-100 rounded-full overflow-hidden">
+      <div
+        className="h-full rounded-full transition-all duration-700"
+        style={{ width: `${(value / max) * 100}%`, backgroundColor: color }}
+      />
+    </div>
+  )
+}
+
+function SignalcheckDashboard() {
+  const dashRef = useRef<HTMLDivElement>(null)
+  const [tilt, setTilt] = useState({ x: 0, y: 0 })
+  const [isHovered, setIsHovered] = useState(false)
+  const frameRef = useRef<number>(0)
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      if (!dashRef.current) return
+      const rect = dashRef.current.getBoundingClientRect()
+      const cx = rect.left + rect.width / 2
+      const cy = rect.top + rect.height / 2
+      const dx = (e.clientX - cx) / rect.width
+      const dy = (e.clientY - cy) / rect.height
+      cancelAnimationFrame(frameRef.current)
+      frameRef.current = requestAnimationFrame(() => {
+        setTilt({ x: dy * -6, y: dx * 6 })
+      })
+    }
+
+    const handleMouseLeave = () => {
+      setTilt({ x: 0, y: 0 })
+      setIsHovered(false)
+    }
+
+    const el = dashRef.current
+    if (!el) return
+    el.addEventListener("mousemove", handleMouseMove)
+    el.addEventListener("mouseleave", handleMouseLeave)
+    el.addEventListener("mouseenter", () => setIsHovered(true))
+    return () => {
+      el.removeEventListener("mousemove", handleMouseMove)
+      el.removeEventListener("mouseleave", handleMouseLeave)
+      cancelAnimationFrame(frameRef.current)
+    }
+  }, [])
+
+  return (
+    <div
+      ref={dashRef}
+      className="relative w-full max-w-[420px] mx-auto"
+      style={{ perspective: "1000px" }}
+    >
+      {/* Subtle floating animation wrapper */}
+      <div
+        className="dashboard-float"
+        style={{
+          transform: `rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`,
+          transition: isHovered ? "transform 0.08s linear" : "transform 0.6s cubic-bezier(0.22,1,0.36,1)",
+          willChange: "transform",
+        }}
+      >
+        {/* Card */}
+        <div className="bg-white rounded-2xl border border-slate-200/80 shadow-[0_8px_40px_-8px_rgba(28,45,80,0.18)] overflow-hidden">
+          {/* Header bar */}
+          <div className="bg-[oklch(0.28_0.07_248)] px-4 py-3 flex items-center justify-between">
+            <div>
+              <p className="text-[10px] text-slate-300 uppercase tracking-widest font-medium">
+                DatenpflegeNord
+              </p>
+              <p className="text-white text-sm font-semibold leading-tight">Signalcheck</p>
+            </div>
+            <div className="text-right">
+              <p className="text-[10px] text-slate-300 leading-tight">beispielbetrieb-sh.de</p>
+              <p className="text-[10px] text-slate-400 flex items-center gap-0.5 justify-end mt-0.5">
+                <MapPin className="w-2.5 h-2.5" />
+                Schleswig-Holstein
+              </p>
+            </div>
+          </div>
+
+          {/* Body */}
+          <div className="flex divide-x divide-slate-100">
+            {/* Sidebar */}
+            <nav className="hidden sm:flex flex-col gap-0.5 py-3 px-2 bg-slate-50/70 min-w-[110px]">
+              {["Überblick", "Website-Signale", "KI-Potenzial", "Maßnahmen", "Monitoring"].map(
+                (item, i) => (
+                  <span
+                    key={item}
+                    className={`text-[11px] px-2.5 py-1.5 rounded-md cursor-default transition-colors ${
+                      i === 0
+                        ? "bg-[oklch(0.28_0.07_248)] text-white font-medium"
+                        : "text-slate-500 hover:text-slate-700 hover:bg-slate-100"
+                    }`}
+                  >
+                    {item}
+                  </span>
+                )
+              )}
+            </nav>
+
+            {/* Main panel */}
+            <div className="flex-1 p-4 flex flex-col gap-4">
+              {/* Score cards */}
+              <div className="flex flex-col gap-3">
+                {scoreData.map((s) => (
+                  <div key={s.label} className="flex flex-col gap-1">
+                    <div className="flex items-center justify-between">
+                      <span className="text-[11px] text-slate-600 font-medium">{s.label}</span>
+                      <span className="text-[11px] font-semibold" style={{ color: s.color }}>
+                        {s.value}
+                        <span className="text-slate-400 font-normal">/{s.max}</span>
+                      </span>
+                    </div>
+                    <ScoreBar value={s.value} max={s.max} color={s.color} />
+                  </div>
+                ))}
+
+                {/* KI-Verständlichkeit badge */}
+                <div className="flex items-center justify-between">
+                  <span className="text-[11px] text-slate-600 font-medium">KI-Verständlichkeit</span>
+                  <span className="text-[10px] bg-teal-50 text-teal-700 border border-teal-200 px-2 py-0.5 rounded-full font-medium">
+                    Hoch
+                  </span>
+                </div>
+              </div>
+
+              {/* Divider */}
+              <div className="border-t border-slate-100" />
+
+              {/* Action summary */}
+              <div className="grid grid-cols-3 gap-2 text-center">
+                <div className="flex flex-col gap-0.5">
+                  <span className="text-base font-bold text-[oklch(0.28_0.07_248)]">7</span>
+                  <span className="text-[10px] text-slate-500 leading-tight">Maßnahmen</span>
+                </div>
+                <div className="flex flex-col gap-0.5">
+                  <span className="text-base font-bold text-amber-600">3</span>
+                  <span className="text-[10px] text-slate-500 leading-tight">Schnell­korrekturen</span>
+                </div>
+                <div className="flex flex-col gap-0.5">
+                  <span className="text-base font-bold text-teal-600">1</span>
+                  <span className="text-[10px] text-slate-500 leading-tight">KI-Prozess</span>
+                </div>
+              </div>
+
+              {/* Divider */}
+              <div className="border-t border-slate-100" />
+
+              {/* Next steps */}
+              <div className="flex flex-col gap-2">
+                <p className="text-[11px] font-semibold text-slate-700 uppercase tracking-wide">
+                  Nächste Schritte
+                </p>
+                {[
+                  { n: 1, text: "Kontaktwege vereinfachen" },
+                  { n: 2, text: "LocalBusiness-Daten ergänzen" },
+                  { n: 3, text: "Kundenanfragen automatisieren" },
+                ].map((step) => (
+                  <div key={step.n} className="flex items-start gap-2">
+                    <span className="flex-shrink-0 w-4 h-4 rounded-full bg-[oklch(0.28_0.07_248)] text-white text-[9px] flex items-center justify-center font-bold mt-px">
+                      {step.n}
+                    </span>
+                    <span className="text-[11px] text-slate-600 leading-snug">{step.text}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Subtle reflection shadow */}
+        <div className="absolute -bottom-3 left-4 right-4 h-6 bg-[oklch(0.28_0.07_248)]/10 rounded-full blur-xl" />
+      </div>
+    </div>
+  )
+}
+
+// ─── Trust badges ──────────────────────────────────────────────────────────────
+const trustBadges = [
+  { label: "Schleswig-Holstein Fokus" },
+  { label: "Klare Maßnahmenliste" },
+  { label: "KI + Website aus einer Hand" },
+]
+
+// ─── Hero Section ─────────────────────────────────────────────────────────────
 export function HeroSection() {
   return (
-    <section className="relative bg-background py-14 md:py-20 lg:py-24 overflow-hidden">
-      <LuebeckSkyline />
+    <section className="relative bg-background pt-14 pb-16 md:pt-20 md:pb-24 lg:pt-24 lg:pb-28 overflow-hidden">
+      <NorthernSignalMap />
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="max-w-3xl flex flex-col gap-6">
-          {/* Eyebrow */}
-          <p className="text-xs font-semibold uppercase tracking-widest text-accent animate-fade-up">
-            KI-Systeme für Unternehmen · Website-Checks als Einstieg
-          </p>
+        <div className="flex flex-col lg:flex-row lg:items-center gap-12 lg:gap-16">
 
-          {/* Headline */}
-          <h1 className="text-3xl md:text-5xl font-bold text-balance leading-tight text-foreground animate-fade-up animation-delay-100">
-            KI-Systeme, die Unternehmen im Alltag wirklich entlasten.
-          </h1>
+          {/* ── Left column ── */}
+          <div className="flex-1 flex flex-col gap-5 max-w-[560px]">
+            {/* Eyebrow */}
+            <p className="text-xs font-semibold uppercase tracking-widest text-accent animate-fade-up">
+              KI-Systeme · Website-Checks · Schleswig-Holstein
+            </p>
 
-          {/* Sub-headline */}
-          <p className="text-lg text-muted-foreground leading-relaxed animate-fade-up animation-delay-200">
-            DatenpflegeNord unterstützt Unternehmen mit klar strukturierten KI-Systemen,
-            Automationen und Website-Checks. Wir prüfen, wo digitale Prozesse schwächeln, und
-            bauen daraus verständliche nächste Schritte.
-          </p>
+            {/* Headline */}
+            <h1 className="text-3xl md:text-[2.6rem] font-bold text-balance leading-[1.18] text-foreground animate-fade-up animation-delay-100">
+              KI-Systeme und Website-Checks für Ihr Unternehmen in Schleswig-Holstein
+            </h1>
 
-          {/* CTAs */}
-          <div className="flex flex-wrap items-center gap-3 animate-fade-up animation-delay-300">
-            <Button
-              asChild
-              size="lg"
-              className="bg-primary text-primary-foreground hover:bg-primary/90 transition-colors duration-200"
-            >
-              <Link href="/kontakt?anliegen=ki-prozesscheck" className="flex items-center gap-2">
-                KI-Potenzial besprechen
-                <ArrowRight className="w-4 h-4" aria-hidden="true" />
-              </Link>
-            </Button>
-            <Button
-              asChild
-              size="lg"
-              variant="outline"
-              className="border-border hover:bg-secondary transition-colors duration-200"
-            >
-              <Link href="/quickcheck" className="flex items-center gap-2">
-                Website prüfen lassen
-              </Link>
-            </Button>
-          </div>
+            {/* Sub-headline */}
+            <p className="text-base text-muted-foreground leading-relaxed animate-fade-up animation-delay-200">
+              Wir prüfen Websites, digitale Pflichtstellen und wiederkehrende Büroprozesse.
+              Daraus entstehen klare nächste Schritte, einfache Automationen und bessere digitale Abläufe.
+            </p>
 
-          {/* Portal login nudge */}
-          <div className="animate-fade-up animation-delay-400">
-            <Link
-              href={PORTAL_HREF}
-              className="inline-flex items-center gap-1.5 text-xs text-muted-foreground hover:text-foreground transition-colors duration-150 group"
-            >
-              <LogIn className="w-3.5 h-3.5" aria-hidden="true" />
-              Bereits Kunde?{" "}
-              <span className="underline underline-offset-2 group-hover:no-underline">
-                Portal Login
-              </span>
-            </Link>
-          </div>
-
-          {/* Trust badges */}
-          <div className="flex flex-wrap gap-2">
-            {trustBadges.map((b, i) => (
-              <span
-                key={b.label}
-                className={`inline-flex items-center gap-1.5 text-xs text-muted-foreground bg-secondary rounded-full px-3 py-1 animate-fade-up ${
-                  i === 0
-                    ? "animation-delay-400"
-                    : i === 1
-                    ? "animation-delay-500"
-                    : i === 2
-                    ? "animation-delay-600"
-                    : "animation-delay-700"
-                }`}
+            {/* CTAs */}
+            <div className="flex flex-wrap items-center gap-3 animate-fade-up animation-delay-300">
+              <Button
+                asChild
+                size="lg"
+                className="bg-primary text-primary-foreground hover:bg-primary/90 transition-colors duration-200"
               >
-                <CheckCircle2 className="w-3 h-3 text-accent shrink-0" aria-hidden="true" />
-                {b.label}
-              </span>
-            ))}
+                <Link href="/quickcheck" className="flex items-center gap-2">
+                  Website-Schnellcheck starten
+                  <ArrowRight className="w-4 h-4" aria-hidden="true" />
+                </Link>
+              </Button>
+              <Button
+                asChild
+                size="lg"
+                variant="outline"
+                className="border-border hover:bg-secondary transition-colors duration-200"
+              >
+                <Link href="/kontakt?anliegen=ki-prozesscheck">
+                  KI-Potenzial prüfen
+                </Link>
+              </Button>
+            </div>
+
+            {/* Legal note */}
+            <p className="text-[11px] text-muted-foreground animate-fade-up animation-delay-400">
+              Technische Vorprüfung. Keine Rechtsberatung.
+            </p>
+
+            {/* Trust badges */}
+            <div className="flex flex-wrap gap-2 animate-fade-up animation-delay-500">
+              {trustBadges.map((b) => (
+                <span
+                  key={b.label}
+                  className="inline-flex items-center gap-1.5 text-xs text-muted-foreground bg-secondary rounded-full px-3 py-1 border border-border"
+                >
+                  <CheckCircle2 className="w-3 h-3 text-accent shrink-0" aria-hidden="true" />
+                  {b.label}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          {/* ── Right column – dashboard ── */}
+          <div className="flex-1 flex items-center justify-center lg:justify-end animate-fade-up animation-delay-300 max-w-full">
+            <SignalcheckDashboard />
           </div>
         </div>
       </div>
+
+      {/* Floating keyframe – defined inline to avoid CSS file changes */}
+      <style>{`
+        @keyframes dashboard-float {
+          0%, 100% { transform: translateY(0px); }
+          50% { transform: translateY(-6px); }
+        }
+        .dashboard-float {
+          animation: dashboard-float 5s ease-in-out infinite;
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .dashboard-float {
+            animation: none !important;
+          }
+        }
+      `}</style>
     </section>
   )
 }
