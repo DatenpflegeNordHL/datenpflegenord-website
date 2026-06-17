@@ -5,10 +5,47 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { ArrowRight, CheckCircle2, MapPin, AlertCircle, Gauge } from "lucide-react"
 
-// ─── Northern Signal Map Background ──────────────────────────────────────────
-// Subtle SVG with coast-inspired contour lines, lat/lon grid, and faint city
-// markers for Schleswig-Holstein. Low opacity – never distracts from text.
-function NorthernSignalMap() {
+// ─── KI Neural Network Background ────────────────────────────────────────────
+// Neural network nodes + edges layered over the SH map grid.
+// Stronger visual presence with animated pulses, but fades hard toward the
+// left column so text always stays readable.
+
+// Node positions: concentrated in the upper-right where the dashboard sits,
+// radiating outward with decreasing density.
+const NODES = [
+  // Dense cluster – top right
+  { cx: 820, cy: 80,  r: 3.5, pulse: true  },
+  { cx: 920, cy: 55,  r: 2.5, pulse: false },
+  { cx: 760, cy: 130, r: 4,   pulse: true  },
+  { cx: 870, cy: 140, r: 2.5, pulse: false },
+  { cx: 970, cy: 100, r: 3,   pulse: true  },
+  { cx: 1050,cy: 80,  r: 2,   pulse: false },
+  { cx: 1000,cy: 170, r: 2.5, pulse: false },
+  // Mid-right
+  { cx: 830, cy: 220, r: 3,   pulse: true  },
+  { cx: 930, cy: 240, r: 2,   pulse: false },
+  { cx: 700, cy: 200, r: 2.5, pulse: false },
+  { cx: 750, cy: 270, r: 2,   pulse: false },
+  { cx: 1020,cy: 300, r: 2.5, pulse: true  },
+  // Transition zone – centre
+  { cx: 620, cy: 160, r: 2,   pulse: false },
+  { cx: 580, cy: 240, r: 2,   pulse: false },
+  { cx: 660, cy: 310, r: 1.8, pulse: false },
+  { cx: 720, cy: 370, r: 1.8, pulse: false },
+  // Sparse outreach – left
+  { cx: 460, cy: 180, r: 1.5, pulse: false },
+  { cx: 510, cy: 290, r: 1.5, pulse: false },
+  { cx: 400, cy: 340, r: 1.2, pulse: false },
+]
+
+// Edges: pairs of NODES indices
+const EDGES: [number, number][] = [
+  [0,1],[0,2],[0,4],[1,4],[2,3],[2,7],[3,4],[4,5],[4,6],[5,6],
+  [6,8],[7,8],[7,9],[9,10],[8,11],[10,14],[12,9],[12,13],[13,14],
+  [14,15],[15,17],[16,12],[16,17],[17,18],
+]
+
+function KiNetworkBackground() {
   return (
     <div
       className="absolute inset-0 overflow-hidden pointer-events-none select-none"
@@ -21,129 +58,154 @@ function NorthernSignalMap() {
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
       >
-        {/* ── Latitude grid lines ── */}
+        <defs>
+          {/* Animated dash for "data flowing along edges" */}
+          <style>{`
+            @keyframes dash-flow {
+              to { stroke-dashoffset: -24; }
+            }
+            .edge-flow {
+              animation: dash-flow 2.4s linear infinite;
+            }
+            .edge-flow-slow {
+              animation: dash-flow 4s linear infinite;
+            }
+            @keyframes node-pulse {
+              0%, 100% { opacity: 0.55; r: 4; }
+              50%       { opacity: 1;    r: 6; }
+            }
+            .node-pulse {
+              animation: node-pulse 2.8s ease-in-out infinite;
+            }
+            @keyframes node-pulse-b {
+              0%, 100% { opacity: 0.45; r: 3.5; }
+              50%       { opacity: 0.9; r: 5.5; }
+            }
+            .node-pulse-b {
+              animation: node-pulse-b 3.5s ease-in-out infinite;
+            }
+            @media (prefers-reduced-motion: reduce) {
+              .edge-flow, .edge-flow-slow, .node-pulse, .node-pulse-b {
+                animation: none !important;
+              }
+            }
+          `}</style>
+
+          {/* Radial gradient: opaque right → transparent left */}
+          <radialGradient id="netFade" cx="80%" cy="35%" r="65%">
+            <stop offset="0%"   stopColor="#2a4a7f" stopOpacity="0.22" />
+            <stop offset="45%"  stopColor="#2a4a7f" stopOpacity="0.12" />
+            <stop offset="75%"  stopColor="#2a4a7f" stopOpacity="0.04" />
+            <stop offset="100%" stopColor="#2a4a7f" stopOpacity="0"    />
+          </radialGradient>
+
+          {/* Teal glow for pulse nodes */}
+          <radialGradient id="tealglow" cx="50%" cy="50%" r="50%">
+            <stop offset="0%"   stopColor="#2a8a6e" stopOpacity="0.7" />
+            <stop offset="100%" stopColor="#2a8a6e" stopOpacity="0"   />
+          </radialGradient>
+        </defs>
+
+        {/* ── Lat/lon grid (keeps the SH map feel) ── */}
         {[80, 160, 240, 320, 400].map((y) => (
-          <line
-            key={y}
-            x1="0"
-            y1={y}
-            x2="1100"
-            y2={y}
-            stroke="#2a4a7f"
-            strokeWidth="0.5"
-            strokeOpacity="0.12"
-            strokeDasharray="6 10"
-          />
+          <line key={`h${y}`} x1="0" y1={y} x2="1100" y2={y}
+            stroke="#2a4a7f" strokeWidth="0.5" strokeOpacity="0.09" strokeDasharray="5 11" />
         ))}
-
-        {/* ── Longitude grid lines ── */}
         {[110, 220, 330, 440, 550, 660, 770, 880, 990].map((x) => (
-          <line
-            key={x}
-            x1={x}
-            y1="0"
-            x2={x}
-            y2="520"
-            stroke="#2a4a7f"
-            strokeWidth="0.5"
-            strokeOpacity="0.10"
-            strokeDasharray="4 12"
-          />
+          <line key={`v${x}`} x1={x} y1="0" x2={x} y2="520"
+            stroke="#2a4a7f" strokeWidth="0.5" strokeOpacity="0.07" strokeDasharray="4 13" />
         ))}
 
-        {/* ── Abstract coastline contours inspired by SH coast ── */}
-        {/* Outer contour – North Sea / Baltic silhouette */}
-        <path
-          d="M0 310 C60 295 120 285 180 280 C240 275 290 270 340 262 C390 254 430 244 470 238 C510 232 545 228 580 222 C630 214 680 208 730 204 C790 200 850 195 910 192 C960 190 1020 188 1100 186"
-          stroke="#2a6e8a"
-          strokeWidth="1.2"
-          strokeOpacity="0.18"
-          strokeLinecap="round"
-        />
-        {/* Inner contour */}
-        <path
-          d="M0 340 C70 326 140 316 200 310 C260 304 310 298 365 292 C420 286 465 280 510 275 C560 270 600 265 648 262 C700 258 755 254 820 252 C880 250 940 248 1100 246"
-          stroke="#2a6e8a"
-          strokeWidth="0.9"
-          strokeOpacity="0.13"
-          strokeLinecap="round"
-        />
-        {/* Tertiary contour */}
-        <path
-          d="M0 370 C80 358 155 350 220 344 C285 338 340 332 395 328 C450 324 498 320 550 316 C610 312 668 309 730 306 C800 303 870 300 950 298 C1000 297 1050 296 1100 295"
-          stroke="#2a6e8a"
-          strokeWidth="0.7"
-          strokeOpacity="0.09"
-          strokeLinecap="round"
-        />
+        {/* ── Coastline contours ── */}
+        <path d="M0 310 C60 295 120 285 180 280 C240 275 290 270 340 262 C390 254 430 244 470 238 C510 232 545 228 580 222 C630 214 680 208 730 204 C790 200 850 195 910 192 C960 190 1020 188 1100 186"
+          stroke="#2a6e8a" strokeWidth="1.2" strokeOpacity="0.14" strokeLinecap="round" />
+        <path d="M0 340 C70 326 140 316 200 310 C260 304 310 298 365 292 C420 286 465 280 510 275 C560 270 600 265 648 262 C700 258 755 254 820 252 C880 250 940 248 1100 246"
+          stroke="#2a6e8a" strokeWidth="0.8" strokeOpacity="0.10" strokeLinecap="round" />
 
-        {/* ── Nautical depth curves – more organic ── */}
-        <path
-          d="M0 260 Q150 248 280 244 Q400 240 520 234 Q640 228 780 226 Q900 224 1100 222"
-          stroke="#1a4060"
-          strokeWidth="0.8"
-          strokeOpacity="0.10"
-          strokeLinecap="round"
-        />
-        <path
-          d="M0 210 Q200 200 380 196 Q520 192 650 188 Q800 184 1100 180"
-          stroke="#1a4060"
-          strokeWidth="0.6"
-          strokeOpacity="0.07"
-          strokeLinecap="round"
-        />
+        {/* ── Neural network edges ── */}
+        {EDGES.map(([a, b], i) => {
+          const na = NODES[a], nb = NODES[b]
+          const slow = i % 3 === 0
+          return (
+            <line
+              key={`e${i}`}
+              x1={na.cx} y1={na.cy} x2={nb.cx} y2={nb.cy}
+              stroke="url(#netFade)"
+              strokeWidth="0.9"
+              strokeDasharray="6 6"
+              strokeLinecap="round"
+              className={slow ? "edge-flow-slow" : "edge-flow"}
+              style={{ strokeDashoffset: i * 3 }}
+            />
+          )
+        })}
 
-        {/* ── City markers with rings ── */}
-        {/* Kiel */}
-        <circle cx="680" cy="170" r="3" fill="#2a6e8a" fillOpacity="0.35" />
-        <circle cx="680" cy="170" r="6" stroke="#2a6e8a" strokeWidth="0.7" strokeOpacity="0.18" />
-        <circle cx="680" cy="170" r="10" stroke="#2a6e8a" strokeWidth="0.4" strokeOpacity="0.10" />
+        {/* ── Solid faint edge backdrop (non-animated) ── */}
+        {EDGES.map(([a, b], i) => {
+          const na = NODES[a], nb = NODES[b]
+          return (
+            <line
+              key={`es${i}`}
+              x1={na.cx} y1={na.cy} x2={nb.cx} y2={nb.cy}
+              stroke="#1a3a6a"
+              strokeWidth="0.5"
+              strokeOpacity="0.12"
+            />
+          )
+        })}
 
-        {/* Lübeck */}
-        <circle cx="810" cy="240" r="3" fill="#2a6e8a" fillOpacity="0.30" />
-        <circle cx="810" cy="240" r="6" stroke="#2a6e8a" strokeWidth="0.7" strokeOpacity="0.15" />
-        <circle cx="810" cy="240" r="10" stroke="#2a6e8a" strokeWidth="0.4" strokeOpacity="0.08" />
+        {/* ── Nodes ── */}
+        {NODES.map((n, i) => (
+          <g key={`n${i}`}>
+            {/* Glow halo for pulse nodes */}
+            {n.pulse && (
+              <circle cx={n.cx} cy={n.cy} r={n.r * 4}
+                fill="url(#tealglow)" opacity="0.35"
+                className="node-pulse"
+                style={{ animationDelay: `${i * 0.4}s` }}
+              />
+            )}
+            {/* Outer ring */}
+            <circle cx={n.cx} cy={n.cy} r={n.r * 2.2}
+              stroke={n.pulse ? "#2a8a6e" : "#2a4a7f"}
+              strokeWidth="0.5"
+              strokeOpacity={n.pulse ? 0.30 : 0.18}
+              fill="none"
+            />
+            {/* Core dot */}
+            <circle cx={n.cx} cy={n.cy} r={n.r}
+              fill={n.pulse ? "#2a8a6e" : "#2a4a7f"}
+              fillOpacity={n.pulse ? 0.75 : 0.35}
+              className={n.pulse ? (i % 2 === 0 ? "node-pulse" : "node-pulse-b") : ""}
+              style={n.pulse ? { animationDelay: `${i * 0.35}s` } : undefined}
+            />
+          </g>
+        ))}
 
-        {/* Schleswig */}
-        <circle cx="590" cy="128" r="2.5" fill="#2a6e8a" fillOpacity="0.28" />
-        <circle cx="590" cy="128" r="5.5" stroke="#2a6e8a" strokeWidth="0.6" strokeOpacity="0.14" />
-
-        {/* Hamburg (south-east, partially visible) */}
-        <circle cx="820" cy="350" r="2" fill="#2a6e8a" fillOpacity="0.20" />
-        <circle cx="820" cy="350" r="5" stroke="#2a6e8a" strokeWidth="0.5" strokeOpacity="0.10" />
-
-        {/* ── Faint cross-hatch in upper-left quadrant ── */}
-        <line x1="30" y1="60" x2="30" y2="200" stroke="#2a4a7f" strokeWidth="0.4" strokeOpacity="0.08" />
-        <line x1="55" y1="60" x2="55" y2="200" stroke="#2a4a7f" strokeWidth="0.4" strokeOpacity="0.08" />
-        <line x1="30" y1="90" x2="180" y2="90" stroke="#2a4a7f" strokeWidth="0.4" strokeOpacity="0.08" />
-        <line x1="30" y1="115" x2="180" y2="115" stroke="#2a4a7f" strokeWidth="0.4" strokeOpacity="0.08" />
-        <line x1="30" y1="140" x2="180" y2="140" stroke="#2a4a7f" strokeWidth="0.4" strokeOpacity="0.08" />
-
-        {/* ── Small dot constellation – SH municipalities ── */}
+        {/* ── Binary / hex data fragments floating near nodes ── */}
         {[
-          [480, 150], [540, 162], [610, 148], [640, 178], [720, 190],
-          [760, 168], [700, 210], [650, 220], [560, 200], [510, 182],
-        ].map(([cx, cy], i) => (
-          <circle key={i} cx={cx} cy={cy} r="1.2" fill="#2a6e8a" fillOpacity="0.22" />
+          { x: 875, y: 68,  t: "0x4F" },
+          { x: 968, y: 115, t: "01101" },
+          { x: 780, y: 155, t: "AI"   },
+          { x: 1008,y: 195, t: "0xA3" },
+          { x: 840, y: 258, t: "10110" },
+          { x: 635, y: 148, t: "KI"   },
+        ].map(({ x, y, t }, i) => (
+          <text key={`d${i}`} x={x} y={y}
+            fontSize="8" fontFamily="monospace"
+            fill="#2a6e8a" fillOpacity="0.22"
+          >{t}</text>
         ))}
       </svg>
 
-      {/* Gradient fade: transparent center/left, white toward right and bottom */}
-      <div
-        className="absolute inset-0"
-        style={{
-          background:
-            "radial-gradient(ellipse 70% 80% at 15% 30%, transparent 0%, rgba(253,253,253,0.55) 55%, rgba(253,253,253,0.92) 80%, rgba(253,253,253,1) 100%)",
-        }}
-      />
-      {/* Bottom fade */}
-      <div
-        className="absolute inset-0"
-        style={{
-          background:
-            "linear-gradient(to bottom, transparent 60%, rgba(253,253,253,0.8) 85%, rgba(253,253,253,1) 100%)",
-        }}
-      />
+      {/* Strong left-side fade so text column is always clean */}
+      <div className="absolute inset-0" style={{
+        background: "linear-gradient(to right, rgba(253,253,253,1) 0%, rgba(253,253,253,0.97) 22%, rgba(253,253,253,0.80) 38%, rgba(253,253,253,0.30) 55%, transparent 72%)",
+      }} />
+      {/* Top fade */}
+      <div className="absolute inset-0" style={{
+        background: "linear-gradient(to bottom, rgba(253,253,253,0.6) 0%, transparent 18%, transparent 75%, rgba(253,253,253,0.9) 92%, rgba(253,253,253,1) 100%)",
+      }} />
     </div>
   )
 }
@@ -345,7 +407,7 @@ const trustBadges = [
 export function HeroSection() {
   return (
     <section className="relative bg-background pt-14 pb-16 md:pt-20 md:pb-24 lg:pt-24 lg:pb-28 overflow-hidden">
-      <NorthernSignalMap />
+      <KiNetworkBackground />
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col lg:flex-row lg:items-center gap-12 lg:gap-16">
@@ -359,7 +421,8 @@ export function HeroSection() {
 
             {/* Headline */}
             <h1 className="text-3xl md:text-[2.6rem] font-bold text-balance leading-[1.18] text-foreground animate-fade-up animation-delay-100">
-              KI-Systeme und Website-Checks für Ihr Unternehmen in Schleswig-Holstein
+              <span className="text-accent">KI-Systeme</span> und{" "}
+              <span className="text-primary">Website-Checks</span> für Ihr Unternehmen in Schleswig-Holstein
             </h1>
 
             {/* Sub-headline */}
