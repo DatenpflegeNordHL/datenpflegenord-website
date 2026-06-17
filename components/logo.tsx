@@ -23,7 +23,7 @@ export function Logo({
   if (isWatermark) {
     return (
       <Image
-        src="/logo.png"
+        src="/logo-transparent.png"
         alt=""
         aria-hidden="true"
         width={300}
@@ -39,7 +39,7 @@ export function Logo({
   return (
     <div className="flex items-center gap-2.5">
       <Image
-        src="/logo.png"
+        src="/logo-transparent.png"
         alt="DatenpflegeNord Logo"
         width={logoHeight}
         height={logoHeight}
