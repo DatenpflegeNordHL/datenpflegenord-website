@@ -221,6 +221,7 @@
 
 /* Reduced motion: disable all custom animations and transitions */
 @media (prefers-reduced-motion: reduce) {
+  /* Named animation classes – safe to target directly */
   .animate-fade-up,
   .animate-fade-in,
   .animate-scale-in,
@@ -232,14 +233,19 @@
     transform: none !important;
   }
 
-  /* Also collapse transition-based scroll-reveal states so they are always visible */
-  [class*="opacity-0"] {
+  /*
+   * Scroll-reveal elements use explicit data-motion or .motion-* classes.
+   * This avoids matching unrelated UI elements (dialogs, menus, etc.)
+   * that happen to use opacity-0 / translate-y-* / scale-* Tailwind classes.
+   */
+  [data-motion="reveal"],
+  [data-motion="scale"],
+  [data-motion="line"],
+  .motion-reveal,
+  .motion-scale,
+  .motion-line {
     opacity: 1 !important;
-  }
-  [class*="translate-y-"] {
     transform: none !important;
-  }
-  [class*="scale-"] {
-    transform: none !important;
+    transition: none !important;
   }
 }

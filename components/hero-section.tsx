@@ -30,7 +30,7 @@ function LuebeckSkyline() {
       <svg
         viewBox="0 0 1200 380"
         preserveAspectRatio="xMidYMax meet"
-        className="absolute bottom-0 left-0 w-full h-full opacity-[0.055]"
+        className="absolute bottom-0 left-0 w-full h-full opacity-[0.075]"
         fill="currentColor"
         xmlns="http://www.w3.org/2000/svg"
       >
@@ -113,10 +113,10 @@ function LuebeckSkyline() {
       {/* Soft gradient mask: transparent top, white bottom – hides silhouette bottom edge */}
       <div
         className="absolute inset-0"
-        style={{
-          background:
-            "linear-gradient(to bottom, rgba(253,253,253,0) 0%, rgba(253,253,253,0) 50%, rgba(253,253,253,0.6) 78%, rgba(253,253,253,1) 100%)",
-        }}
+          style={{
+            background:
+              "linear-gradient(to bottom, rgba(253,253,253,0) 0%, rgba(253,253,253,0) 62%, rgba(253,253,253,0.55) 82%, rgba(253,253,253,1) 100%)",
+          }}
       />
     </div>
   )
