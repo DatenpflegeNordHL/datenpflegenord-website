@@ -8,7 +8,7 @@ import { Logo } from "@/components/logo"
 import { Menu, X, LogIn } from "lucide-react"
 
 const navLinks = [
-  { label: "Website prüfen", href: "/quickcheck" },
+  { label: "Website prüfen lassen", href: "/quickcheck" },
   { label: "KI-Systeme", href: "/leistungen/ki-bueroautomation" },
   { label: "Leistungen", href: "/leistungen" },
   { label: "Monitoring", href: "/monitoring" },
@@ -17,7 +17,7 @@ const navLinks = [
   { label: "Kontakt", href: "/kontakt" },
 ]
 
-// TODO: Replace /portal with the final login route once auth is set up
+// TODO: Final login route once customer portal authentication is available.
 const PORTAL_HREF = "/portal"
 
 export function Header() {
@@ -152,7 +152,7 @@ export function Header() {
           variant="outline"
           className="flex-1 border-border text-foreground"
         >
-          <Link href="/quickcheck">Website prüfen</Link>
+          <Link href="/quickcheck">Website prüfen lassen</Link>
         </Button>
         <Button
           asChild

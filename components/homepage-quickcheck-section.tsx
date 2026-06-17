@@ -16,9 +16,9 @@ export function HomepageQuickcheckSection() {
               Starten Sie mit Ihrer Website.
             </h2>
             <p className="text-base text-muted-foreground leading-relaxed">
-              Der Schnellcheck zeigt sichtbare technische Signale und kann erste Hinweise auf
-              digitale Schwachstellen und Automationspotenziale liefern. Starten Sie direkt –
-              kein Formular, keine Registrierung.
+              Starten Sie mit Ihrer Website: Der Schnellcheck zeigt sichtbare technische Signale
+              und kann erste Hinweise auf digitale Schwachstellen und Automationspotenziale
+              liefern.
             </p>
             <p className="text-sm text-foreground/80 leading-relaxed border-l-2 border-accent pl-3">
               Website-Schnellcheck = Einstieg.&nbsp; KI-Systeme = Hauptportfolio.

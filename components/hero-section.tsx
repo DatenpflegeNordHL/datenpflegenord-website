@@ -4,7 +4,7 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { ArrowRight, CheckCircle2, LogIn } from "lucide-react"
 
-// TODO: Replace /portal with the final login route once auth is set up
+// TODO: Final login route once customer portal authentication is available.
 const PORTAL_HREF = "/portal"
 
 const trustBadges = [

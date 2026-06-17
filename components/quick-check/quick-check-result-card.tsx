@@ -1,3 +1,4 @@
+import Link from "next/link"
 import { ArrowRight, CheckCircle2, CircleAlert, CircleHelp, SearchX } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
@@ -41,9 +42,6 @@ const statusConfig: Record<
 }
 
 export function QuickCheckResultCard({ result }: QuickCheckResultCardProps) {
-  const handleCtaClick = () => {
-    document.getElementById("pakete")?.scrollIntoView({ behavior: "smooth" })
-  }
   const status = statusConfig[result.status]
   const StatusIcon = status.icon
 
@@ -86,11 +84,13 @@ export function QuickCheckResultCard({ result }: QuickCheckResultCardProps) {
 
       <div className="flex flex-col gap-2 pt-1 animate-fade-up animation-delay-400">
         <Button
+          asChild
           className="w-full bg-accent hover:bg-accent/90 text-accent-foreground font-medium transition-all duration-200 hover:shadow-sm active:scale-[0.99]"
-          onClick={handleCtaClick}
         >
-          Barrierefreiheits-Audit anfragen
-          <ArrowRight className="ml-2 w-4 h-4" aria-hidden="true" />
+          <Link href="/kontakt?anliegen=ki-prozesscheck">
+            KI-Potenzial besprechen
+            <ArrowRight className="ml-2 w-4 h-4" aria-hidden="true" />
+          </Link>
         </Button>
         <p className="text-[11px] text-muted-foreground text-center leading-relaxed">
           Manuelle Prüfung empfohlen. Automatisierte Hinweise ersetzen keine fachkundige Prüfung.
