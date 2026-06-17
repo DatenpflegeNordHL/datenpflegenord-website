@@ -60,8 +60,7 @@ export function Header() {
               <Button
                 asChild
                 size="sm"
-                variant="outline"
-                className="border-border text-muted-foreground hover:text-foreground transition-colors duration-150"
+                className="bg-accent text-accent-foreground hover:bg-accent/90 transition-colors duration-150"
               >
                 <Link href={PORTAL_HREF} className="flex items-center gap-1.5">
                   <LogIn className="w-3.5 h-3.5" aria-hidden="true" />
