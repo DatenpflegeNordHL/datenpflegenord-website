@@ -1,85 +1,65 @@
-"use client"
-
+import Image from "next/image"
 import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import { PremiumAuditCockpit } from "@/components/visuals/audit-score-card"
-import { ArrowRight } from "lucide-react"
-
-const trustBadges = [
-  "Technische Vorprüfung",
-  "Priorisierte Hinweise",
-  "Keine Rechtsberatung",
-]
 
 export function HeroSection() {
   return (
-    <section className="bg-background pt-16 pb-0 md:pt-20 lg:pt-24 overflow-hidden">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        {/* Two-column layout */}
-        <div className="grid lg:grid-cols-[1fr_420px] gap-12 lg:gap-16 items-start">
-          {/* Left: Text content */}
-          <div className="flex flex-col gap-8 pb-16 lg:pb-24">
-            {/* Eyebrow */}
-            <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-accent">
-              Website-Checks&nbsp;&nbsp;·&nbsp;&nbsp;Pflichtstellen&nbsp;&nbsp;·&nbsp;&nbsp;digitale Prozesse
-            </p>
+    <section className="relative min-h-screen bg-background flex items-end overflow-hidden">
+      {/* Wave background image — right half */}
+      <div className="absolute inset-0 pointer-events-none select-none">
+        <Image
+          src="/hero-waves.png"
+          alt=""
+          aria-hidden="true"
+          fill
+          priority
+          className="object-cover object-right opacity-60"
+          sizes="100vw"
+        />
+      </div>
 
-            {/* Main headline — editorial serif */}
-            <h1 className="font-serif text-[2.6rem] md:text-[3.4rem] lg:text-[3.8rem] font-bold leading-[1.1] text-balance text-foreground tracking-tight max-w-3xl">
-              Klare Website-Prüfung für Unternehmen, die keine Rätselrallye im Netz wollen.
-            </h1>
+      {/* Content — vertically centered but pushed toward bottom third like Demo 22 */}
+      <div className="relative z-10 w-full max-w-[1400px] mx-auto px-8 pb-20 md:pb-28">
+        {/* Small eyebrow label */}
+        <p className="text-[10px] tracking-[0.28em] text-foreground/40 font-light uppercase mb-8">
+          Website-Checks&nbsp;&nbsp;·&nbsp;&nbsp;Pflichtstellen&nbsp;&nbsp;·&nbsp;&nbsp;Digitale Prozesse
+        </p>
 
-            {/* Subheadline */}
-            <p className="text-base md:text-lg text-muted-foreground leading-relaxed max-w-xl">
-              DatenpflegeNord prüft sichtbare Risiken bei Barrierefreiheit, Datenschutz-Hinweisen, Technik und Auffindbarkeit. Verständlich, priorisiert und ohne Zertifizierungsversprechen.
-            </p>
+        {/* Main headline — large, wide-tracked, thin weight */}
+        <h1 className="font-sans font-light tracking-[0.12em] text-foreground text-balance uppercase leading-tight mb-6">
+          <span className="block text-[clamp(1.1rem,2.2vw,1.5rem)] tracking-[0.28em] font-light text-foreground/60 mb-3">
+            Wir prüfen Ihre Website&nbsp;&amp;&nbsp;digitalen Pflichten
+          </span>
+          <span className="block text-[clamp(2.8rem,7vw,6.5rem)] font-light tracking-[0.06em] leading-[1]">
+            KLAR.&nbsp;PRIORISIERT.
+          </span>
+          <span className="block text-[clamp(2.8rem,7vw,6.5rem)] font-light tracking-[0.06em] leading-[1] text-foreground/35">
+            VERSTÄNDLICH.
+          </span>
+        </h1>
 
-            {/* CTA Buttons */}
-            <div className="flex flex-wrap gap-3">
-              <Button
-                asChild
-                size="lg"
-                className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-full px-7 font-medium"
-              >
-                <Link href="/quickcheck" className="flex items-center gap-2">
-                  Website prüfen lassen
-                  <ArrowRight className="w-4 h-4" aria-hidden="true" />
-                </Link>
-              </Button>
-              <Button
-                asChild
-                variant="outline"
-                size="lg"
-                className="rounded-full px-7 border-border/80 text-foreground hover:bg-secondary font-medium"
-              >
-                <Link href="/kontakt?anliegen=signalcheck">
-                  Signalcheck anfragen
-                </Link>
-              </Button>
-            </div>
+        {/* Subline */}
+        <p className="text-[11px] tracking-[0.2em] text-foreground/45 font-light uppercase mt-8 mb-10">
+          Für Unternehmen in Schleswig-Holstein
+        </p>
 
-            {/* Trust badges */}
-            <div className="flex flex-wrap gap-x-6 gap-y-2 pt-1">
-              {trustBadges.map((badge) => (
-                <span
-                  key={badge}
-                  className="flex items-center gap-2 text-[12px] text-muted-foreground"
-                >
-                  <span className="w-1 h-1 rounded-full bg-accent shrink-0" aria-hidden="true" />
-                  {badge}
-                </span>
-              ))}
-            </div>
-          </div>
-
-          {/* Right: Audit cockpit visual */}
-          <div className="hidden lg:flex items-start justify-center pt-2">
-            <PremiumAuditCockpit />
-          </div>
-        </div>
-
-        {/* Bottom rule */}
-        <div className="border-t border-border/60" />
+        {/* Scroll-down arrow indicator */}
+        <Link
+          href="#leistungen"
+          aria-label="Nach unten scrollen"
+          className="inline-flex items-center justify-center w-10 h-10 border border-foreground/25 hover:border-foreground/60 transition-colors duration-200"
+        >
+          <svg
+            width="12"
+            height="18"
+            viewBox="0 0 12 18"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            aria-hidden="true"
+            className="text-foreground/50"
+          >
+            <path d="M6 0v16M1 11l5 6 5-6" stroke="currentColor" strokeWidth="1" />
+          </svg>
+        </Link>
       </div>
     </section>
   )

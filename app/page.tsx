@@ -22,17 +22,17 @@ export default function HomePage() {
       <ServiceCardsSection />
       <StepsSection />
 
-      {/* Disclaimer section */}
-      <section aria-label="Rechtlicher Hinweis" className="bg-secondary/40 border-t border-border/60 py-10 md:py-12">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="max-w-3xl">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-muted-foreground/60 mb-3">
-              Sachliche Einschätzung statt Versprechen.
+      {/* Disclaimer */}
+      <section aria-label="Rechtlicher Hinweis" className="bg-background border-t border-border/40 py-10">
+        <div className="max-w-[1400px] mx-auto px-8">
+          <div className="max-w-2xl">
+            <p className="text-[10px] tracking-[0.22em] font-light uppercase text-foreground/30 mb-3">
+              Sachliche Einschätzung statt Versprechen
             </p>
-            <p className="text-sm text-muted-foreground leading-relaxed">
-              Unsere Auswertung zeigt sichtbare technische und strukturelle Hinweise,
-              priorisiert nächste Schritte und ersetzt keine anwaltliche Rechtsberatung.
-              Wir behaupten keine behördliche Zertifizierung und keine garantierte Konformität.
+            <p className="text-[12px] font-light text-foreground/40 leading-relaxed">
+              Unsere Auswertung zeigt sichtbare technische und strukturelle Hinweise, priorisiert nächste Schritte
+              und ersetzt keine anwaltliche Rechtsberatung. Wir behaupten keine behördliche Zertifizierung
+              und keine garantierte Konformität.
             </p>
           </div>
         </div>

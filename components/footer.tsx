@@ -1,92 +1,53 @@
 import Link from "next/link"
 import { Logo } from "@/components/logo"
 
-const footerCols = [
-  {
-    heading: "Leistungen",
-    links: [
-      { label: "Alle Leistungen", href: "/leistungen" },
-      { label: "BFSG-Signalcheck", href: "/leistungen/bfsg-signalcheck" },
-      { label: "Pflichten-Check", href: "/leistungen/pflichten-check" },
-      { label: "KI & Büroautomation", href: "/leistungen/ki-bueroautomation" },
-      { label: "Monitoring", href: "/monitoring" },
-      { label: "Quickcheck", href: "/quickcheck" },
-    ],
-  },
-  {
-    heading: "Regionen",
-    links: [
-      { label: "Lübeck", href: "/branchen" },
-      { label: "Kiel", href: "/branchen" },
-      { label: "Flensburg", href: "/branchen" },
-      { label: "Neumünster", href: "/branchen" },
-      { label: "Alle Regionen", href: "/branchen" },
-    ],
-  },
-  {
-    heading: "Unternehmen",
-    links: [
-      { label: "Branchen", href: "/branchen" },
-      { label: "Kontakt", href: "/kontakt" },
-    ],
-  },
-  {
-    heading: "Rechtliches",
-    links: [
-      { label: "Datenschutz", href: "/datenschutz" },
-      { label: "Impressum", href: "/impressum" },
-    ],
-  },
+const footerLinks = [
+  { label: "Quickcheck", href: "/quickcheck" },
+  { label: "Leistungen", href: "/leistungen" },
+  { label: "Branchen", href: "/branchen" },
+  { label: "Monitoring", href: "/monitoring" },
+  { label: "Über uns", href: "/ueber-uns" },
+  { label: "Kontakt", href: "/kontakt" },
+  { label: "Datenschutz", href: "/datenschutz" },
+  { label: "Impressum", href: "/impressum" },
 ]
 
 export function Footer() {
   return (
-    <footer className="bg-navy text-navy-foreground">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8 pt-14 pb-8 md:pt-16 md:pb-10">
-        <div className="grid sm:grid-cols-2 lg:grid-cols-6 gap-10 mb-12">
-          {/* Brand */}
-          <div className="sm:col-span-2">
-            <div className="mb-5">
-              <Logo variant="footer" showLabel={true} />
-            </div>
-            <p className="text-sm text-navy-foreground/60 leading-relaxed mb-4">
-              Mehr Sichtbarkeit. Weniger Website-Risiko. Weniger Büroarbeit.
-            </p>
-            <p className="text-xs text-navy-foreground/35 leading-relaxed">
-              DatenpflegeNord ist die Marke der NordWerk Digital GmbH für technische und
-              organisatorische Prüfung, Umsetzungshilfe und digitale Prozessunterstützung.
-              Keine Rechtsberatung, keine Steuerberatung und keine behördliche Zertifizierung.
-            </p>
-          </div>
+    <footer className="bg-dark-surface text-dark-surface-foreground">
+      <div className="max-w-[1400px] mx-auto px-8 py-16 md:py-20">
 
-          {footerCols.map((col) => (
-            <div key={col.heading}>
-              <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-navy-foreground/40 mb-4">
-                {col.heading}
-              </p>
-              <ul className="flex flex-col gap-2.5">
-                {col.links.map((link) => (
-                  <li key={link.label}>
-                    <Link
-                      href={link.href}
-                      className="text-sm text-navy-foreground/60 hover:text-navy-foreground transition-colors"
-                    >
-                      {link.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
+        {/* Centered logo */}
+        <div className="flex justify-center mb-10">
+          <Logo variant="footer" showLabel={false} width={48} height={48} />
         </div>
 
-        <div className="border-t border-navy-foreground/10 pt-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
-          <p className="text-[11px] text-navy-foreground/35">
-            &copy; {new Date().getFullYear()} NordWerk Digital GmbH · Marke DatenpflegeNord.
-            Alle Rechte vorbehalten.
+        {/* Centered nav links */}
+        <nav
+          className="flex flex-wrap justify-center gap-x-8 gap-y-3 mb-12"
+          aria-label="Footer Navigation"
+        >
+          {footerLinks.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              className="text-[10px] tracking-[0.22em] font-light uppercase text-dark-surface-foreground/45 hover:text-dark-surface-foreground transition-colors duration-200"
+            >
+              {link.label}
+            </Link>
+          ))}
+        </nav>
+
+        {/* Divider */}
+        <div className="w-full h-px bg-dark-surface-foreground/10 mb-8" />
+
+        {/* Bottom bar */}
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+          <p className="text-[10px] tracking-[0.16em] font-light text-dark-surface-foreground/30 uppercase">
+            &copy; {new Date().getFullYear()} NordWerk Digital GmbH &middot; Marke DatenpflegeNord
           </p>
-          <p className="text-[11px] text-navy-foreground/35">
-            Keine anwaltliche Rechtsberatung. Technische und strukturelle Vorprüfung.
+          <p className="text-[10px] tracking-[0.14em] font-light text-dark-surface-foreground/25 uppercase text-center sm:text-right">
+            Keine anwaltliche Rechtsberatung &middot; Technische Vorprüfung
           </p>
         </div>
       </div>

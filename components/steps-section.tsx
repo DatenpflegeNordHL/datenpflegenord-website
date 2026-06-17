@@ -1,66 +1,54 @@
 const steps = [
   {
     number: "01",
-    title: "Website einreichen",
+    title: "WEBSITE EINREICHEN",
     text: "Domain und Anliegen kurz angeben. Kein Aufwand, kein Vorab-Fragebogen.",
   },
   {
     number: "02",
-    title: "Technische Einschätzung erhalten",
+    title: "EINSCHÄTZUNG ERHALTEN",
     text: "Wir prüfen sichtbare Signale und ordnen Auffälligkeiten verständlich ein.",
   },
   {
     number: "03",
-    title: "Nächste Schritte priorisieren",
+    title: "SCHRITTE PRIORISIEREN",
     text: "Sie bekommen eine klare Reihenfolge für sinnvolle Maßnahmen — kein Fachkauderwelsch.",
   },
 ]
 
 export function StepsSection() {
   return (
-    <section className="bg-background py-16 md:py-20 lg:py-24">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        {/* Heading */}
-        <div className="mb-12 lg:mb-16">
-          <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-accent mb-3">
-            Ablauf
+    <section className="bg-secondary/40 py-24 md:py-32">
+      <div className="max-w-[1400px] mx-auto px-8">
+
+        {/* Centred header block */}
+        <div className="flex flex-col items-center text-center mb-20">
+          <div className="w-px h-14 bg-foreground/15 mb-8" aria-hidden="true" />
+          <p className="text-[10px] tracking-[0.28em] text-foreground/35 font-light uppercase mb-4">
+            ·&nbsp;&nbsp;Ablauf
           </p>
-          <h2 className="font-serif text-3xl md:text-4xl font-bold text-foreground text-balance leading-tight">
+          <h2 className="font-sans font-light tracking-[0.1em] uppercase text-[clamp(1.8rem,4vw,3rem)] leading-tight text-foreground text-balance">
             So läuft es ab
           </h2>
         </div>
 
-        {/* Steps — horizontal on desktop, vertical on mobile */}
-        <div className="grid md:grid-cols-3 gap-0 relative">
-          {/* Connecting line (desktop only) */}
-          <div
-            className="hidden md:block absolute top-[22px] left-[calc(1/6*100%)] right-[calc(1/6*100%)] h-px bg-border/60"
-            aria-hidden="true"
-          />
-
-          {steps.map((step, i) => (
-            <div key={step.number} className="flex md:flex-col gap-6 md:gap-5 relative pb-8 md:pb-0 md:px-6 first:md:pl-0 last:md:pr-0">
-              {/* Mobile connector line */}
-              {i < steps.length - 1 && (
-                <div
-                  className="md:hidden absolute top-10 left-[11px] bottom-0 w-px bg-border/60"
-                  aria-hidden="true"
-                />
-              )}
-
-              {/* Step number circle */}
-              <div className="w-11 h-11 rounded-full border-2 border-border bg-background flex items-center justify-center shrink-0 z-10">
-                <span className="font-serif text-sm font-bold text-foreground">{step.number}</span>
-              </div>
-
-              {/* Step content */}
-              <div className="flex flex-col gap-2 pt-1 md:pt-0">
-                <p className="text-sm font-semibold text-foreground leading-snug text-balance">{step.title}</p>
-                <p className="text-sm text-muted-foreground leading-relaxed">{step.text}</p>
-              </div>
+        {/* Steps grid */}
+        <div className="grid md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-border/40 border border-border/40">
+          {steps.map(({ number, title, text }) => (
+            <div key={number} className="flex flex-col p-10 md:p-12">
+              <span className="text-[10px] tracking-[0.28em] font-light text-foreground/25 uppercase mb-8">
+                {number}
+              </span>
+              <h3 className="text-[11px] tracking-[0.2em] font-light uppercase text-foreground mb-5 text-balance">
+                {title}
+              </h3>
+              <p className="text-[13px] font-light text-foreground/55 leading-relaxed">
+                {text}
+              </p>
             </div>
           ))}
         </div>
+
       </div>
     </section>
   )
