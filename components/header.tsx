@@ -10,8 +10,7 @@ import { Menu, X, LogIn } from "lucide-react"
 const navLinks = [
   { label: "KI-Lösungen", href: "/leistungen/ki-bueroautomation" },
   { label: "Website-Checks", href: "/quickcheck" },
-  { label: "Regionen", href: "/branchen" },
-  { label: "Branchen", href: "/branchen" },
+  { label: "Branchen & Regionen", href: "/branchen" },
   { label: "Kontakt", href: "/kontakt" },
 ]
 
