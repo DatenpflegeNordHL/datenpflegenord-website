@@ -4,7 +4,7 @@ import type { QuickCheckScanResult } from "@/lib/quick-check-types"
 const REQUEST_TIMEOUT_MS = 15000
 const BACKEND_QUICK_CHECK_PATH = "/public/quick-check"
 
-function jsonError(message: string, status: number, error = "quick_check_error") {
+function jsonError(message: string, status: number, error = "quick-check-error") {
   return NextResponse.json({ ok: false, error, message }, { status })
 }
 
@@ -43,13 +43,13 @@ export async function POST(request: NextRequest) {
   try {
     body = await request.json()
   } catch {
-    return jsonError("Ungültige Anfrage.", 400, "invalid_request")
+    return jsonError("Ungültige Anfrage.", 400, "invalid-request")
   }
 
   const requestBody = body as { url?: unknown }
   const url = typeof requestBody?.url === "string" ? requestBody.url.trim() : ""
   if (!url) {
-    return jsonError("Bitte geben Sie eine Website-URL oder Domain ein.", 400, "invalid_input")
+    return jsonError("Bitte geben Sie eine Website-URL oder Domain ein.", 400, "invalid-input")
   }
 
   const baseUrl = getBackendBaseUrl()
@@ -57,7 +57,7 @@ export async function POST(request: NextRequest) {
     return jsonError(
       "Schnellcheck ist aktuell nicht korrekt konfiguriert.",
       503,
-      "missing_config",
+      "missing-config",
     )
   }
 
@@ -102,7 +102,7 @@ export async function POST(request: NextRequest) {
       return jsonError(
         "Dienst aktuell nicht erreichbar. Bitte versuchen Sie es später erneut.",
         502,
-        "invalid_backend_response",
+        "invalid-response",
       )
     }
     return NextResponse.json(payload)
@@ -112,7 +112,7 @@ export async function POST(request: NextRequest) {
     return jsonError(
       "Die Eingabe konnte nicht geprüft werden. Bitte prüfen Sie die URL.",
       response.status,
-      "invalid_input",
+      "invalid-input",
     )
   }
 
@@ -120,13 +120,13 @@ export async function POST(request: NextRequest) {
     return jsonError(
       "Zu viele Schnellchecks in kurzer Zeit. Bitte versuchen Sie es gleich erneut.",
       429,
-      "rate_limited",
+      "rate-limit",
     )
   }
 
   return jsonError(
     "Dienst aktuell nicht erreichbar. Bitte versuchen Sie es später erneut.",
     502,
-    "service_unavailable",
+    "service-unavailable",
   )
 }
