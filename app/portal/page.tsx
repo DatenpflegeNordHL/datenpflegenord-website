@@ -2,122 +2,170 @@ import type { Metadata } from "next"
 import Link from "next/link"
 import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
+import { GeoPromptPreview } from "@/components/portal/geo-prompt-preview"
+import { PortalFAQ } from "@/components/portal/portal-faq"
+import { RecommendationCards } from "@/components/portal/recommendation-cards"
+import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { ArrowRight, History, ListChecks, CheckSquare, FileText, Clock } from "lucide-react"
-
-/*
- * TODO: Final login route once customer portal authentication is available.
- * Once auth is live, this page should redirect authenticated users to their dashboard
- * and show a real login form for unauthenticated users.
- * Current state: Portalzugang in Vorbereitung – Anfrage über Kontaktformular.
- */
+import { getPortalRecommendations, sampleCompanyProfile } from "@/lib/portal-profile"
+import {
+  ArrowRight,
+  BarChart3,
+  ClipboardCheck,
+  Database,
+  ShieldCheck,
+} from "lucide-react"
 
 export const metadata: Metadata = {
-  title: "Kundenbereich in Vorbereitung – DatenpflegeNord Portal",
+  title: "DatenpflegeNord Portal | Checks, Reports und KI-Sichtbarkeit",
   description:
-    "Der DatenpflegeNord Kundenbereich wird vorbereitet. Portalzugang anfragen oder Zugangsdaten verwenden, sobald der Login freigeschaltet ist.",
+    "Portal-Prototyp für CompanyProfile, Empfehlungen, TrustSignal Scan, BFSG-Readiness, Datenpflege und KI-Sichtbarkeitsmonitoring Beta.",
 }
 
-const features = [
+const portalModules = [
   {
-    icon: History,
-    label: "Audit-Historie",
-    text: "Alle Prüfberichte auf einen Blick – zugänglich, sobald der Portalzugang eingerichtet ist.",
+    icon: ShieldCheck,
+    title: "TrustSignal",
+    text: "Website-Vorprüfung für Technik, Datenschutz-Basis, Barrierefreiheits-Indikatoren und Vertrauenssignale.",
   },
   {
-    icon: ListChecks,
-    label: "Offene Aufgaben",
-    text: "Priorisierte Aufgabenliste nach dem letzten Check.",
+    icon: ClipboardCheck,
+    title: "BFSG-Readiness",
+    text: "Strukturierte Vorprüfung für digitale Kundenwege wie Shop, Buchung und Kontaktformulare.",
   },
   {
-    icon: CheckSquare,
-    label: "Erledigte Maßnahmen",
-    text: "Nachvollziehbarer Fortschritt über Zeit.",
+    icon: Database,
+    title: "Datenpflege",
+    text: "Google Business Profile, externe Profile, Standortdaten und Anfragewege konsistent im Blick behalten.",
   },
   {
-    icon: FileText,
-    label: "Monatsbericht",
-    text: "Kompakter Statusbericht mit allen relevanten Kennzahlen.",
+    icon: BarChart3,
+    title: "KI-Sichtbarkeitsmonitoring",
+    text: "Beta für regelmäßige Messung ausgewählter KI-Suchfragen, ohne Ranking-Zusage.",
   },
 ]
+
+const sampleRecommendations = getPortalRecommendations(sampleCompanyProfile).slice(0, 4)
 
 export default function PortalPage() {
   return (
     <>
       <Header />
       <main className="min-h-screen bg-background">
-        <section className="py-14 md:py-20">
-          <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex flex-col gap-8">
-
-              {/* Status notice – honest, up front */}
-              <div className="flex items-start gap-3 bg-secondary/70 border border-border rounded-xl px-5 py-4">
-                <Clock className="w-4 h-4 text-muted-foreground shrink-0 mt-0.5" aria-hidden="true" />
-                <div>
-                  <p className="text-sm font-medium text-foreground">Kundenbereich in Vorbereitung</p>
-                  <p className="text-sm text-muted-foreground mt-0.5 leading-relaxed">
-                    Der Portalzugang wird aktuell vorbereitet. Sie können den Zugang vorab anfragen.
-                    Sobald Ihr Login freigeschaltet ist, können Sie sich mit Ihren Zugangsdaten anmelden.
-                  </p>
-                </div>
+        <section className="border-b border-border py-14 md:py-20">
+          <div className="mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:px-8">
+            <div className="flex flex-col gap-6">
+              <div className="flex items-center gap-3">
+                <Badge variant="secondary">Portal-MVP</Badge>
+                <span className="text-xs text-muted-foreground">Demo-Persistenz ohne Login</span>
               </div>
-
-              {/* Heading */}
               <div className="flex flex-col gap-4">
                 <p className="text-[10px] font-semibold uppercase tracking-widest text-accent">
-                  Kundenbereich
-                </p>
-                <h1 className="text-3xl md:text-4xl font-bold text-foreground text-balance leading-tight">
                   DatenpflegeNord Portal
+                </p>
+                <h1 className="text-3xl font-bold leading-tight text-foreground text-balance md:text-5xl">
+                  Checks, Reports und KI-Sichtbarkeit an einem Ort.
                 </h1>
-                <p className="text-lg text-muted-foreground leading-relaxed">
-                  Im Portal sehen Kunden ihre Prüfergebnisse, offene Aufgaben und Monatsberichte –
-                  übersichtlich und jederzeit abrufbar. Der Zugang wird nach Auftragsstart eingerichtet.
+                <p className="text-lg leading-relaxed text-muted-foreground">
+                  Das Portal erzeugt aus einem kurzen CompanyProfile konkrete Empfehlungen,
+                  Aufgaben und Vorschauen für TrustSignal, Datenpflege und KI-Sichtbarkeit.
                 </p>
               </div>
-
-              {/* Feature overview */}
-              <div className="grid sm:grid-cols-2 gap-4">
-                {features.map(({ icon: Icon, label, text }) => (
-                  <div
-                    key={label}
-                    className="bg-card border border-border rounded-xl p-5 flex flex-col gap-2"
-                  >
-                    <div className="flex items-center gap-2">
-                      <Icon className="w-4 h-4 text-accent shrink-0" aria-hidden="true" />
-                      <p className="text-sm font-semibold text-foreground">{label}</p>
-                    </div>
-                    <p className="text-sm text-muted-foreground leading-relaxed">{text}</p>
-                  </div>
-                ))}
-              </div>
-
-              {/* CTAs */}
-              <div className="flex flex-col sm:flex-row gap-3 pt-2">
-                <Button
-                  asChild
-                  size="lg"
-                  className="bg-primary text-primary-foreground hover:bg-primary/90"
-                >
-                  {/*
-                   * TODO: Replace /kontakt with direct portal-login-request route
-                   * once the authentication flow is implemented.
-                   */}
-                  <Link href="/kontakt?anliegen=portal-zugang" className="flex items-center gap-2">
-                    Portalzugang vorbereiten
-                    <ArrowRight className="w-4 h-4" aria-hidden="true" />
+              <div className="flex flex-col gap-3 sm:flex-row">
+                <Button asChild size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90">
+                  <Link href="/portal/start" className="flex items-center gap-2">
+                    Profil starten <ArrowRight className="h-4 w-4" aria-hidden="true" />
                   </Link>
                 </Button>
                 <Button asChild size="lg" variant="outline">
-                  <Link href="/kontakt">Allgemeine Kontaktaufnahme</Link>
+                  <Link href="/technischer-web-check" className="flex items-center gap-2">
+                    TrustSignal Scan <ShieldCheck className="h-4 w-4" aria-hidden="true" />
+                  </Link>
                 </Button>
               </div>
-
-              {/* Legal note */}
-              <p className="text-xs text-muted-foreground leading-relaxed border-t border-border pt-4">
-                Keine Rechtsberatung. Keine Steuerberatung. Keine behördliche Zertifizierung.
-                Technische und strukturelle Vorprüfung.
+              <p className="text-xs leading-relaxed text-muted-foreground">
+                Keine Rechtsberatung. Keine Zusage für KI-Sichtbarkeit. BFSG wird als
+                Readiness-Vorprüfung mit Indikatoren behandelt.
               </p>
+            </div>
+
+            <div className="rounded-xl border border-border bg-card p-5 shadow-sm md:p-6">
+              <div className="mb-5 flex items-center justify-between gap-4">
+                <div>
+                  <p className="text-[10px] font-semibold uppercase tracking-widest text-accent">
+                    Ergebnisvorschau
+                  </p>
+                  <h2 className="mt-2 text-xl font-bold text-foreground">Aus Profil wird Empfehlung</h2>
+                </div>
+                <Badge variant="outline">Beispiel</Badge>
+              </div>
+              <RecommendationCards recommendations={sampleRecommendations} />
+            </div>
+          </div>
+        </section>
+
+        <section className="border-b border-border py-12 md:py-16">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div className="mb-8 max-w-3xl">
+              <p className="text-[10px] font-semibold uppercase tracking-widest text-accent">
+                Angebots-Hub
+              </p>
+              <h2 className="mt-2 text-2xl font-bold text-foreground md:text-3xl">
+                Was der Portal-Prototyp bündelt
+              </h2>
+            </div>
+            <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+              {portalModules.map(({ icon: Icon, title, text }) => (
+                <div key={title} className="rounded-xl border border-border bg-card p-5 shadow-sm">
+                  <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-lg bg-primary/8">
+                    <Icon className="h-5 w-5 text-primary" aria-hidden="true" />
+                  </div>
+                  <h3 className="text-base font-semibold text-foreground">{title}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{text}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="border-b border-border bg-secondary/40 py-12 md:py-16">
+          <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+            <GeoPromptPreview profile={sampleCompanyProfile} />
+          </div>
+        </section>
+
+        <section className="border-b border-border py-12 md:py-16">
+          <div className="mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:px-8">
+            <div>
+              <p className="text-[10px] font-semibold uppercase tracking-widest text-accent">
+                FAQ
+              </p>
+              <h2 className="mt-2 text-2xl font-bold text-foreground md:text-3xl">
+                Schlank genug für Demo und Vertrieb, offen für die nächste Ausbaustufe.
+              </h2>
+            </div>
+            <PortalFAQ />
+          </div>
+        </section>
+
+        <section className="py-14 md:py-20">
+          <div className="mx-auto flex max-w-3xl flex-col gap-5 px-4 sm:px-6 lg:px-8">
+            <h2 className="text-2xl font-bold text-foreground text-balance">
+              Mit einem CompanyProfile starten
+            </h2>
+            <p className="leading-relaxed text-muted-foreground">
+              Das Onboarding dauert wenige Minuten und erzeugt eine erste Ergebnisansicht mit
+              passenden Empfehlungen und TrustSignal-CTA.
+            </p>
+            <div className="flex flex-col gap-3 sm:flex-row">
+              <Button asChild size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90">
+                <Link href="/portal/start" className="flex items-center gap-2">
+                  Onboarding starten <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                </Link>
+              </Button>
+              <Button asChild size="lg" variant="outline">
+                <Link href="/portal/dashboard">Beispiel-Dashboard ansehen</Link>
+              </Button>
             </div>
           </div>
         </section>
