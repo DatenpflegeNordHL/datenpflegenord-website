@@ -1,26 +1,54 @@
-import type { ScanResult } from "@/lib/quick-check-types"
-import { getBackendSummaryNote, getResultSummary } from "./quick-check-presentation"
+import { QuickCheckFindingSummary } from "@/lib/quick-check-types"
 
-interface QuickCheckSummaryBadgesProps {
-  result: ScanResult
+interface SummaryPillProps {
+  count: number
+  label: string
+  color: string
 }
 
-export function QuickCheckSummaryBadges({ result }: QuickCheckSummaryBadgesProps) {
-  const summary = getResultSummary(result)
-  const backendNote = getBackendSummaryNote(result.summary)
-
+function SummaryPill({ count, label, color }: SummaryPillProps) {
+  if (count === 0) return null
   return (
-    <div className="flex flex-col gap-2">
-      <div>
-        <p className="text-xs font-semibold text-foreground">Kurzbewertung</p>
-        <p className="text-[11px] text-muted-foreground leading-relaxed">{summary}</p>
-      </div>
-      {backendNote && (
-        <p className="text-[11px] text-muted-foreground/85 leading-relaxed border-t border-border pt-2">
-          <span className="font-medium text-foreground/80">Technische Systemnotiz:</span>{" "}
-          {backendNote}
-        </p>
-      )}
+    <span
+      className={`inline-flex items-center gap-1 text-xs font-medium px-2 py-0.5 rounded-full border ${color}`}
+    >
+      <span className="tabular-nums">{count}</span> {label}
+    </span>
+  )
+}
+
+interface QuickCheckSummaryBadgesProps {
+  summary: QuickCheckFindingSummary
+}
+
+export function QuickCheckSummaryBadges({ summary }: QuickCheckSummaryBadgesProps) {
+  return (
+    <div className="flex flex-wrap gap-1.5" role="list" aria-label="Auffälligkeiten nach Schweregrad">
+      <SummaryPill
+        count={summary.critical}
+        label="Kritisch"
+        color="border-destructive/30 text-destructive bg-destructive/5"
+      />
+      <SummaryPill
+        count={summary.serious}
+        label="Erheblich"
+        color="border-orange-300 text-orange-700 bg-orange-50"
+      />
+      <SummaryPill
+        count={summary.moderate}
+        label="Moderat"
+        color="border-amber-300 text-amber-700 bg-amber-50"
+      />
+      <SummaryPill
+        count={summary.minor}
+        label="Gering"
+        color="border-border text-muted-foreground bg-secondary"
+      />
+      <SummaryPill
+        count={summary.info}
+        label="Info"
+        color="border-accent/30 text-accent bg-accent/5"
+      />
     </div>
   )
 }
