@@ -1,4 +1,8 @@
-import type { ScanResult } from "@/lib/quick-check-types"
+import type { QuickCheckScanResult } from "@/lib/quick-check-types"
+
+const DEFAULT_TIMEOUT_MS = 15000
+const MISSING_CONFIG_MESSAGE = "Schnellcheck ist aktuell noch nicht konfiguriert."
+const QUICK_CHECK_ENDPOINT = "/api/quick-check"
 
 export type QuickCheckErrorCode =
   | "missing-config"
@@ -20,64 +24,114 @@ export class QuickCheckError extends Error {
   }
 }
 
-function isScanResult(value: unknown): value is ScanResult {
+function isScanResult(value: unknown): value is QuickCheckScanResult {
   if (!value || typeof value !== "object") return false
-  const data = value as Partial<ScanResult>
-  const input = data.input as Partial<ScanResult["input"]> | undefined
+  const data = value as Partial<QuickCheckScanResult>
 
   return (
-    data.ok === true &&
-    typeof input === "object" &&
-    typeof input?.normalized_url === "string" &&
-    ["ok", "check", "missing", "unknown"].includes(String(data.status)) &&
-    isChecksPayload(data.checks) &&
-    typeof data.summary === "string" &&
+    data.status === "completed" &&
+    typeof data.inputUrl === "string" &&
+    typeof data.normalizedUrl === "string" &&
+    typeof data.scannedAt === "string" &&
+    typeof data.summary === "object" &&
+    typeof data.score === "object" &&
+    typeof data.checks === "object" &&
+    Array.isArray(data.findings) &&
     typeof data.disclaimer === "string"
   )
 }
 
-function isQuickCheckStatus(value: unknown): boolean {
-  return value === "ok" || value === "check" || value === "missing" || value === "unknown"
+function normalizeErrorCode(error: unknown, status: number): QuickCheckErrorCode {
+  const value = typeof error === "string" ? error : ""
+
+  switch (value) {
+    case "missing-config":
+    case "missing_config":
+      return "missing-config"
+    case "timeout":
+      return "timeout"
+    case "rate-limit":
+    case "rate_limited":
+      return "rate-limit"
+    case "invalid-response":
+    case "invalid_backend_response":
+      return "invalid-response"
+    case "service-unavailable":
+    case "service_unavailable":
+      return "network"
+    default:
+      if (status === 503) return "missing-config"
+      if (status === 504) return "timeout"
+      if (status === 429) return "rate-limit"
+      if (status >= 500) return "network"
+      return "api"
+  }
 }
 
-function isCheckItem(value: unknown): boolean {
-  if (!value || typeof value !== "object") return false
-  const item = value as Record<string, unknown>
-  return (
-    isQuickCheckStatus(item.status) &&
-    typeof item.label === "string" &&
-    typeof item.evidence === "string" &&
-    typeof item.technical_hint === "string"
-  )
+function fallbackMessageForCode(code: QuickCheckErrorCode): string {
+  switch (code) {
+    case "missing-config":
+      return MISSING_CONFIG_MESSAGE
+    case "timeout":
+      return "Die Prüfung hat zu lange gedauert. Bitte versuchen Sie es erneut."
+    case "rate-limit":
+      return "Zu viele Schnellchecks in kurzer Zeit. Bitte versuchen Sie es gleich erneut."
+    case "invalid-response":
+      return "Ungültige Serverantwort beim Schnellcheck."
+    case "network":
+      return "Der Schnellcheck konnte gerade nicht erreicht werden. Bitte versuchen Sie es erneut."
+    case "api":
+    default:
+      return "Die Prüfung konnte nicht abgeschlossen werden. Bitte versuchen Sie es erneut."
+  }
 }
 
-function isChecksPayload(value: unknown): boolean {
-  return (
-    typeof value === "object" &&
-    value !== null &&
-    Object.values(value).every(isCheckItem)
-  )
+function getErrorMessage(payload: unknown, fallback: string): string {
+  if (!payload || typeof payload !== "object") return fallback
+
+  const body = payload as { message?: unknown; error?: unknown }
+  if (typeof body.message === "string" && body.message.trim()) return body.message
+  if (typeof body.error === "string" && body.error.trim()) return body.error
+
+  return fallback
 }
 
-export async function quickCheck(domainOrUrl: string): Promise<ScanResult> {
+export async function quickCheck(domainOrUrl: string): Promise<QuickCheckScanResult> {
+  const controller = new AbortController()
+  const timeout = setTimeout(() => controller.abort(), DEFAULT_TIMEOUT_MS)
+
   let response: Response
   try {
-    response = await fetch("/api/quick-check", {
+    response = await fetch(QUICK_CHECK_ENDPOINT, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ url: domainOrUrl }),
+      signal: controller.signal,
     })
-  } catch {
+  } catch (error) {
+    if (error instanceof DOMException && error.name === "AbortError") {
+      throw new QuickCheckError(
+        "timeout",
+        "Die Prüfung hat zu lange gedauert. Bitte versuchen Sie es erneut.",
+      )
+    }
     throw new QuickCheckError(
       "network",
-      "Dienst aktuell nicht erreichbar. Bitte versuchen Sie es später erneut.",
+      "Der Schnellcheck konnte gerade nicht erreicht werden. Bitte versuchen Sie es erneut.",
     )
+  } finally {
+    clearTimeout(timeout)
   }
 
   let payload: unknown
   try {
     payload = await response.json()
   } catch {
+    if (!response.ok) {
+      const code = normalizeErrorCode(undefined, response.status)
+      throw new QuickCheckError(code, fallbackMessageForCode(code), response.status)
+    }
+
     throw new QuickCheckError(
       "invalid-response",
       "Ungültige Serverantwort beim Schnellcheck.",
@@ -86,27 +140,13 @@ export async function quickCheck(domainOrUrl: string): Promise<ScanResult> {
   }
 
   if (!response.ok) {
-    const body = payload as { error?: string; message?: string }
-    const message =
-      typeof body.message === "string" && body.message.trim()
-        ? body.message
-        : "Die Prüfung konnte nicht abgeschlossen werden. Bitte versuchen Sie es erneut."
-
-    const errorCode = typeof body.error === "string" ? body.error : ""
-    const code: QuickCheckErrorCode =
-      errorCode === "missing_config" || response.status === 503
-        ? "missing-config"
-        : errorCode === "timeout" || response.status === 504
-          ? "timeout"
-          : errorCode === "invalid_backend_response"
-            ? "invalid-response"
-            : response.status === 429
-              ? "rate-limit"
-              : response.status >= 500
-                ? "network"
-                : "api"
-
-    throw new QuickCheckError(code, message, response.status)
+    const body = payload as { error?: unknown }
+    const code = normalizeErrorCode(body?.error, response.status)
+    throw new QuickCheckError(
+      code,
+      getErrorMessage(payload, fallbackMessageForCode(code)),
+      response.status,
+    )
   }
 
   if (!isScanResult(payload)) {

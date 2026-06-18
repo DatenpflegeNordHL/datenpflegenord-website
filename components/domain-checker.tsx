@@ -4,14 +4,14 @@ import { useState } from "react"
 import { Loader2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import type { UIState, ScanResult } from "@/lib/quick-check-types"
+import type { UIState, QuickCheckScanResult } from "@/lib/quick-check-types"
 import { QuickCheckError, quickCheck } from "@/lib/nordaudit-api"
 import { QuickCheckResultCard } from "@/components/quick-check/quick-check-result-card"
 import { QuickCheckErrorState } from "@/components/quick-check/quick-check-error-state"
 import { QuickCheckLoadingState } from "@/components/quick-check/quick-check-loading-state"
 import { QuickCheckMissingConfigState } from "@/components/quick-check/quick-check-missing-config-state"
 
-function validateWebsiteInput(value: string): boolean {
+function validateDomain(value: string): boolean {
   const clean = value.trim()
   if (!clean) return false
 
@@ -30,7 +30,7 @@ function validateWebsiteInput(value: string): boolean {
 export function DomainChecker() {
   const [domain, setDomain] = useState("")
   const [state, setState] = useState<UIState>("idle")
-  const [result, setResult] = useState<ScanResult | null>(null)
+  const [result, setResult] = useState<QuickCheckScanResult | null>(null)
   const [errorMessage, setErrorMessage] = useState("")
 
   const handleCheck = async () => {
@@ -41,7 +41,7 @@ export function DomainChecker() {
       setErrorMessage("Bitte geben Sie eine Domain ein.")
       return
     }
-    if (!validateWebsiteInput(trimmed)) {
+    if (!validateDomain(trimmed)) {
       setErrorMessage("Ungültige Eingabe. Beispiel: beispiel.de oder https://beispiel.de")
       return
     }
