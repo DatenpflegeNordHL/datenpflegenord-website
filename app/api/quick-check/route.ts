@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server"
-import type { ScanResult } from "@/lib/quick-check-types"
+import type { QuickCheckScanResult } from "@/lib/quick-check-types"
 
 const REQUEST_TIMEOUT_MS = 15000
 const BACKEND_QUICK_CHECK_PATH = "/public/quick-check"
@@ -21,41 +21,19 @@ function getBackendBaseUrl(): string | null {
   }
 }
 
-function isQuickCheckStatus(value: unknown): boolean {
-  return value === "ok" || value === "check" || value === "missing" || value === "unknown"
-}
-
-function isCheckItem(value: unknown): boolean {
+function isScanResult(value: unknown): value is QuickCheckScanResult {
   if (!value || typeof value !== "object") return false
-  const item = value as Record<string, unknown>
-  return (
-    isQuickCheckStatus(item.status) &&
-    typeof item.label === "string" &&
-    typeof item.evidence === "string" &&
-    typeof item.technical_hint === "string"
-  )
-}
-
-function isChecksPayload(value: unknown): boolean {
-  return (
-    typeof value === "object" &&
-    value !== null &&
-    Object.values(value).every(isCheckItem)
-  )
-}
-
-function isScanResult(value: unknown): value is ScanResult {
-  if (!value || typeof value !== "object") return false
-  const data = value as Partial<ScanResult>
-  const input = data.input as Partial<ScanResult["input"]> | undefined
+  const data = value as Partial<QuickCheckScanResult>
 
   return (
-    data.ok === true &&
-    typeof input === "object" &&
-    typeof input?.normalized_url === "string" &&
-    isQuickCheckStatus(data.status) &&
-    isChecksPayload(data.checks) &&
-    typeof data.summary === "string" &&
+    data.status === "completed" &&
+    typeof data.inputUrl === "string" &&
+    typeof data.normalizedUrl === "string" &&
+    typeof data.scannedAt === "string" &&
+    typeof data.summary === "object" &&
+    typeof data.score === "object" &&
+    typeof data.checks === "object" &&
+    Array.isArray(data.findings) &&
     typeof data.disclaimer === "string"
   )
 }
@@ -91,7 +69,7 @@ export async function POST(request: NextRequest) {
     response = await fetch(`${baseUrl}${BACKEND_QUICK_CHECK_PATH}`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ url }),
+      body: JSON.stringify({ domain: url }),
       signal: controller.signal,
     })
   } catch (error) {

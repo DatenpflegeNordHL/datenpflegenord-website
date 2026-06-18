@@ -7,6 +7,7 @@ export type QuickCheckErrorCode =
   | "missing-config"
   | "timeout"
   | "api"
+  | "rate-limit"
   | "network"
   | "invalid-response"
 
@@ -78,6 +79,14 @@ export async function quickCheck(domainOrUrl: string): Promise<QuickCheckScanRes
 
   if (response.status === 503) {
     throw new QuickCheckError("missing-config", MISSING_CONFIG_MESSAGE, response.status)
+  }
+
+  if (response.status === 429) {
+    throw new QuickCheckError(
+      "rate-limit",
+      "Zu viele Schnellchecks in kurzer Zeit. Bitte versuchen Sie es gleich erneut.",
+      response.status,
+    )
   }
 
   if (!response.ok) {
